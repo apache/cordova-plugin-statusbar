@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:rim="http://www.blackberry.com/ns/widgets"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="org.apache.cordova.statusbar"
+    version="0.1.0">
+    <name>StatusBar</name>
+    <description>Cordova StatusBar Plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,statusbar</keywords>
+
+	<engines>
+		<engine name="cordova" version=">=3.0.0" />
+	</engines>
+
+    <js-module src="www/statusbar.js" name="statusbar">
+    	<clobbers target="window.StatusBar" />
+    </js-module>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="StatusBar">
+                <param name="ios-package" value="CDVStatusBar" onload="true" />
+            </feature>
+        </config-file>
+        
+        <config-file target="*-Info.plist" parent="UIViewControllerBasedStatusBarAppearance" >
+        	<key>UIViewControllerBasedStatusBarAppearance</key>
+            <false/>
+        </config-file>        
+
+        <header-file src="src/ios/CDVStatusBar.h" />
+        <source-file src="src/ios/CDVStatusBar.m" />
+    </platform>
+
+</plugin>
