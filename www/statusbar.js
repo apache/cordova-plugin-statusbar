@@ -19,13 +19,9 @@
  *
 */
 
-// var argscheck = require('cordova/argscheck'),
-//     utils = require('cordova/utils'),
-//     exec = require('cordova/exec');
-
-(function() {
-   
-var exec = cordova.require('cordova/exec')
+var argscheck = require('cordova/argscheck'),
+    utils = require('cordova/utils'),
+    exec = require('cordova/exec');
 
 var StatusBar = function() {
 };
@@ -50,8 +46,7 @@ StatusBar.styleBlackOpaque = function() {
     exec(null, null, "StatusBar", "styleBlackOpaque", []);
 };
 
+// TODO:
 StatusBar.isVisible = true;
 
-window.StatusBar = StatusBar;
-
-})();
+module.exports = StatusBar;
