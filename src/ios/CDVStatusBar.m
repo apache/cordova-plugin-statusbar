@@ -36,6 +36,11 @@
 {
     _statusBarOverlaysWebView = YES; // default
     
+    CGRect frame = [[UIApplication sharedApplication] statusBarFrame];
+    
+    _statusBarBackgroundView = [[UIView alloc] initWithFrame:frame];
+    _statusBarBackgroundView.backgroundColor = [UIColor blackColor];
+    
     NSString* setting  = @"StatusBarOverlaysWebView";
     if ([self settingForKey:setting]) {
         self.statusBarOverlaysWebView = [(NSNumber*)[self settingForKey:setting] boolValue];
@@ -57,6 +62,8 @@
         bounds.size.height += statusBarFrame.size.height;
         
         self.webView.frame = bounds;
+        
+        [_statusBarBackgroundView removeFromSuperview];
 
     } else {
         CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
@@ -65,6 +72,8 @@
         bounds.size.height -= statusBarFrame.size.height;
         
         self.webView.frame = bounds;
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+        [self.webView.superview addSubview:_statusBarBackgroundView];
     }
     
     _statusBarOverlaysWebView = statusBarOverlaysWebView;
@@ -103,6 +112,19 @@
 - (void) styleBlackOpaque:(CDVInvokedUrlCommand*)command
 {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+}
+
+- (void) statusBarBackgroundColorByName:(CDVInvokedUrlCommand*)command
+{
+    id value = [command.arguments objectAtIndex:0];
+    if (!([value isKindOfClass:[NSString class]])) {
+        value = @"black";
+    }
+    
+    SEL selector = NSSelectorFromString([value stringByAppendingString:@"Color"]);
+    if ([UIColor respondsToSelector:selector]) {
+        _statusBarBackgroundView.backgroundColor = [UIColor performSelector:selector];
+    }
 }
 
 @end

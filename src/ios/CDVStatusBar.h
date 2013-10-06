@@ -23,6 +23,8 @@
 @interface CDVStatusBar : CDVPlugin {
     @protected
     BOOL _statusBarOverlaysWebView;
+    @protected
+    UIView* _statusBarBackgroundView;
 }
 
 @property (atomic, assign) BOOL statusBarOverlaysWebView;
@@ -34,5 +36,6 @@
 - (void) styleBlackTranslucent:(CDVInvokedUrlCommand*)command;
 - (void) styleBlackOpaque:(CDVInvokedUrlCommand*)command;
 
+- (void) statusBarBackgroundColorByName:(CDVInvokedUrlCommand*)command;
 
 @end

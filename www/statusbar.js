@@ -46,6 +46,10 @@ StatusBar.styleBlackOpaque = function() {
     exec(null, null, "StatusBar", "styleBlackOpaque", []);
 };
 
+StatusBar.statusBarBackgroundColorByName = function(colorname) {
+    exec(null, null, "StatusBar", "statusBarBackgroundColorByName", [colorname]);
+}
+
 // TODO:
 StatusBar.isVisible = true;
 
