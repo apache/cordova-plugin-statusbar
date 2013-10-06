@@ -50,6 +50,10 @@ StatusBar.statusBarBackgroundColorByName = function(colorname) {
     exec(null, null, "StatusBar", "statusBarBackgroundColorByName", [colorname]);
 }
 
+StatusBar.statusBarBackgroundColorByHexString = function(hexString) {
+    exec(null, null, "StatusBar", "statusBarBackgroundColorByHexString", [hexString]);
+}
+
 // TODO:
 StatusBar.isVisible = true;
 
