@@ -32,6 +32,14 @@
     return [self.commandDelegate.settings objectForKey:[key lowercaseString]];
 }
 
+- (void) checkInfoPlistKey
+{
+    NSNumber* uiviewControllerBasedStatusBarAppearance = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"UIViewControllerBasedStatusBarAppearance"];
+    if (uiviewControllerBasedStatusBarAppearance == nil || [uiviewControllerBasedStatusBarAppearance boolValue]) {
+        NSLog(@"ERROR: To use the statusbar plugin, in your app's Info.plist, you need to add a 'UIViewControllerBasedStatusBarAppearance' key with a value of <false/>");
+    }
+}
+
 - (void)pluginInitialize
 {
     _statusBarOverlaysWebView = YES; // default
@@ -41,9 +49,21 @@
     _statusBarBackgroundView = [[UIView alloc] initWithFrame:frame];
     _statusBarBackgroundView.backgroundColor = [UIColor blackColor];
     
-    NSString* setting  = @"StatusBarOverlaysWebView";
+    NSString* setting;
+    
+    setting  = @"StatusBarOverlaysWebView";
     if ([self settingForKey:setting]) {
         self.statusBarOverlaysWebView = [(NSNumber*)[self settingForKey:setting] boolValue];
+    }
+
+    setting  = @"StatusBarBackgroundColor";
+    if ([self settingForKey:setting]) {
+        [self _statusBarBackgroundColorByHexString:[self settingForKey:setting]];
+    }
+    
+    setting  = @"StatusBarStyle";
+    if ([self settingForKey:setting]) {
+        [self setStatusBarStyle:[self settingForKey:setting]];
     }
 }
 
@@ -94,23 +114,43 @@
     self.statusBarOverlaysWebView = [value boolValue];
 }
 
+- (void) setStatusBarStyle:(NSString*)statusBarStyle
+{
+    // default, lightContent, blackTranslucent, blackOpaque
+    NSString* lcStatusBarStyle = [statusBarStyle lowercaseString];
+    
+    if ([lcStatusBarStyle isEqualToString:@"default"]) {
+        [self styleDefault:nil];
+    } else if ([lcStatusBarStyle isEqualToString:@"lightcontent"]) {
+        [self styleLightContent:nil];
+    } else if ([lcStatusBarStyle isEqualToString:@"blacktranslucent"]) {
+        [self styleBlackTranslucent:nil];
+    } else if ([lcStatusBarStyle isEqualToString:@"blackopaque"]) {
+        [self styleBlackOpaque:nil];
+    }
+}
+
 - (void) styleDefault:(CDVInvokedUrlCommand*)command
 {
+    [self checkInfoPlistKey];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
 
 - (void) styleLightContent:(CDVInvokedUrlCommand*)command
 {
+    [self checkInfoPlistKey];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void) styleBlackTranslucent:(CDVInvokedUrlCommand*)command
 {
+    [self checkInfoPlistKey];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
 }
 
 - (void) styleBlackOpaque:(CDVInvokedUrlCommand*)command
 {
+    [self checkInfoPlistKey];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
 }
 
@@ -127,6 +167,16 @@
     }
 }
 
+- (void) _statusBarBackgroundColorByHexString:(NSString*)hexString
+{
+    unsigned int rgbValue = 0;
+    NSScanner* scanner = [NSScanner scannerWithString:hexString];
+    [scanner setScanLocation:1];
+    [scanner scanHexInt:&rgbValue];
+    
+    _statusBarBackgroundView.backgroundColor = [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+}
+
 - (void) statusBarBackgroundColorByHexString:(CDVInvokedUrlCommand*)command
 {
     NSString* value = [command.arguments objectAtIndex:0];
@@ -138,12 +188,7 @@
         return;
     }
     
-    unsigned int rgbValue = 0;
-    NSScanner* scanner = [NSScanner scannerWithString:value];
-    [scanner setScanLocation:1];
-    [scanner scanHexInt:&rgbValue];
-    
-    _statusBarBackgroundView.backgroundColor = [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+    [self _statusBarBackgroundColorByHexString:value];
 }
 
 

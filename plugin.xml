@@ -24,12 +24,17 @@
             <feature name="StatusBar">
                 <param name="ios-package" value="CDVStatusBar" onload="true" />
             </feature>
+            <preference name="StatusBarOverlaysWebView" value="true" />
+            <preference name="StatusBarBackgroundColor" value="#000000" />
+            <preference name="StatusBarStyle" value="lightContent" /> <!-- default, lightContent, blackTranslucent, blackOpaque -->
         </config-file>
         
+        <!-- add this manually for now, crash bug - see https://issues.apache.org/jira/browse/CB-5012
         <config-file target="*-Info.plist" parent="UIViewControllerBasedStatusBarAppearance" >
         	<key>UIViewControllerBasedStatusBarAppearance</key>
             <false/>
         </config-file>        
+        -->
 
         <header-file src="src/ios/CDVStatusBar.h" />
         <source-file src="src/ios/CDVStatusBar.m" />
