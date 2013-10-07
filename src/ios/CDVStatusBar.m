@@ -60,11 +60,6 @@
     if ([self settingForKey:setting]) {
         [self _statusBarBackgroundColorByHexString:[self settingForKey:setting]];
     }
-    
-    setting  = @"StatusBarStyle";
-    if ([self settingForKey:setting]) {
-        [self setStatusBarStyle:[self settingForKey:setting]];
-    }
 }
 
 - (void) setStatusBarOverlaysWebView:(BOOL)statusBarOverlaysWebView
