@@ -48,6 +48,7 @@
     
     _statusBarBackgroundView = [[UIView alloc] initWithFrame:frame];
     _statusBarBackgroundView.backgroundColor = [UIColor blackColor];
+    [self styleLightContent:nil]; // match default backgroundColor of #000000
     
     NSString* setting;
     
@@ -87,7 +88,6 @@
         bounds.size.height -= statusBarFrame.size.height;
         
         self.webView.frame = bounds;
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
         [self.webView.superview addSubview:_statusBarBackgroundView];
     }
     
