@@ -48,6 +48,8 @@
     
     _statusBarBackgroundView = [[UIView alloc] initWithFrame:frame];
     _statusBarBackgroundView.backgroundColor = [UIColor blackColor];
+    _statusBarBackgroundView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin);
+    
     [self styleLightContent:nil]; // match default backgroundColor of #000000
     
     NSString* setting;
@@ -72,11 +74,7 @@
     
     if (statusBarOverlaysWebView) {
         
-        CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
         CGRect bounds = self.viewController.view.bounds;
-        bounds.origin.y = 0;
-        bounds.size.height += statusBarFrame.size.height;
-        
         self.webView.frame = bounds;
         
         [_statusBarBackgroundView removeFromSuperview];
