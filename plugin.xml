@@ -37,6 +37,12 @@
 
         <header-file src="src/ios/CDVStatusBar.h" />
         <source-file src="src/ios/CDVStatusBar.m" />
+        
+        <info>
+Add this key and value to your project's Info.plist:
+    &lt;key&gt;UIViewControllerBasedStatusBarAppearance&lt;/key&gt;
+    &lt;false/&gt;
+		</info>
     </platform>
 
 </plugin>
