@@ -29,14 +29,14 @@
 
 @property (atomic, assign) BOOL statusBarOverlaysWebView;
 
-- (void) statusBarOverlaysWebView:(CDVInvokedUrlCommand*)command;
+- (void) overlaysWebView:(CDVInvokedUrlCommand*)command;
 
 - (void) styleDefault:(CDVInvokedUrlCommand*)command;
 - (void) styleLightContent:(CDVInvokedUrlCommand*)command;
 - (void) styleBlackTranslucent:(CDVInvokedUrlCommand*)command;
 - (void) styleBlackOpaque:(CDVInvokedUrlCommand*)command;
 
-- (void) statusBarBackgroundColorByName:(CDVInvokedUrlCommand*)command;
-- (void) statusBarBackgroundColorByHexString:(CDVInvokedUrlCommand*)command;
+- (void) backgroundColorByName:(CDVInvokedUrlCommand*)command;
+- (void) backgroundColorByHexString:(CDVInvokedUrlCommand*)command;
 
 @end

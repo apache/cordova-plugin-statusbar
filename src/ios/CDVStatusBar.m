@@ -61,7 +61,7 @@
 
     setting  = @"StatusBarBackgroundColor";
     if ([self settingForKey:setting]) {
-        [self _statusBarBackgroundColorByHexString:[self settingForKey:setting]];
+        [self _backgroundColorByHexString:[self settingForKey:setting]];
     }
 }
 
@@ -97,7 +97,7 @@
     return _statusBarOverlaysWebView;
 }
 
-- (void) statusBarOverlaysWebView:(CDVInvokedUrlCommand*)command
+- (void) overlaysWebView:(CDVInvokedUrlCommand*)command
 {
     id value = [command.arguments objectAtIndex:0];
     if (!([value isKindOfClass:[NSNumber class]])) {
@@ -147,7 +147,7 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
 }
 
-- (void) statusBarBackgroundColorByName:(CDVInvokedUrlCommand*)command
+- (void) backgroundColorByName:(CDVInvokedUrlCommand*)command
 {
     id value = [command.arguments objectAtIndex:0];
     if (!([value isKindOfClass:[NSString class]])) {
@@ -160,7 +160,7 @@
     }
 }
 
-- (void) _statusBarBackgroundColorByHexString:(NSString*)hexString
+- (void) _backgroundColorByHexString:(NSString*)hexString
 {
     unsigned int rgbValue = 0;
     NSScanner* scanner = [NSScanner scannerWithString:hexString];
@@ -170,7 +170,7 @@
     _statusBarBackgroundView.backgroundColor = [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
 
-- (void) statusBarBackgroundColorByHexString:(CDVInvokedUrlCommand*)command
+- (void) backgroundColorByHexString:(CDVInvokedUrlCommand*)command
 {
     NSString* value = [command.arguments objectAtIndex:0];
     if (!([value isKindOfClass:[NSString class]])) {
@@ -181,7 +181,7 @@
         return;
     }
     
-    [self _statusBarBackgroundColorByHexString:value];
+    [self _backgroundColorByHexString:value];
 }
 
 

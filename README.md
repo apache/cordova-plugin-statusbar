@@ -10,13 +10,13 @@ For iOS 7, to use the statusbar style functions, you need the addition of a key 
 Methods
 -------
 
-- StatusBar.statusBarOverlaysWebView
+- StatusBar.overlaysWebView
 - StatusBar.styleDefault
 - StatusBar.styleLightContent
 - StatusBar.styleBlackTranslucent
 - StatusBar.styleBlackOpaque
-- StatusBar.statusBarBackgroundColorByName
-- StatusBar.statusBarBackgroundColorByHexString
+- StatusBar.backgroundColorByName
+- StatusBar.backgroundColorByHexString
 
 Properties
 --------
@@ -37,12 +37,12 @@ Permissions
             <key>UIViewControllerBasedStatusBarAppearance</key>
             <false/>
 
-StatusBar.statusBarOverlaysWebView
+StatusBar.overlaysWebView
 =================
 
 On iOS 7, make the statusbar overlay or not overlay the WebView.
 
-    StatusBar.statusBarOverlaysWebView(true);
+    StatusBar.overlaysWebView(true);
 
 Description
 -----------
@@ -58,8 +58,8 @@ Supported Platforms
 Quick Example
 -------------
 
-    StatusBar.statusBarOverlaysWebView(true);
-    StatusBar.statusBarOverlaysWebView(false);
+    StatusBar.overlaysWebView(true);
+    StatusBar.overlaysWebView(false);
 
 StatusBar.styleDefault
 =================
@@ -114,12 +114,12 @@ Supported Platforms
 - iOS
 
 
-StatusBar.statusBarBackgroundColorByName
+StatusBar.backgroundColorByName
 =================
 
 On iOS 7, when you set StatusBar.statusBarOverlaysWebView to false, you can set the background color of the statusbar by color name.
 
-    StatusBar.statusBarBackgroundColorByName("red");
+    StatusBar.backgroundColorByName("red");
 
 Supported color names are:
 
@@ -131,12 +131,12 @@ Supported Platforms
 
 - iOS
 
-StatusBar.statusBarBackgroundColorByHexString
+StatusBar.backgroundColorByHexString
 =================
 
 On iOS 7, when you set StatusBar.statusBarOverlaysWebView to false, you can set the background color of the statusbar by a hex string (#RRGGBB).
 
-    StatusBar.statusBarBackgroundColorByHexString("#C0C0C0");
+    StatusBar.backgroundColorByHexString("#C0C0C0");
 
 
 Supported Platforms

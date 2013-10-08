@@ -26,8 +26,8 @@ var argscheck = require('cordova/argscheck'),
 var StatusBar = function() {
 };
 
-StatusBar.statusBarOverlaysWebView = function(doOverlay) {
-    exec(null, null, "StatusBar", "statusBarOverlaysWebView", [doOverlay]);
+StatusBar.overlaysWebView = function(doOverlay) {
+    exec(null, null, "StatusBar", "overlaysWebView", [doOverlay]);
 };
 
 StatusBar.styleDefault = function() {
@@ -46,12 +46,12 @@ StatusBar.styleBlackOpaque = function() {
     exec(null, null, "StatusBar", "styleBlackOpaque", []);
 };
 
-StatusBar.statusBarBackgroundColorByName = function(colorname) {
-    exec(null, null, "StatusBar", "statusBarBackgroundColorByName", [colorname]);
+StatusBar.backgroundColorByName = function(colorname) {
+    exec(null, null, "StatusBar", "backgroundColorByName", [colorname]);
 }
 
-StatusBar.statusBarBackgroundColorByHexString = function(hexString) {
-    exec(null, null, "StatusBar", "statusBarBackgroundColorByHexString", [hexString]);
+StatusBar.backgroundColorByHexString = function(hexString) {
+    exec(null, null, "StatusBar", "backgroundColorByHexString", [hexString]);
 }
 
 // TODO:
