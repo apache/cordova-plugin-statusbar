@@ -23,6 +23,9 @@ var argscheck = require('cordova/argscheck'),
     utils = require('cordova/utils'),
     exec = require('cordova/exec');
 
+// prime it
+exec(null, null, "StatusBar", "_ready", []);
+
 var StatusBar = function() {
 };
 
@@ -54,7 +57,6 @@ StatusBar.backgroundColorByHexString = function(hexString) {
     exec(null, null, "StatusBar", "backgroundColorByHexString", [hexString]);
 }
 
-// TODO:
 StatusBar.isVisible = true;
 
 module.exports = StatusBar;

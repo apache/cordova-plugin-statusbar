@@ -40,8 +40,21 @@
     }
 }
 
+- (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)object change:(NSDictionary*)change context:(void*)context
+{
+    if ([keyPath isEqual:@"statusBarHidden"]) {
+        NSNumber* newValue = [change objectForKey:NSKeyValueChangeNewKey];
+        BOOL boolValue = [newValue boolValue];
+
+        [self.commandDelegate evalJs:[NSString stringWithFormat:@"StatusBar.isVisible = %@;", boolValue? @"true" : @"false" ]];
+    }
+}
+
 - (void)pluginInitialize
 {
+    // observe the statusBarHidden property
+    [[UIApplication sharedApplication] addObserver:self forKeyPath:@"statusBarHidden" options:NSKeyValueObservingOptionNew context:NULL];
+    
     _statusBarOverlaysWebView = YES; // default
     
     CGRect frame = [[UIApplication sharedApplication] statusBarFrame];
@@ -63,6 +76,12 @@
     if ([self settingForKey:setting]) {
         [self _backgroundColorByHexString:[self settingForKey:setting]];
     }
+}
+
+- (void) _ready:(CDVInvokedUrlCommand*)command
+{
+    // set the initial value
+    [self.commandDelegate evalJs:[NSString stringWithFormat:@"StatusBar.isVisible = %@;", [UIApplication sharedApplication].statusBarHidden? @"false" : @"true" ]];
 }
 
 - (void) setStatusBarOverlaysWebView:(BOOL)statusBarOverlaysWebView
@@ -182,6 +201,11 @@
     }
     
     [self _backgroundColorByHexString:value];
+}
+
+- (void) dealloc
+{
+    [[UIApplication sharedApplication] removeObserver:self forKeyPath:@"statusBarHidden"];
 }
 
 

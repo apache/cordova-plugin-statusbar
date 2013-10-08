@@ -21,7 +21,7 @@ Methods
 Properties
 --------
 
-- StatusBar.isVisible (TODO: not implemented yet)
+- StatusBar.isVisible
 
 Permissions
 -----------
@@ -137,6 +137,21 @@ StatusBar.backgroundColorByHexString
 On iOS 7, when you set StatusBar.statusBarOverlaysWebView to false, you can set the background color of the statusbar by a hex string (#RRGGBB).
 
     StatusBar.backgroundColorByHexString("#C0C0C0");
+
+
+Supported Platforms
+-------------------
+
+- iOS
+
+StatusBar.isVisible
+=================
+
+Read this property to see if the statusbar is visible or not.
+
+    if (StatusBar.isVisible) {
+    	// do something
+    }
 
 
 Supported Platforms
