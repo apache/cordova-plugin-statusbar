@@ -46,7 +46,7 @@
         NSNumber* newValue = [change objectForKey:NSKeyValueChangeNewKey];
         BOOL boolValue = [newValue boolValue];
 
-        [self.commandDelegate evalJs:[NSString stringWithFormat:@"StatusBar.isVisible = %@;", boolValue? @"true" : @"false" ]];
+        [self.commandDelegate evalJs:[NSString stringWithFormat:@"StatusBar.isVisible = %@;", boolValue? @"false" : @"true" ]];
     }
 }
 
@@ -90,18 +90,18 @@
     if (!IsAtLeastiOSVersion(@"7.0") || statusBarOverlaysWebView == _statusBarOverlaysWebView) {
         return;
     }
+
+    CGRect bounds = [[UIScreen mainScreen] bounds];
     
     if (statusBarOverlaysWebView) {
         
-        CGRect bounds = self.viewController.view.bounds;
-        self.webView.frame = bounds;
-        
         [_statusBarBackgroundView removeFromSuperview];
+        self.webView.frame = bounds;
 
     } else {
+
         CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
-        CGRect bounds = self.viewController.view.bounds;
-        bounds.origin.y += statusBarFrame.size.height;
+        bounds.origin.y = statusBarFrame.size.height;
         bounds.size.height -= statusBarFrame.size.height;
         
         self.webView.frame = bounds;
@@ -201,6 +201,61 @@
     }
     
     [self _backgroundColorByHexString:value];
+}
+    
+- (void) hide:(CDVInvokedUrlCommand*)command
+{
+    UIApplication* app = [UIApplication sharedApplication];
+    
+    if (!app.isStatusBarHidden)
+    {
+        self.viewController.wantsFullScreenLayout = YES;
+        [app setStatusBarHidden:YES];
+
+        if (IsAtLeastiOSVersion(@"7.0")) {
+            [_statusBarBackgroundView removeFromSuperview];
+        }
+        
+        CGRect bounds = [[UIScreen mainScreen] bounds];
+        
+        self.viewController.view.frame = bounds;
+        self.webView.frame = bounds;
+
+    }
+}
+    
+- (void) show:(CDVInvokedUrlCommand*)command
+{
+    UIApplication* app = [UIApplication sharedApplication];
+    
+    if (app.isStatusBarHidden)
+    {
+        BOOL isIOS7 = (IsAtLeastiOSVersion(@"7.0"));
+        self.viewController.wantsFullScreenLayout = isIOS7;
+        
+        [app setStatusBarHidden:NO];
+        
+        if (isIOS7) {
+            CGRect bounds = [[UIScreen mainScreen] bounds];
+            self.viewController.view.frame = bounds;
+            
+            CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
+            
+            if (!self.statusBarOverlaysWebView) {
+                bounds.origin.y = statusBarFrame.size.height;
+                bounds.size.height -= statusBarFrame.size.height;
+                
+                [self.webView.superview addSubview:_statusBarBackgroundView];
+            }
+
+            self.webView.frame = bounds;
+            
+        } else {
+            
+            CGRect bounds = [[UIScreen mainScreen] applicationFrame];
+            self.viewController.view.frame = bounds;
+        }
+    }
 }
 
 - (void) dealloc

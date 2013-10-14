@@ -39,6 +39,9 @@
 - (void) backgroundColorByName:(CDVInvokedUrlCommand*)command;
 - (void) backgroundColorByHexString:(CDVInvokedUrlCommand*)command;
 
+- (void) hide:(CDVInvokedUrlCommand*)command;
+- (void) show:(CDVInvokedUrlCommand*)command;
+    
 - (void) _ready:(CDVInvokedUrlCommand*)command;
 
 @end

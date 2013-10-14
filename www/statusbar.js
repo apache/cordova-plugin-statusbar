@@ -57,6 +57,14 @@ StatusBar.backgroundColorByHexString = function(hexString) {
     exec(null, null, "StatusBar", "backgroundColorByHexString", [hexString]);
 }
 
+StatusBar.hide = function() {
+    exec(null, null, "StatusBar", "hide", []);
+}
+
+StatusBar.show = function() {
+    exec(null, null, "StatusBar", "show", []);
+}
+
 StatusBar.isVisible = true;
 
 module.exports = StatusBar;
