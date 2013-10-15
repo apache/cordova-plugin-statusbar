@@ -4,8 +4,6 @@ StatusBar
 > The `StatusBar` object provides some functions to customize the iOS StatusBar.
 
 The plugin reads the __StatusBarOverlaysWebView__ (boolean, defaults to true) and __StatusBarBackgroundColor__ (color hex string, defaults to #000000) values from config.xml.
-
-For iOS 7, to use the statusbar style functions, you need the addition of a key in your Info.plist. See the Permissions section below.
  
 Methods
 -------
@@ -33,11 +31,6 @@ Permissions
             <feature name="StatusBar">
                 <param name="ios-package" value="CDVStatusBar" onload="true" />
             </feature>
-
-#### [ProjectName]-Info.plist
-
-            <key>UIViewControllerBasedStatusBarAppearance</key>
-            <false/>
 
 StatusBar.overlaysWebView
 =================

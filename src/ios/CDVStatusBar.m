@@ -24,20 +24,57 @@
  */
 
 #import "CDVStatusBar.h"
+#import <objc/runtime.h>
+#import <Cordova/CDVViewController.h>
+
+static const void *kHideStatusBar = &kHideStatusBar;
+static const void *kStatusBarStyle = &kStatusBarStyle;
+
+@interface CDVViewController (StatusBar)
+
+@property (nonatomic, retain) id sb_hideStatusBar;
+@property (nonatomic, retain) id sb_statusBarStyle;
+    
+@end
+
+@implementation CDVViewController (StatusBar)
+
+@dynamic sb_hideStatusBar;
+@dynamic sb_statusBarStyle;
+    
+- (id)sb_hideStatusBar {
+    return objc_getAssociatedObject(self, kHideStatusBar);
+}
+    
+- (void)setSb_hideStatusBar:(id)newHideStatusBar {
+    objc_setAssociatedObject(self, kHideStatusBar, newHideStatusBar, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (id)sb_statusBarStyle {
+    return objc_getAssociatedObject(self, kStatusBarStyle);
+}
+    
+- (void)setSb_statusBarStyle:(id)newStatusBarStyle {
+    objc_setAssociatedObject(self, kStatusBarStyle, newStatusBarStyle, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+    
+- (BOOL) prefersStatusBarHidden {
+    return [self.sb_hideStatusBar boolValue];
+}
+    
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return (UIStatusBarStyle)[self.sb_statusBarStyle intValue];
+}
+    
+@end
+
 
 @implementation CDVStatusBar
 
 - (id)settingForKey:(NSString*)key
 {
     return [self.commandDelegate.settings objectForKey:[key lowercaseString]];
-}
-
-- (void) checkInfoPlistKey
-{
-    NSNumber* uiviewControllerBasedStatusBarAppearance = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"UIViewControllerBasedStatusBarAppearance"];
-    if (uiviewControllerBasedStatusBarAppearance == nil || [uiviewControllerBasedStatusBarAppearance boolValue]) {
-        NSLog(@"ERROR: To use the statusbar plugin, in your app's Info.plist, you need to add a 'UIViewControllerBasedStatusBarAppearance' key with a value of <false/>");
-    }
 }
 
 - (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)object change:(NSDictionary*)change context:(void*)context
@@ -52,6 +89,12 @@
 
 - (void)pluginInitialize
 {
+    BOOL isiOS7 = (IsAtLeastiOSVersion(@"7.0"));
+                   
+    // init
+    NSNumber* uiviewControllerBasedStatusBarAppearance = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"UIViewControllerBasedStatusBarAppearance"];
+    _uiviewControllerBasedStatusBarAppearance = (uiviewControllerBasedStatusBarAppearance == nil || [uiviewControllerBasedStatusBarAppearance boolValue]) && isiOS7;
+    
     // observe the statusBarHidden property
     [[UIApplication sharedApplication] addObserver:self forKeyPath:@"statusBarHidden" options:NSKeyValueObservingOptionNew context:NULL];
     
@@ -126,6 +169,29 @@
     self.statusBarOverlaysWebView = [value boolValue];
 }
 
+- (void) refreshStatusBarAppearance
+{
+    SEL sel = NSSelectorFromString(@"setNeedsStatusBarAppearanceUpdate");
+    if ([self.viewController respondsToSelector:sel]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [self.viewController performSelector:sel withObject:nil];
+#pragma clang diagnostic pop
+    }
+}
+    
+- (void) setStyleForStatusBar:(UIStatusBarStyle)style
+{
+    if (_uiviewControllerBasedStatusBarAppearance) {
+        CDVViewController* vc = (CDVViewController*)self.viewController;
+        vc.sb_statusBarStyle = [NSNumber numberWithInt:style];
+        [self refreshStatusBarAppearance];
+        
+    } else {
+        [[UIApplication sharedApplication] setStatusBarStyle:style];
+    }
+}
+    
 - (void) setStatusBarStyle:(NSString*)statusBarStyle
 {
     // default, lightContent, blackTranslucent, blackOpaque
@@ -144,26 +210,22 @@
 
 - (void) styleDefault:(CDVInvokedUrlCommand*)command
 {
-    [self checkInfoPlistKey];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [self setStyleForStatusBar:UIStatusBarStyleDefault];
 }
 
 - (void) styleLightContent:(CDVInvokedUrlCommand*)command
 {
-    [self checkInfoPlistKey];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [self setStyleForStatusBar:UIStatusBarStyleLightContent];
 }
 
 - (void) styleBlackTranslucent:(CDVInvokedUrlCommand*)command
 {
-    [self checkInfoPlistKey];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+    [self setStyleForStatusBar:UIStatusBarStyleBlackTranslucent];
 }
 
 - (void) styleBlackOpaque:(CDVInvokedUrlCommand*)command
 {
-    [self checkInfoPlistKey];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+    [self setStyleForStatusBar:UIStatusBarStyleBlackOpaque];
 }
 
 - (void) backgroundColorByName:(CDVInvokedUrlCommand*)command
@@ -202,6 +264,19 @@
     
     [self _backgroundColorByHexString:value];
 }
+
+- (void) hideStatusBar
+{
+    if (_uiviewControllerBasedStatusBarAppearance) {
+        CDVViewController* vc = (CDVViewController*)self.viewController;
+        vc.sb_hideStatusBar = [NSNumber numberWithBool:YES];
+        [self refreshStatusBarAppearance];
+
+    } else {
+        UIApplication* app = [UIApplication sharedApplication];
+        [app setStatusBarHidden:YES];
+    }
+}
     
 - (void) hide:(CDVInvokedUrlCommand*)command
 {
@@ -210,7 +285,7 @@
     if (!app.isStatusBarHidden)
     {
         self.viewController.wantsFullScreenLayout = YES;
-        [app setStatusBarHidden:YES];
+        [self hideStatusBar];
 
         if (IsAtLeastiOSVersion(@"7.0")) {
             [_statusBarBackgroundView removeFromSuperview];
@@ -220,7 +295,19 @@
         
         self.viewController.view.frame = bounds;
         self.webView.frame = bounds;
+    }
+}
+    
+- (void) showStatusBar
+{
+    if (_uiviewControllerBasedStatusBarAppearance) {
+        CDVViewController* vc = (CDVViewController*)self.viewController;
+        vc.sb_hideStatusBar = [NSNumber numberWithBool:NO];
+        [self refreshStatusBarAppearance];
 
+    } else {
+        UIApplication* app = [UIApplication sharedApplication];
+        [app setStatusBarHidden:NO];
     }
 }
     
@@ -233,7 +320,7 @@
         BOOL isIOS7 = (IsAtLeastiOSVersion(@"7.0"));
         self.viewController.wantsFullScreenLayout = isIOS7;
         
-        [app setStatusBarHidden:NO];
+        [self showStatusBar];
         
         if (isIOS7) {
             CGRect bounds = [[UIScreen mainScreen] bounds];

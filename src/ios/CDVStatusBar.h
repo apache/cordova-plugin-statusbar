@@ -25,6 +25,8 @@
     BOOL _statusBarOverlaysWebView;
     @protected
     UIView* _statusBarBackgroundView;
+    @protected
+    BOOL _uiviewControllerBasedStatusBarAppearance;
 }
 
 @property (atomic, assign) BOOL statusBarOverlaysWebView;
