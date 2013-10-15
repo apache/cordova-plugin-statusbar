@@ -17,6 +17,8 @@ Methods
 - StatusBar.styleBlackOpaque
 - StatusBar.backgroundColorByName
 - StatusBar.backgroundColorByHexString
+- StatusBar.hide
+- StatusBar.show
 
 Properties
 --------
@@ -143,6 +145,33 @@ Supported Platforms
 -------------------
 
 - iOS
+
+StatusBar.hide
+=================
+
+Hide the statusbar.
+
+    StatusBar.hide();
+
+
+Supported Platforms
+-------------------
+
+- iOS
+
+StatusBar.show
+=================
+
+Shows the statusbar.
+
+    StatusBar.show();
+
+
+Supported Platforms
+-------------------
+
+- iOS
+
 
 StatusBar.isVisible
 =================
