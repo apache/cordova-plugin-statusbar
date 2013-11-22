@@ -27,6 +27,8 @@
     UIView* _statusBarBackgroundView;
     @protected
     BOOL _uiviewControllerBasedStatusBarAppearance;
+    @protected
+    UIColor* _statusBarBackgroundColor;
 }
 
 @property (atomic, assign) BOOL statusBarOverlaysWebView;
