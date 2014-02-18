@@ -3,7 +3,20 @@ StatusBar
 
 > The `StatusBar` object provides some functions to customize the iOS StatusBar.
 
-The plugin reads the __StatusBarOverlaysWebView__ (boolean, defaults to true) and __StatusBarBackgroundColor__ (color hex string, defaults to #000000) values from config.xml.
+
+Preferences
+-----------
+
+#### config.xml
+
+-  __StatusBarOverlaysWebView__ (boolean, defaults to true). On iOS 7, make the statusbar overlay or not overlay the WebView.
+
+        <preference name="StatusBarOverlaysWebView" value="true" />
+            
+- __StatusBarBackgroundColor__ (color hex string, defaults to #000000). On iOS 7, set the background color of the statusbar by a hex string (#RRGGBB).
+
+        <preference name="StatusBarBackgroundColor" value="#000000" />
+
  
 Methods
 -------
