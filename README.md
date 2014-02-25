@@ -1,7 +1,7 @@
 StatusBar
 ======
 
-> The `StatusBar` object provides some functions to customize the iOS StatusBar.
+> The `StatusBar` object provides some functions to customize the iOS and Android StatusBar.
 
 
 Preferences
@@ -177,6 +177,7 @@ Supported Platforms
 -------------------
 
 - iOS
+- Android
 
 StatusBar.show
 =================
@@ -190,6 +191,7 @@ Supported Platforms
 -------------------
 
 - iOS
+- Android
 
 
 StatusBar.isVisible
