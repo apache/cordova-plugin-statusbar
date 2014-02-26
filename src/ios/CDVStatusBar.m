@@ -319,16 +319,20 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
             [_statusBarBackgroundView removeFromSuperview];
         }
         
-        CGRect frame = self.webView.frame;
-        frame.origin.y = 0;
+        if (!_statusBarOverlaysWebView) {
         
-        if (UIDeviceOrientationIsLandscape(self.viewController.interfaceOrientation)) {
-            frame.size.height += statusBarFrame.size.width;
-        } else {
-            frame.size.height += statusBarFrame.size.height;
+            CGRect frame = self.webView.frame;
+            frame.origin.y = 0;
+        
+            if (UIDeviceOrientationIsLandscape(self.viewController.interfaceOrientation)) {
+                frame.size.height += statusBarFrame.size.width;
+            } else {
+                frame.size.height += statusBarFrame.size.height;
+            }
+            
+            self.webView.frame = frame;
         }
         
-        self.webView.frame = frame;
         _statusBarBackgroundView.hidden = YES;
     }
 }
