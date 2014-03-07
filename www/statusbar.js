@@ -23,6 +23,23 @@ var argscheck = require('cordova/argscheck'),
     utils = require('cordova/utils'),
     exec = require('cordova/exec');
 
+var namedColors = {
+    "black":"#000000", 
+    "darkGray":"#A9A9A9", 
+    "lightGray":"#D3D3D3", 
+    "white":"#FFFFFF", 
+    "gray":"#808080", 
+    "red":"#FF0000", 
+    "green":"#00FF00", 
+    "blue":"#0000FF", 
+    "cyan":"#00FFFF", 
+    "yellow":"#FFFF00", 
+    "magenta":"#FF00FF", 
+    "orange":"##FFA500", 
+    "purple":"#800080", 
+    "brown":"#A52A2A"
+};
+
 // prime it
 exec(null, null, "StatusBar", "_ready", []);
 
@@ -50,7 +67,7 @@ StatusBar.styleBlackOpaque = function() {
 };
 
 StatusBar.backgroundColorByName = function(colorname) {
-    exec(null, null, "StatusBar", "backgroundColorByName", [colorname]);
+    return StatusBar.backgroundColorByHexString(namedColors[colorname]);
 }
 
 StatusBar.backgroundColorByHexString = function(hexString) {
