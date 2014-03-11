@@ -65,6 +65,8 @@ namespace WPCordovaClassLib.Cordova.Commands
             {
                 bool isVis = SystemTray.IsVisible;
                 // TODO: pass this to JS
+                //Debug.WriteLine("Result::" + res);
+                DispatchCommandResult(new PluginResult(PluginResult.Status.OK, isVis));
             });
         }
 
@@ -77,19 +79,21 @@ namespace WPCordovaClassLib.Cordova.Commands
         {    //exec(null, null, "StatusBar", "styleDefault", []);
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
+                SystemTray.BackgroundColor = Colors.White;
+                SystemTray.ForegroundColor = Colors.Black;
                 SystemTray.Opacity = 1.0d;
-                SystemTray.ForegroundColor = (Color)Application.Current.Resources["PhoneForegroundColor"];
-                SystemTray.BackgroundColor = (Color)Application.Current.Resources["PhoneChromeColor"];
+
             });
         }
 
         public void styleLightContent(string options)
         {    //exec(null, null, "StatusBar", "styleLightContent", []);
+            
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
+                SystemTray.BackgroundColor = Colors.Black;
+                SystemTray.ForegroundColor = Colors.White;
                 SystemTray.Opacity = 1.0d;
-                SystemTray.ForegroundColor = SystemColors.ControlLightColor;
-                SystemTray.BackgroundColor = SystemColors.ControlDarkColor;
             });
         }
 
@@ -105,7 +109,7 @@ namespace WPCordovaClassLib.Cordova.Commands
 
         public void backgroundColorByName(string options)
         {    //exec(null, null, "StatusBar", "backgroundColorByName", [colorname]);
-
+             // this should NOT be called, js should now be using/converting color names to hex 
         }
 
         public void backgroundColorByHexString(string options)
