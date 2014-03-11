@@ -41,7 +41,10 @@
     };
 
     // prime it
-    exec(null, null, "StatusBar", "_ready", []);
+    
+    exec(function (res) {
+        StatusBar.isVisible = res;
+    }, null, "StatusBar", "_ready", []);
 
     var StatusBar = function () {
     };
@@ -89,10 +92,12 @@
 
     StatusBar.hide = function () {
         exec(null, null, "StatusBar", "hide", []);
+        StatusBar.isVisible = false;
     }
 
     StatusBar.show = function () {
         exec(null, null, "StatusBar", "show", []);
+        StatusBar.isVisible = true;
     }
 
     StatusBar.isVisible = true;
