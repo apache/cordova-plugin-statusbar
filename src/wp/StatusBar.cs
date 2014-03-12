@@ -79,10 +79,7 @@ namespace WPCordovaClassLib.Cordova.Commands
         {    //exec(null, null, "StatusBar", "styleDefault", []);
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                SystemTray.BackgroundColor = Colors.White;
                 SystemTray.ForegroundColor = Colors.Black;
-                SystemTray.Opacity = 1.0d;
-
             });
         }
 
@@ -91,9 +88,7 @@ namespace WPCordovaClassLib.Cordova.Commands
             
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                SystemTray.BackgroundColor = Colors.Black;
                 SystemTray.ForegroundColor = Colors.White;
-                SystemTray.Opacity = 1.0d;
             });
         }
 
