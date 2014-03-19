@@ -208,7 +208,7 @@ Supported Platforms
 -------------------
 
 - iOS
-
+- Android
 
 
     
