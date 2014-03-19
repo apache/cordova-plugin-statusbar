@@ -65,6 +65,11 @@ public class StatusBar extends CordovaPlugin {
         Log.v(TAG, "Executing action: " + action);
         final Activity activity = this.cordova.getActivity();
         final Window window = activity.getWindow();
+        if ("_ready".equals(action)) {
+            boolean statusBarVisible = (window.getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) == 0;
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, statusBarVisible));
+        }
+
         if ("show".equals(action)) {
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
