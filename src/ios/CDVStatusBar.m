@@ -122,6 +122,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     }
 
     // blank scroll view to intercept status bar taps
+    self.webView.scrollView.scrollsToTop = NO;
     UIScrollView *fakeScrollView = [[UIScrollView alloc] init];
     fakeScrollView.delegate = self;
     fakeScrollView.scrollsToTop = YES;
@@ -425,7 +426,6 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
 {
-    NSLog(@"status bar tap detected");
     [self.webView stringByEvaluatingJavaScriptFromString:@"var evt = document.createEvent(\"Event\"); evt.initEvent(\"statusTap\",true,true); window.dispatchEvent(evt);"];
     return NO;
 }
