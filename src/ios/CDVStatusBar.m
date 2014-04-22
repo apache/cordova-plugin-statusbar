@@ -102,7 +102,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     
     [self initializeStatusBarBackgroundView];
 
-    [self styleLightContent:nil]; // match default backgroundColor of #000000
+    // [self styleLightContent:nil]; // match default backgroundColor of #000000
     self.viewController.view.autoresizesSubviews = YES;
     
     NSString* setting;
