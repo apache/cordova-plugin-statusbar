@@ -114,6 +114,8 @@ Supported Platforms
 -------------------
 
 - iOS
+- Windows Phone 7 
+- Windows Phone 8
 
 StatusBar.styleLightContent
 =================
@@ -127,6 +129,8 @@ Supported Platforms
 -------------------
 
 - iOS
+- Windows Phone 7 
+- Windows Phone 8
 
 StatusBar.styleBlackTranslucent
 =================
@@ -140,6 +144,8 @@ Supported Platforms
 -------------------
 
 - iOS
+- Windows Phone 7 
+- Windows Phone 8
 
 StatusBar.styleBlackOpaque
 =================
@@ -153,6 +159,8 @@ Supported Platforms
 -------------------
 
 - iOS
+- Windows Phone 7 
+- Windows Phone 8
 
 
 StatusBar.backgroundColorByName
@@ -164,26 +172,37 @@ On iOS 7, when you set StatusBar.statusBarOverlaysWebView to false, you can set 
 
 Supported color names are:
 
-    black, darkGray, lightGray, white, gray, red, green, blue, cyan, yellow, magenta, orange, purple, brown, clear
+    black, darkGray, lightGray, white, gray, red, green, blue, cyan, yellow, magenta, orange, purple, brown
 
 
 Supported Platforms
 -------------------
 
 - iOS
+- Windows Phone 7 
+- Windows Phone 8
 
 StatusBar.backgroundColorByHexString
 =================
 
-On iOS 7, when you set StatusBar.statusBarOverlaysWebView to false, you can set the background color of the statusbar by a hex string (#RRGGBB).
+Sets the background color of the statusbar by a hex string.
 
     StatusBar.backgroundColorByHexString("#C0C0C0");
 
+CSS shorthand properties are also supported.
+
+    StatusBar.backgroundColorByHexString("#333"); // => #333333
+    StatusBar.backgroundColorByHexString("#FAB"); // => #FFAABB
+
+On iOS 7, when you set StatusBar.statusBarOverlaysWebView to false, you can set the background color of the statusbar by a hex string (#RRGGBB).
+On WP7 and WP8 you can also specify values as #AARRGGBB, where AA is an alpha value
 
 Supported Platforms
 -------------------
 
 - iOS
+- Windows Phone 7 
+- Windows Phone 8
 
 StatusBar.hide
 =================
@@ -198,6 +217,8 @@ Supported Platforms
 
 - iOS
 - Android
+- Windows Phone 7 
+- Windows Phone 8
 
 StatusBar.show
 =================
@@ -212,6 +233,8 @@ Supported Platforms
 
 - iOS
 - Android
+- Windows Phone 7 
+- Windows Phone 8
 
 
 StatusBar.isVisible
@@ -229,6 +252,8 @@ Supported Platforms
 
 - iOS
 - Android
+- Windows Phone 7 
+- Windows Phone 8
 
 
     
