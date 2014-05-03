@@ -307,6 +307,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 - (void) hide:(CDVInvokedUrlCommand*)command
 {
     UIApplication* app = [UIApplication sharedApplication];
+    [app setStatusBarHidden:YES withAnimation:YES];
     
     if (!app.isStatusBarHidden)
     {
@@ -353,6 +354,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 - (void) show:(CDVInvokedUrlCommand*)command
 {
     UIApplication* app = [UIApplication sharedApplication];
+    [app setStatusBarHidden:NO withAnimation:YES];
     
     if (app.isStatusBarHidden)
     {
