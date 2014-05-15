@@ -32,10 +32,14 @@ Preferences
 -  __StatusBarOverlaysWebView__ (boolean, defaults to true). On iOS 7, make the statusbar overlay or not overlay the WebView at startup.
 
         <preference name="StatusBarOverlaysWebView" value="true" />
-            
+
 - __StatusBarBackgroundColor__ (color hex string, defaults to #000000). On iOS 7, set the background color of the statusbar by a hex string (#RRGGBB) at startup.
 
         <preference name="StatusBarBackgroundColor" value="#000000" />
+
+- __StatusBarStyle__ (status bar style, defaults to lightcontent). On iOS 7, set the status bar style. Available options default, lightcontent, blacktranslucent, blackopaque.
+
+        <preference name="StatusBarStyle" value="lightcontent" />
 
 Hiding at startup
 -----------
@@ -50,7 +54,7 @@ Add/edit these two attributes if not present. Set **"Status bar is initially hid
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 
- 
+
 Methods
 -------
 
@@ -114,7 +118,7 @@ Supported Platforms
 -------------------
 
 - iOS
-- Windows Phone 7 
+- Windows Phone 7
 - Windows Phone 8
 
 StatusBar.styleLightContent
@@ -129,7 +133,7 @@ Supported Platforms
 -------------------
 
 - iOS
-- Windows Phone 7 
+- Windows Phone 7
 - Windows Phone 8
 
 StatusBar.styleBlackTranslucent
@@ -144,7 +148,7 @@ Supported Platforms
 -------------------
 
 - iOS
-- Windows Phone 7 
+- Windows Phone 7
 - Windows Phone 8
 
 StatusBar.styleBlackOpaque
@@ -159,7 +163,7 @@ Supported Platforms
 -------------------
 
 - iOS
-- Windows Phone 7 
+- Windows Phone 7
 - Windows Phone 8
 
 
@@ -179,7 +183,7 @@ Supported Platforms
 -------------------
 
 - iOS
-- Windows Phone 7 
+- Windows Phone 7
 - Windows Phone 8
 
 StatusBar.backgroundColorByHexString
@@ -202,7 +206,7 @@ Supported Platforms
 -------------------
 
 - iOS
-- Windows Phone 7 
+- Windows Phone 7
 - Windows Phone 8
 
 StatusBar.hide
@@ -218,7 +222,7 @@ Supported Platforms
 
 - iOS
 - Android
-- Windows Phone 7 
+- Windows Phone 7
 - Windows Phone 8
 
 StatusBar.show
@@ -234,7 +238,7 @@ Supported Platforms
 
 - iOS
 - Android
-- Windows Phone 7 
+- Windows Phone 7
 - Windows Phone 8
 
 
@@ -253,8 +257,7 @@ Supported Platforms
 
 - iOS
 - Android
-- Windows Phone 7 
+- Windows Phone 7
 - Windows Phone 8
 
 
-    
