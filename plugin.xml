@@ -35,7 +35,7 @@
     <js-module src="www/statusbar.js" name="statusbar">
         <clobbers target="window.StatusBar" />
     </js-module>
-    
+
     <platform name="android">
         <source-file src="src/android/StatusBar.java" target-dir="src/org/apache/cordova/statusbar" />
 
@@ -55,11 +55,12 @@
             </feature>
             <preference name="StatusBarOverlaysWebView" value="true" />
             <preference name="StatusBarBackgroundColor" value="#000000" />
+            <preference name="StatusBarStyle" value="lightcontent" />
         </config-file>
-        
+
         <header-file src="src/ios/CDVStatusBar.h" />
         <source-file src="src/ios/CDVStatusBar.m" />
-        
+
     </platform>
 
     <!-- wp7 -->
