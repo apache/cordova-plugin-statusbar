@@ -26,3 +26,11 @@
 * CB-6316: Moved StatusBar plugin documentation to docs folder
 * CB-6314: [android] Add StatusBar.isVisible support to Android
 * CB-6460: Update license headers
+
+### 0.1.6 (Jun 05, 2014)
+* CB-6783 - added StatusBarStyle config preference,  updated docs (closes #9)
+* CB-6812 Add license
+* CB-6491 add CONTRIBUTING.md
+* CB-6264 minor formatting issue
+* Update docs with recent WP changes, remove 'clear' from the loist of named colors in documentation
+* CB-6513 - Statusbar plugin for Android is not compiling
