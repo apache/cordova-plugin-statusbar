@@ -44,13 +44,20 @@ public class StatusBar extends CordovaPlugin {
      */
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-        Log.v(TAG, "StatusBar: initialization");
         super.initialize(cordova, webView);
 
-        // Clear flag FLAG_FORCE_NOT_FULLSCREEN which is set initially
-        // by the Cordova.
-        Window window = this.cordova.getActivity().getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+        Log.v(TAG, "StatusBar: initialization");
+        final Activity activity = this.cordova.getActivity();
+        final Window window = activity.getWindow();
+
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // Clear flag FLAG_FORCE_NOT_FULLSCREEN which is set initially
+                // by the Cordova.
+                window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+            }
+        });
     }
 
     /**
@@ -66,28 +73,31 @@ public class StatusBar extends CordovaPlugin {
         Log.v(TAG, "Executing action: " + action);
         final Activity activity = this.cordova.getActivity();
         final Window window = activity.getWindow();
+
         if ("_ready".equals(action)) {
             boolean statusBarVisible = (window.getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) == 0;
             callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, statusBarVisible));
         }
 
         if ("show".equals(action)) {
-            this.cordova.getActivity().runOnUiThread(new Runnable() {
+            activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 }
             });
+
             return true;
         }
 
         if ("hide".equals(action)) {
-            this.cordova.getActivity().runOnUiThread(new Runnable() {
+            activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 }
             });
+
             return true;
         }
 
