@@ -106,7 +106,6 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
     [self initializeStatusBarBackgroundView];
 
-    [self styleLightContent:nil]; // match default backgroundColor of #000000
     self.viewController.view.autoresizesSubviews = YES;
 
     NSString* setting;
@@ -130,6 +129,11 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     [self.viewController.view sendSubviewToBack:fakeScrollView]; // Send it to the very back of the view heirarchy
     fakeScrollView.contentSize = CGSizeMake(UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height * 2.0f); // Make the scroll view longer than the screen itself
     fakeScrollView.contentOffset = CGPointMake(0.0f, UIScreen.mainScreen.bounds.size.height); // Scroll down so a tap will take scroll view back to the top
+
+    setting  = @"StatusBarStyle";
+    if ([self settingForKey:setting]) {
+        [self setStatusBarStyle:[self settingForKey:setting]];
+    }
 }
 
 - (void) _ready:(CDVInvokedUrlCommand*)command
@@ -338,12 +342,10 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
             CGRect frame = self.webView.frame;
             frame.origin.y = 0;
 
-            if (!self.statusBarOverlaysWebView) {
-                if (UIDeviceOrientationIsLandscape(self.viewController.interfaceOrientation)) {
-                    frame.size.height += statusBarFrame.size.width;
-                } else {
-                    frame.size.height += statusBarFrame.size.height;
-                }
+            if (UIDeviceOrientationIsLandscape(self.viewController.interfaceOrientation)) {
+                frame.size.height += statusBarFrame.size.width;
+            } else {
+                frame.size.height += statusBarFrame.size.height;
             }
 
             self.webView.frame = frame;

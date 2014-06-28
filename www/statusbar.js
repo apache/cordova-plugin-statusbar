@@ -38,11 +38,6 @@ var namedColors = {
     "brown": "#A52A2A"
 };
 
-// prime it
-exec(function (res) {
-    StatusBar.isVisible = res;
-}, null, "StatusBar", "_ready", []);
-
 var StatusBar = {
 
     isVisible: true,
@@ -99,5 +94,10 @@ var StatusBar = {
     }
 
 };
+
+// prime it
+exec(function (res) {
+    StatusBar.isVisible = res;
+}, null, "StatusBar", "_ready", []);
 
 module.exports = StatusBar;
