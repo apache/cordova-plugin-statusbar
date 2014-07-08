@@ -70,6 +70,10 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 @end
 
 
+@interface CDVStatusBar () <
+    UIScrollViewDelegate>
+@end
+
 @implementation CDVStatusBar
 
 - (id)settingForKey:(NSString*)key
@@ -115,6 +119,16 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     if ([self settingForKey:setting]) {
         [self _backgroundColorByHexString:[self settingForKey:setting]];
     }
+
+    // blank scroll view to intercept status bar taps
+    self.webView.scrollView.scrollsToTop = NO;
+    UIScrollView *fakeScrollView = [[UIScrollView alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    fakeScrollView.delegate = self;
+    fakeScrollView.scrollsToTop = YES;
+    [self.viewController.view addSubview:fakeScrollView]; // Add scrollview to the view heirarchy so that it will begin accepting status bar taps
+    [self.viewController.view sendSubviewToBack:fakeScrollView]; // Send it to the very back of the view heirarchy
+    fakeScrollView.contentSize = CGSizeMake(UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height * 2.0f); // Make the scroll view longer than the screen itself
+    fakeScrollView.contentOffset = CGPointMake(0.0f, UIScreen.mainScreen.bounds.size.height); // Scroll down so a tap will take scroll view back to the top
 
     setting  = @"StatusBarStyle";
     if ([self settingForKey:setting]) {
@@ -409,5 +423,13 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     [[UIApplication sharedApplication] removeObserver:self forKeyPath:@"statusBarHidden"];
 }
 
+
+#pragma mark - UIScrollViewDelegate
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
+{
+    [self.webView stringByEvaluatingJavaScriptFromString:@"var evt = document.createEvent(\"Event\"); evt.initEvent(\"statusTap\",true,true); window.dispatchEvent(evt);"];
+    return NO;
+}
 
 @end
