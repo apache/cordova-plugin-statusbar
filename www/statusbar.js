@@ -97,7 +97,13 @@ var StatusBar = {
 
 // prime it
 exec(function (res) {
-    StatusBar.isVisible = res;
+    if (typeof res == 'object') {
+        if (res.type == 'tap') {
+            cordova.fireWindowEvent('statusTap');
+        }
+    } else {
+        StatusBar.isVisible = res;
+    }
 }, null, "StatusBar", "_ready", []);
 
 module.exports = StatusBar;

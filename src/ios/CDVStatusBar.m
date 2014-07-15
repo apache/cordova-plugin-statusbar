@@ -70,8 +70,9 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 @end
 
 
-@interface CDVStatusBar () <
-    UIScrollViewDelegate>
+@interface CDVStatusBar () <UIScrollViewDelegate>
+- (void)fireTappedEvent;
+- (void)updateIsVisible:(BOOL)visible;
 @end
 
 @implementation CDVStatusBar
@@ -85,9 +86,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 {
     if ([keyPath isEqual:@"statusBarHidden"]) {
         NSNumber* newValue = [change objectForKey:NSKeyValueChangeNewKey];
-        BOOL boolValue = [newValue boolValue];
-
-        [self.commandDelegate evalJs:[NSString stringWithFormat:@"StatusBar.isVisible = %@;", boolValue? @"false" : @"true" ]];
+        [self updateIsVisible:![newValue boolValue]];
     }
 }
 
@@ -136,10 +135,34 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     fakeScrollView.contentOffset = CGPointMake(0.0f, UIScreen.mainScreen.bounds.size.height); // Scroll down so a tap will take scroll view back to the top
 }
 
+- (void)onReset {
+    _eventsCallbackId = nil;
+}
+
+- (void)fireTappedEvent {
+    if (_eventsCallbackId == nil) {
+        return;
+    }
+    NSDictionary* payload = @{@"type": @"tap"};
+    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:payload];
+    [result setKeepCallbackAsBool:YES];
+    [self.commandDelegate sendPluginResult:result callbackId:_eventsCallbackId];
+}
+
+- (void)updateIsVisible:(BOOL)visible {
+    if (_eventsCallbackId == nil) {
+        return;
+    }
+    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:visible];
+    [result setKeepCallbackAsBool:YES];
+    [self.commandDelegate sendPluginResult:result callbackId:_eventsCallbackId];
+}
+
+
 - (void) _ready:(CDVInvokedUrlCommand*)command
 {
-    // set the initial value
-    [self.commandDelegate evalJs:[NSString stringWithFormat:@"StatusBar.isVisible = %@;", [UIApplication sharedApplication].statusBarHidden? @"false" : @"true" ]];
+    _eventsCallbackId = command.callbackId;
+    [self updateIsVisible:![UIApplication sharedApplication].statusBarHidden];
 }
 
 - (void) initializeStatusBarBackgroundView
@@ -429,7 +452,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
 {
-    [self.webView stringByEvaluatingJavaScriptFromString:@"var evt = document.createEvent(\"Event\"); evt.initEvent(\"statusTap\",true,true); window.dispatchEvent(evt);"];
+    [self fireTappedEvent];
     return NO;
 }
 
