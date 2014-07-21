@@ -71,13 +71,13 @@ var StatusBar = {
     },
 
     backgroundColorByHexString: function (hexString) {
-        if (hexString.indexOf("#") < 0) {
+        if (hexString.charAt(0) === "#") {
             hexString = "#" + hexString;
         }
 
-        if (hexString.length == 4) {
+        if (hexString.length === 4) {
             var split = hexString.split("");
-            hexString = "#" + hexString[1] + hexString[1] + hexString[2] + hexString[2] + hexString[3] + hexString[3];
+            hexString = "#" + split[1] + split[1] + split[2] + split[2] + split[3] + split[3];
         }
 
         exec(null, null, "StatusBar", "backgroundColorByHexString", [hexString]);
