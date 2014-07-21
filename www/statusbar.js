@@ -71,7 +71,7 @@ var StatusBar = {
     },
 
     backgroundColorByHexString: function (hexString) {
-        if (hexString.charAt(0) === "#") {
+        if (hexString.charAt(0) !== "#") {
             hexString = "#" + hexString;
         }
 
