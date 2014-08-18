@@ -64,11 +64,17 @@ exports.defineManualTests = function (contentEl, createActionButton) {
     contentEl.innerHTML = '<div id="info"></div>' +
         'Also: tapping bar on iOS should emit a log.' +
         '<div id="action-show"></div>' +
-        '<div id="action-hide"></div>' +
-        '<div id="action-color1"></div>' +
-        '<div id="action-color2"></div>' +
-        '<div id="action-color3"></div>' +
-        '<div id="action-overlays"></div>';
+        'Expected result: Status bar will be visible' +
+        '</p> <div id="action-hide"></div>' +
+        'Expected result: Status bar will be hidden' +
+        '</p> <div id="action-color2"></div>' +
+        'Expected result: Status bar text will be a light (white) color' +
+        '</p> <div id="action-color3"></div>' +
+        'Expected result: Status bar text will be a dark (black) color' +
+        '</p> <div id="action-overlays"></div>' +
+        'Expected result:<br>Overlay true = status bar will lay on top of web view content<br>Overlay false = status bar will be separate from web view and will not cover content' +
+        '</p> <div id="action-color1"></div>' +
+        'Expected result: If overlay false, background color for status bar will be red';
 
     log('StatusBar.isVisible=' + StatusBar.isVisible);
     window.addEventListener('statusTap', function () {
@@ -83,7 +89,7 @@ exports.defineManualTests = function (contentEl, createActionButton) {
         doHide();
     }, 'action-hide');
 
-    createActionButton("Style=red", function () {
+    createActionButton("Style=red (background)", function () {
         doColor1();
     }, 'action-color1');
 
