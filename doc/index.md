@@ -24,6 +24,10 @@ StatusBar
 > The `StatusBar` object provides some functions to customize the iOS and Android StatusBar.
 
 
+## Installation
+
+    cordova plugin add org.apache.cordova.statusbar
+
 Preferences
 -----------
 
