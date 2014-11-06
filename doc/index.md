@@ -16,7 +16,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-#org.apache.cordova.statusbar
+# org.apache.cordova.statusbar
 
 StatusBar
 ======
