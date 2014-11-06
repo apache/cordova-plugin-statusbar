@@ -61,6 +61,14 @@ Add/edit these two attributes if not present. Set **"Status bar is initially hid
 
 Methods
 -------
+This plugin defines global `StatusBar` object.
+
+Although in the global scope, it is not available until after the `deviceready` event.
+
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+        console.log(StatusBar);
+    }
 
 - StatusBar.overlaysWebView
 - StatusBar.styleDefault
