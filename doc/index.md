@@ -120,6 +120,7 @@ Supported Platforms
 - iOS
 - Windows Phone 7
 - Windows Phone 8
+- Windows Phone 8.1
 
 StatusBar.styleLightContent
 =================
@@ -135,6 +136,7 @@ Supported Platforms
 - iOS
 - Windows Phone 7
 - Windows Phone 8
+- Windows Phone 8.1
 
 StatusBar.styleBlackTranslucent
 =================
@@ -150,6 +152,7 @@ Supported Platforms
 - iOS
 - Windows Phone 7
 - Windows Phone 8
+- Windows Phone 8.1
 
 StatusBar.styleBlackOpaque
 =================
@@ -165,6 +168,7 @@ Supported Platforms
 - iOS
 - Windows Phone 7
 - Windows Phone 8
+- Windows Phone 8.1
 
 
 StatusBar.backgroundColorByName
@@ -185,6 +189,7 @@ Supported Platforms
 - iOS
 - Windows Phone 7
 - Windows Phone 8
+- Windows Phone 8.1
 
 StatusBar.backgroundColorByHexString
 =================
@@ -208,6 +213,7 @@ Supported Platforms
 - iOS
 - Windows Phone 7
 - Windows Phone 8
+- Windows Phone 8.1
 
 StatusBar.hide
 =================
@@ -224,6 +230,7 @@ Supported Platforms
 - Android
 - Windows Phone 7
 - Windows Phone 8
+- Windows Phone 8.1
 
 StatusBar.show
 =================
@@ -240,6 +247,7 @@ Supported Platforms
 - Android
 - Windows Phone 7
 - Windows Phone 8
+- Windows Phone 8.1
 
 
 StatusBar.isVisible
@@ -259,5 +267,6 @@ Supported Platforms
 - Android
 - Windows Phone 7
 - Windows Phone 8
+- Windows Phone 8.1
 
 

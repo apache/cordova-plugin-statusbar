@@ -21,6 +21,9 @@
 
 var exec = require('cordova/exec');
 
+// Needed for Windows Phone 8.1 as it is initialized after this module
+var StatusBar = StatusBar || require('org.apache.cordova.statusbar.StatusBar');
+
 var namedColors = {
     "black": "#000000",
     "darkGray": "#A9A9A9",
