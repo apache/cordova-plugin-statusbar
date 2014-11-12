@@ -84,7 +84,7 @@
 
     <!-- windows -->
     <platform name="windows">
-        <js-module src="src/windows/StatusBar.js" name="StatusBar">
+        <js-module src="src/windows/StatusBarProxy.js" name="StatusBarProxy">
             <runs />
         </js-module>
     </platform>
