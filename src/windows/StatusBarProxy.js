@@ -18,16 +18,17 @@
  * under the License.
  *
  */
-var statusBar = Windows.UI.ViewManagement.StatusBar.getForCurrentView();
+
+function getViewStatusBar() {
+    return Windows.UI.ViewManagement.StatusBar.getForCurrentView();
+}
 
 function darkForeground () {
-    // dark text ( to be used on a light background )
-    statusBar.foregroundColor = { a: 0, r: 0, g: 0, b: 0 };
+    
 }
 
 function lightForeground() {
-    // light text ( to be used on a dark background )
-    statusBar.foregroundColor = { a: 0, r: 255, g: 255, b: 255 };
+    
 }
 
 function hexToRgb(hex) {
@@ -45,7 +46,7 @@ function hexToRgb(hex) {
     } : null;
 }
 
-var StatusBar = {
+module.exports = {
     _ready: function(win, fail) {
         win(statusBar.occludedRect.height !== 0);
     },
@@ -55,36 +56,39 @@ var StatusBar = {
     },
 
     styleDefault: function () {
-        darkForeground();
+        // dark text ( to be used on a light background )
+        getViewStatusBar().foregroundColor = { a: 0, r: 0, g: 0, b: 0 };
     },
 
     styleLightContent: function () {
-        lightForeground();
+        // light text ( to be used on a dark background )
+        getViewStatusBar().foregroundColor = { a: 0, r: 255, g: 255, b: 255 };
     },
 
     styleBlackTranslucent: function () {
         // #88000000 ? Apple says to use lightContent instead
-        lightForeground();
+        return this.styleLightContent();
     },
 
     styleBlackOpaque: function () {
         // #FF000000 ? Apple says to use lightContent instead
-        lightForeground();
+        return this.styleLightContent();
     },
 
     backgroundColorByHexString: function (win, fail, args) {
         var rgb = hexToRgb(args[0]);
+        var statusBar = getViewStatusBar();
         statusBar.backgroundColor = { a: 0, r: rgb.r, g: rgb.g, b: rgb.b };
         statusBar.backgroundOpacity = 1;
     },
 
     show: function (win, fail) {
-        statusBar.showAsync().done(win, fail);
+        getViewStatusBar().showAsync().done(win, fail);
     },
 
     hide: function (win, fail) {
-        statusBar.hideAsync().done(win, fail);
+        getViewStatusBar().hideAsync().done(win, fail);
     }
 };
 
-require("cordova/exec/proxy").add("StatusBar", StatusBar);
+require("cordova/exec/proxy").add("StatusBar", module.exports);
