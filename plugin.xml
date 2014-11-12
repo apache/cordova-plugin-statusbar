@@ -82,4 +82,10 @@
         <source-file src="src/wp/StatusBar.cs" />
     </platform>
 
+    <!-- windows -->
+    <platform name="windows">
+        <js-module src="src/windows/StatusBar.js" name="StatusBar">
+            <runs />
+        </js-module>
+    </platform>
 </plugin>
