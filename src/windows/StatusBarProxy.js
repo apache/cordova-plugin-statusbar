@@ -19,16 +19,20 @@
  *
  */
 
+ var isSupported = true; // we assume
+
 function getViewStatusBar() {
-    return Windows.UI.ViewManagement.StatusBar.getForCurrentView();
-}
-
-function darkForeground () {
-    
-}
-
-function lightForeground() {
-    
+    if(isSupported) {
+        var ViewMan = Windows.UI.ViewManagement; // quick alias to save char
+        if( ViewMan.StatusBar && 
+            ViewMan.StatusBar.getForCurrentView ) {
+            return ViewMan.StatusBar.getForCurrentView();
+        }
+        else {
+            isSupported = false; // so we won't check again
+        }
+    }
+    return null;
 }
 
 function hexToRgb(hex) {
@@ -78,8 +82,10 @@ module.exports = {
     backgroundColorByHexString: function (win, fail, args) {
         var rgb = hexToRgb(args[0]);
         var statusBar = getViewStatusBar();
-        statusBar.backgroundColor = { a: 0, r: rgb.r, g: rgb.g, b: rgb.b };
-        statusBar.backgroundOpacity = 1;
+        if(statusBar) {
+            statusBar.backgroundColor = { a: 0, r: rgb.r, g: rgb.g, b: rgb.b };
+            statusBar.backgroundOpacity = 1;
+        }
     },
 
     show: function (win, fail) {
