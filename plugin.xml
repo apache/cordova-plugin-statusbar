@@ -41,7 +41,8 @@
 
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="StatusBar">
-                <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" onload="true" />
+                <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
+                <param name="onload" value="true" />
             </feature>
         </config-file>
     </platform>
@@ -51,7 +52,8 @@
 
         <config-file target="config.xml" parent="/*">
             <feature name="StatusBar">
-                <param name="ios-package" value="CDVStatusBar" onload="true" />
+                <param name="ios-package" value="CDVStatusBar" />
+                <param name="onload" value="true" />
             </feature>
             <preference name="StatusBarOverlaysWebView" value="true" />
             <preference name="StatusBarStyle" value="lightcontent" />
