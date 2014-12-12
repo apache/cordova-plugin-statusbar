@@ -161,7 +161,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
 - (void) _ready:(CDVInvokedUrlCommand*)command
 {
-    _eventsCallbackId = command.callbackId;
+    _eventsCallbackId = [command.callbackId retain];
     [self updateIsVisible:![UIApplication sharedApplication].statusBarHidden];
 }
 
