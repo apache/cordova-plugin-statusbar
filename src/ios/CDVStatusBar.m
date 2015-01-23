@@ -232,7 +232,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
 - (void) overlaysWebView:(CDVInvokedUrlCommand*)command
 {
-    id value = [command.arguments objectAtIndex:0];
+    id value = [command argumentAtIndex:0];
     if (!([value isKindOfClass:[NSNumber class]])) {
         value = [NSNumber numberWithBool:YES];
     }
@@ -301,7 +301,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
 - (void) backgroundColorByName:(CDVInvokedUrlCommand*)command
 {
-    id value = [command.arguments objectAtIndex:0];
+    id value = [command argumentAtIndex:0];
     if (!([value isKindOfClass:[NSString class]])) {
         value = @"black";
     }
@@ -325,7 +325,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
 - (void) backgroundColorByHexString:(CDVInvokedUrlCommand*)command
 {
-    NSString* value = [command.arguments objectAtIndex:0];
+    NSString* value = [command argumentAtIndex:0];
     if (!([value isKindOfClass:[NSString class]])) {
         value = @"#000000";
     }
