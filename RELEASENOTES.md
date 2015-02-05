@@ -63,3 +63,6 @@
 * CB-7549 - (Re-fix) `StatusBar` **iOS 8** Landscape issue (closes #15)
 * CB-7700 cordova-plugin-statusbar documentation translation: cordova-plugin-statusbar
 * CB-7571 Bump version of nested plugin to match parent plugin
+
+### 0.1.10 (Feb 04, 2015)
+* CB-8351 ios: Use argumentForIndex rather than NSArray extension
