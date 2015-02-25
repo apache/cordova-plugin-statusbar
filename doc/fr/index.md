@@ -23,6 +23,11 @@
 
 > Le `StatusBar` objet fournit quelques fonctions pour personnaliser les iOS et Android StatusBar.
 
+## Installation
+
+    cordova plugin add org.apache.cordova.statusbar
+    
+
 ## Préférences
 
 #### config.xml
@@ -55,6 +60,16 @@ Ajouter/modifier ces deux attributs si n'est pas présent. **"Barre d'État est 
     
 
 ## Méthodes
+
+Ce plugin définit objet `StatusBar` global.
+
+Bien que dans la portée globale, il n'est pas disponible jusqu'après la `deviceready` événement.
+
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+        console.log(StatusBar);
+    }
+    
 
 *   StatusBar.overlaysWebView
 *   StatusBar.styleDefault
@@ -90,11 +105,11 @@ Sur iOS 7, faire la statusbar superposition ou pas superposer le WebView.
 
 Sur iOS 7, la valeur false pour afficher la barre d'État comme iOS 6. Définissez la couleur de style et d'arrière-plan en fonction de l'utilisation des autres fonctions.
 
-## Plates-formes prises en charge
+## Plates-formes supportées
 
 *   iOS
 
-## Petit exemple
+## Exemple court
 
     StatusBar.overlaysWebView(true);
     StatusBar.overlaysWebView(false);
@@ -104,7 +119,7 @@ Sur iOS 7, la valeur false pour afficher la barre d'État comme iOS 6. Définiss
 
 Utilisez la barre de statut par défaut (texte sombre, pour les arrière-plans lumineux).
 
-    StatusBar.styleDefault() ;
+    StatusBar.styleDefault();
     
 
 ## Plates-formes prises en charge
@@ -112,6 +127,7 @@ Utilisez la barre de statut par défaut (texte sombre, pour les arrière-plans l
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleLightContent
 
@@ -125,6 +141,7 @@ Utilisez la barre d'État lightContent (texte clair, des arrière-plans sombres)
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleBlackTranslucent
 
@@ -138,6 +155,7 @@ Utilisez la barre d'État blackTranslucent (texte clair, des arrière-plans somb
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleBlackOpaque
 
@@ -151,6 +169,7 @@ Utilisez la barre d'État blackOpaque (texte clair, des arrière-plans sombres).
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.backgroundColorByName
 
@@ -169,6 +188,7 @@ Les noms de couleurs prises en charge sont :
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.backgroundColorByHexString
 
@@ -192,6 +212,7 @@ Sur WP7 et WP8, vous pouvez également spécifier des valeurs comme #AARRGGBB, o
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.hide
 
@@ -206,6 +227,7 @@ Masquer la barre d'État.
 *   Android
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.show
 
@@ -220,6 +242,7 @@ Affiche la barre d'État.
 *   Android
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.isVisible
 
@@ -230,9 +253,10 @@ Lire cette propriété afin de voir si la barre d'État est visible ou non.
     }
     
 
-## Plates-formes prises en charge
+## Plates-formes supportées
 
 *   iOS
 *   Android
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1

@@ -23,6 +23,11 @@
 
 > `StatusBar`Obiekt zawiera kilka funkcji, aby dostosować iOS i Android StatusBar.
 
+## Instalacja
+
+    cordova plugin add org.apache.cordova.statusbar
+    
+
 ## Preferencje
 
 #### config.xml
@@ -55,6 +60,16 @@ Dodawanie/edycja tych dwóch atrybutów jeśli nie obecny. Ustawianie **"pasek s
     
 
 ## Metody
+
+Ten plugin definiuje obiekt globalny `StatusBar`.
+
+Chociaż w globalnym zasięgu, to nie dostępne dopiero po `deviceready` imprezie.
+
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+        console.log(StatusBar);
+    }
+    
 
 *   StatusBar.overlaysWebView
 *   StatusBar.styleDefault
@@ -112,6 +127,7 @@ Użyj domyślnego stanu (ciemny tekst, teł światła).
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleLightContent
 
@@ -125,6 +141,7 @@ Użyj lightContent stanu (światło tekst, ciemne tło).
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleBlackTranslucent
 
@@ -138,6 +155,7 @@ Użyj blackTranslucent stanu (światło tekst, ciemne tło).
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleBlackOpaque
 
@@ -151,6 +169,7 @@ Użyj blackOpaque stanu (światło tekst, ciemne tło).
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.backgroundColorByName
 
@@ -169,6 +188,7 @@ Nazwy kolorów obsługiwane są:
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.backgroundColorByHexString
 
@@ -192,6 +212,7 @@ Na WP7 i WP8 można również określić wartości jako #AARRGGBB, gdzie AA jest
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.hide
 
@@ -206,6 +227,7 @@ Ukryj pasek stanu.
 *   Android
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.show
 
@@ -220,6 +242,7 @@ Pokazuje pasek stanu.
 *   Android
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.isVisible
 
@@ -236,3 +259,4 @@ Czytać tej właściwość, aby sprawdzić, czy stanu jest widoczne lub nie.
 *   Android
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1

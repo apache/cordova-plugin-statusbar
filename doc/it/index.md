@@ -23,6 +23,11 @@
 
 > Il `StatusBar` oggetto fornisce alcune funzioni per personalizzare l'iOS e Android StatusBar.
 
+## Installazione
+
+    cordova plugin add org.apache.cordova.statusbar
+    
+
 ## Preferenze
 
 #### config.xml
@@ -55,6 +60,16 @@ Aggiungere o modificare questi due attributi, se non presente. Impostare la **"b
     
 
 ## Metodi
+
+Questo plugin definisce globale oggetto `StatusBar`.
+
+Anche se in ambito globale, non è disponibile fino a dopo l'evento `deviceready`.
+
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+        console.log(StatusBar);
+    }
+    
 
 *   StatusBar.overlaysWebView
 *   StatusBar.styleDefault
@@ -112,6 +127,7 @@ Utilizzare la barra di stato predefinito (testo scuro, per sfondi di luce).
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleLightContent
 
@@ -125,6 +141,7 @@ Utilizzare la barra di stato lightContent (testo in chiaro, per sfondi scuri).
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleBlackTranslucent
 
@@ -138,6 +155,7 @@ Utilizzare la barra di stato blackTranslucent (testo in chiaro, per sfondi scuri
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleBlackOpaque
 
@@ -151,6 +169,7 @@ Utilizzare la barra di stato blackOpaque (testo in chiaro, per sfondi scuri).
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.backgroundColorByName
 
@@ -169,6 +188,7 @@ Nomi di colore supportati sono:
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.backgroundColorByHexString
 
@@ -192,6 +212,7 @@ Su WP7 e WP8 è inoltre possibile specificare i valori come #AARRGGBB, dove AA �
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.hide
 
@@ -206,6 +227,7 @@ Nascondere la barra di stato.
 *   Android
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.show
 
@@ -220,6 +242,7 @@ Mostra la barra di stato.
 *   Android
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.isVisible
 
@@ -236,3 +259,4 @@ Leggere questa proprietà per vedere se la barra di stato è visibile o no.
 *   Android
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1

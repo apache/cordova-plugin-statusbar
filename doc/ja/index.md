@@ -23,6 +23,11 @@
 
 > `StatusBar`オブジェクトは、iOS と Android ステータス バーをカスタマイズするいくつかの機能を提供します。
 
+## インストール
+
+    cordova plugin add org.apache.cordova.statusbar
+    
+
 ## 基本設定
 
 #### config.xml
@@ -56,6 +61,16 @@
 
 ## メソッド
 
+このプラグインでは、グローバル `StatusBar` オブジェクトを定義します。
+
+グローバル スコープではあるがそれがないまで `deviceready` イベントの後です。
+
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+        console.log(StatusBar);
+    }
+    
+
 *   StatusBar.overlaysWebView
 *   StatusBar.styleDefault
 *   StatusBar.styleLightContent
@@ -86,7 +101,7 @@ IOS 7、statusbar オーバーレイまたはない WebView をオーバーレ�
     StatusBar.overlaysWebView(true);
     
 
-## 説明
+## 解説
 
 IOS 7、iOS の 6 のように表示されるステータスバーを false に設定します。他の関数の使用に合わせてスタイルや背景色を設定します。
 
@@ -112,6 +127,7 @@ IOS 7、iOS の 6 のように表示されるステータスバーを false に�
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleLightContent
 
@@ -125,6 +141,7 @@ LightContent ステータスバー (暗い背景の明るいテキスト） を�
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleBlackTranslucent
 
@@ -138,6 +155,7 @@ BlackTranslucent ステータスバー (暗い背景の明るいテキスト） 
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleBlackOpaque
 
@@ -151,6 +169,7 @@ BlackOpaque ステータスバー (暗い背景の明るいテキスト） を�
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.backgroundColorByName
 
@@ -169,6 +188,7 @@ Ios 7、StatusBar.statusBarOverlaysWebView を false に設定する場合はス
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.backgroundColorByHexString
 
@@ -192,6 +212,7 @@ WP7 と WP8 も指定できます値 #AARRGGBB, AA は、アルファ値とし�
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.hide
 
@@ -206,6 +227,7 @@ WP7 と WP8 も指定できます値 #AARRGGBB, AA は、アルファ値とし�
 *   アンドロイド
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.show
 
@@ -220,6 +242,7 @@ WP7 と WP8 も指定できます値 #AARRGGBB, AA は、アルファ値とし�
 *   アンドロイド
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.isVisible
 
@@ -236,3 +259,4 @@ WP7 と WP8 も指定できます値 #AARRGGBB, AA は、アルファ値とし�
 *   アンドロイド
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1

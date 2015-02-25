@@ -23,6 +23,11 @@
 
 > El `StatusBar` objeto proporciona algunas funciones para personalizar el iOS y Android StatusBar.
 
+## Instalación
+
+    Cordova plugin agregar org.apache.cordova.statusbar
+    
+
 ## Preferencias
 
 #### config.xml
@@ -48,13 +53,18 @@ Durante el tiempo de ejecución puede utilizar la función StatusBar.hide abajo,
 
 Agregar/editar estos dos atributos si no está presente. Defina **"inicialmente se esconde la barra de estado"** a **"YES"** y **"Aparición de vista basado en controlador estatus bar"** a **"NO"**. Si se edita manualmente sin Xcode, las claves y valores son:
 
-    <key>UIStatusBarHidden</key>
-    <true/>
-    <key>UIViewControllerBasedStatusBarAppearance</key>
-    <false/>
+    < llave > UIStatusBarHidden < / key >< verdadero / >< llave > UIViewControllerBasedStatusBarAppearance < / key >< falso / >
     
 
 ## Métodos
+
+Este plugin define global `StatusBar` objeto.
+
+Aunque en el ámbito global, no estará disponible hasta después de la `deviceready` evento.
+
+    document.addEventListener ("deviceready", onDeviceReady, false);
+    function onDeviceReady() {console.log(StatusBar)};
+    
 
 *   StatusBar.overlaysWebView
 *   StatusBar.styleDefault
@@ -74,9 +84,7 @@ Agregar/editar estos dos atributos si no está presente. Defina **"inicialmente 
 
 #### config.xml
 
-            <feature name="StatusBar">
-                <param name="ios-package" value="CDVStatusBar" onload="true" />
-            </feature>
+            < nombre de la función = "StatusBar" >< nombre param = "ios-paquete" value = "CDVStatusBar" onload = "true" / >< / característica >
     
 
 # StatusBar.overlaysWebView
@@ -112,6 +120,7 @@ Utilice la barra de estado por defecto (texto oscuro, para fondos de luz).
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleLightContent
 
@@ -125,6 +134,7 @@ Utilice la barra de estado lightContent (texto ligero, para fondos oscuros).
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleBlackTranslucent
 
@@ -138,6 +148,7 @@ Utilice la barra de estado blackTranslucent (texto ligero, para fondos oscuros).
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleBlackOpaque
 
@@ -151,6 +162,7 @@ Utilice la barra de estado blackOpaque (texto ligero, para fondos oscuros).
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.backgroundColorByName
 
@@ -161,7 +173,7 @@ En iOS 7, al establecer StatusBar.statusBarOverlaysWebView a false, se puede est
 
 Nombres de los colores admitidos son:
 
-    black, darkGray, lightGray, white, gray, red, green, blue, cyan, yellow, magenta, orange, purple, brown
+    negro, gris oscuro, lightGray, blanco, gris, rojo, verde, azul, cian, amarillo, magenta, naranja, púrpura, marrón
     
 
 ## Plataformas soportadas
@@ -169,6 +181,7 @@ Nombres de los colores admitidos son:
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.backgroundColorByHexString
 
@@ -179,8 +192,7 @@ Establece el color de fondo de la barra de estado por una cadena hexadecimal.
 
 Propiedades CSS abreviada también son compatibles.
 
-    StatusBar.backgroundColorByHexString("#333"); // => #333333
-    StatusBar.backgroundColorByHexString("#FAB"); // => #FFAABB
+    StatusBar.backgroundColorByHexString("#333"); = > StatusBar.backgroundColorByHexString("#FAB") #333333; = > #FFAABB
     
 
 En iOS 7, cuando se establece StatusBar.statusBarOverlaysWebView en false, se puede establecer el color de fondo de la barra de estado una cadena hexadecimal (#RRGGBB).
@@ -192,6 +204,7 @@ En WP7 y WP8 también puede especificar valores como #AARRGGBB, donde AA es un v
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.hide
 
@@ -206,6 +219,7 @@ Ocultar la barra de estado.
 *   Android
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.show
 
@@ -220,14 +234,13 @@ Muestra la barra de estado.
 *   Android
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.isVisible
 
 Lea esta propiedad para ver si la barra de estado es visible o no.
 
-    if (StatusBar.isVisible) {
-        // do something
-    }
+    Si (StatusBar.isVisible) {/ / hacer algo}
     
 
 ## Plataformas soportadas
@@ -236,3 +249,4 @@ Lea esta propiedad para ver si la barra de estado es visible o no.
 *   Android
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
