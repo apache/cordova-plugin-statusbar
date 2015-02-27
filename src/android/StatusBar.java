@@ -56,7 +56,9 @@ public class StatusBar extends CordovaPlugin {
                 // by the Cordova.
                 Window window = cordova.getActivity().getWindow();
                 window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
-                setStatusBarBackgroundColor();
+
+                // Read 'AndroidStatusBarBackgroundColor' from config.xml. We expect a hex string like #999999.
+                setStatusBarBackgroundColor(preferences.getString("AndroidStatusBarBackgroundColor", null));
             }
         });
     }
@@ -70,7 +72,7 @@ public class StatusBar extends CordovaPlugin {
      * @return                  True if the action was valid, false otherwise.
      */
     @Override
-    public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
+    public boolean execute(final String action, final CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
         Log.v(TAG, "Executing action: " + action);
         final Activity activity = this.cordova.getActivity();
         final Window window = activity.getWindow();
@@ -99,16 +101,26 @@ public class StatusBar extends CordovaPlugin {
             return true;
         }
 
+        if ("backgroundColorByHexString".equals(action)) {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        setStatusBarBackgroundColor(args.getString(0));
+                    } catch (JSONException ignore) {
+                        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "Invalid hexString argument, use '#RRGGBB'"));
+                    }
+                }
+            });
+            return true;
+        }
+
         return false;
     }
 
-    /**
-     * Read 'AndroidStatusBarBackgroundColor' from config.xml. We expect a hex #RRGGBB string.
-     */
-    private void setStatusBarBackgroundColor() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            final String colorPref = preferences.getString("AndroidStatusBarBackgroundColor", null);
-            if (colorPref != null) {
+    private void setStatusBarBackgroundColor(final String colorPref) {
+        if (colorPref != null && !colorPref.isEmpty()) {
+            if (Build.VERSION.SDK_INT >= 21) {
                 final Window window = cordova.getActivity().getWindow();
                 // Method and constants not available on all SDKs but we want to be able to compile this code with any SDK
                 window.clearFlags(0x04000000); // SDK 19: WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

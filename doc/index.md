@@ -203,6 +203,7 @@ Supported Platforms
 -------------------
 
 - iOS
+- Android 5+
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
@@ -227,6 +228,7 @@ Supported Platforms
 -------------------
 
 - iOS
+- Android 5+
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
