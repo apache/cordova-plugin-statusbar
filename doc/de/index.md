@@ -23,6 +23,11 @@
 
 > Das `StatusBar` Objekt stellt einige Funktionen zum Anpassen des iOS und Android StatusBar.
 
+## Installation
+
+    cordova plugin add org.apache.cordova.statusbar
+    
+
 ## "Einstellungen"
 
 #### config.xml
@@ -55,6 +60,16 @@ Diese beiden Attribute hinzufügen/bearbeiten, wenn nicht vorhanden. Legen Sie *
     
 
 ## Methoden
+
+Dieses Plugin wird globales `StatusBar`-Objekt definiert.
+
+Obwohl im globalen Gültigkeitsbereich, steht es nicht bis nach dem `deviceready`-Ereignis.
+
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+        console.log(StatusBar);
+    }
+    
 
 *   StatusBar.overlaysWebView
 *   StatusBar.styleDefault
@@ -112,6 +127,7 @@ Verwenden Sie die Standard-Statusbar (dunkle Text, für helle Hintergründe).
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone-8.1
 
 # StatusBar.styleLightContent
 
@@ -125,6 +141,7 @@ Verwenden Sie die LightContent-Statusbar (heller Text, für dunkle Hintergründe
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone-8.1
 
 # StatusBar.styleBlackTranslucent
 
@@ -138,6 +155,7 @@ Verwenden Sie die BlackTranslucent-Statusbar (heller Text, für dunkle Hintergr�
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone-8.1
 
 # StatusBar.styleBlackOpaque
 
@@ -151,6 +169,7 @@ Verwenden Sie die BlackOpaque-Statusbar (heller Text, für dunkle Hintergründe)
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone-8.1
 
 # StatusBar.backgroundColorByName
 
@@ -169,6 +188,7 @@ Unterstützte Farbnamen sind:
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone-8.1
 
 # StatusBar.backgroundColorByHexString
 
@@ -192,6 +212,7 @@ Auf WP7 und WP8 können Sie auch Werte wie #AARRGGBB, angeben wo AA einen alpha-
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone-8.1
 
 # StatusBar.hide
 
@@ -206,6 +227,7 @@ Ausblenden der Statusleiste.
 *   Android
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone-8.1
 
 # StatusBar.show
 
@@ -220,6 +242,7 @@ Zeigt die Statusleiste.
 *   Android
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone-8.1
 
 # StatusBar.isVisible
 
@@ -236,3 +259,4 @@ Lesen Sie diese Eigenschaft, um festzustellen, ob die Statusbar sichtbar oder ni
 *   Android
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone-8.1

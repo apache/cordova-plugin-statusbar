@@ -23,6 +23,11 @@
 
 > `StatusBar`개체 iOS와 안 드 로이드 상태 표시줄을 사용자 지정 하려면 몇 가지 기능을 제공 합니다.
 
+## 설치
+
+    cordova plugin add org.apache.cordova.statusbar
+    
+
 ## 환경 설정
 
 #### config.xml
@@ -55,6 +60,16 @@
     
 
 ## 메서드
+
+이 플러그인 글로벌 `StatusBar` 개체를 정의합니다.
+
+전역 범위에 있지만 그것은 불가능까지 `deviceready` 이벤트 후.
+
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+        console.log(StatusBar);
+    }
+    
 
 *   StatusBar.overlaysWebView
 *   StatusBar.styleDefault
@@ -112,6 +127,7 @@ IOS 7, 오버레이 또는 하지 WebView 중첩 상태 표시줄을 확인 합�
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleLightContent
 
@@ -125,6 +141,7 @@ LightContent 상태 표시줄 (어두운 배경에 대 한 가벼운 텍스트)�
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleBlackTranslucent
 
@@ -138,6 +155,7 @@ BlackTranslucent 상태 표시줄 (어두운 배경에 대 한 가벼운 텍스�
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleBlackOpaque
 
@@ -151,6 +169,7 @@ BlackOpaque 상태 표시줄 (어두운 배경에 대 한 가벼운 텍스트)�
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.backgroundColorByName
 
@@ -169,6 +188,7 @@ Ios 7, StatusBar.statusBarOverlaysWebView을 false로 설정 하면 설정할 �
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.backgroundColorByHexString
 
@@ -192,6 +212,7 @@ WP7 및 WP8에 당신은 또한 #AARRGGBB, AA는 알파 값으로 값을 지정�
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.hide
 
@@ -206,6 +227,7 @@ WP7 및 WP8에 당신은 또한 #AARRGGBB, AA는 알파 값으로 값을 지정�
 *   안 드 로이드
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.show
 
@@ -220,6 +242,7 @@ WP7 및 WP8에 당신은 또한 #AARRGGBB, AA는 알파 값으로 값을 지정�
 *   안 드 로이드
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.isVisible
 
@@ -236,3 +259,4 @@ WP7 및 WP8에 당신은 또한 #AARRGGBB, AA는 알파 값으로 값을 지정�
 *   안 드 로이드
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1

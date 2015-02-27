@@ -23,6 +23,11 @@
 
 > `StatusBar`物件提供了一些功能，自訂的 iOS 和 Android 狀態列。
 
+## 安裝
+
+    cordova plugin add org.apache.cordova.statusbar
+    
+
 ## 首選項
 
 #### config.xml
@@ -56,6 +61,16 @@
 
 ## 方法
 
+這個外掛程式定義全域 `StatusBar` 物件。
+
+雖然在全球範圍內，它不可用直到 `deviceready` 事件之後。
+
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+        console.log(StatusBar);
+    }
+    
+
 *   StatusBar.overlaysWebView
 *   StatusBar.styleDefault
 *   StatusBar.styleLightContent
@@ -86,9 +101,9 @@
     StatusBar.overlaysWebView(true);
     
 
-## 描述
+## 說明
 
-在 iOS 7，設置為 false，使狀態列出現像 iOS 6。設置的樣式和背景的顏色，以適應使用其他函數。
+在 iOS 7，設置為 false，使狀態列出現像 iOS 6。設置樣式和背景顏色，適合使用其他函數。
 
 ## 支援的平臺
 
@@ -104,7 +119,7 @@
 
 使用預設狀態列 （淺色背景深色文本）。
 
-    StatusBar.styleDefault() ；
+    StatusBar.styleDefault();
     
 
 ## 支援的平臺
@@ -112,10 +127,11 @@
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleLightContent
 
-使用 lightContent 狀態列 （光文本，為深色的背景）。
+使用 lightContent 狀態列 （深色背景光文本）。
 
     StatusBar.styleLightContent();
     
@@ -125,10 +141,11 @@
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleBlackTranslucent
 
-使用 blackTranslucent 狀態列 （光文本，為深色的背景）。
+使用 blackTranslucent 狀態列 （深色背景光文本）。
 
     StatusBar.styleBlackTranslucent();
     
@@ -138,10 +155,11 @@
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.styleBlackOpaque
 
-使用 blackOpaque 狀態列 （光文本，為深色的背景）。
+使用 blackOpaque 狀態列 （深色背景光文本）。
 
     StatusBar.styleBlackOpaque();
     
@@ -151,10 +169,11 @@
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.backgroundColorByName
 
-在 iOS 7，當你將 StatusBar.statusBarOverlaysWebView 設置為 false，你可以設置狀態列的背景顏色由顏色名稱。
+在 iOS 7，當您將 StatusBar.statusBarOverlaysWebView 設置為 false，你可以設置狀態列的背景色的顏色名稱。
 
     StatusBar.backgroundColorByName("red");
     
@@ -169,6 +188,7 @@
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.backgroundColorByHexString
 
@@ -183,7 +203,7 @@
     StatusBar.backgroundColorByHexString("#FAB"); // => #FFAABB
     
 
-在 iOS 7，當你將 StatusBar.statusBarOverlaysWebView 設置為 false，你可以設置狀態列的背景顏色由十六進位字串 （#RRGGBB）。
+在 iOS 7，當將 StatusBar.statusBarOverlaysWebView 設置為 false，您可以設置狀態列的背景色由十六進位字串 （#RRGGBB）。
 
 WP7 和 WP8 您還可以指定值為 #AARRGGBB，其中 AA 是 Alpha 值
 
@@ -192,6 +212,7 @@ WP7 和 WP8 您還可以指定值為 #AARRGGBB，其中 AA 是 Alpha 值
 *   iOS
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.hide
 
@@ -206,6 +227,7 @@ WP7 和 WP8 您還可以指定值為 #AARRGGBB，其中 AA 是 Alpha 值
 *   安卓系統
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.show
 
@@ -220,10 +242,11 @@ WP7 和 WP8 您還可以指定值為 #AARRGGBB，其中 AA 是 Alpha 值
 *   安卓系統
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
 
 # StatusBar.isVisible
 
-讀取此屬性，以看看是否狀態列是可見的或不。
+讀取此屬性，以查看狀態列是否可見。
 
     if (StatusBar.isVisible) {
         // do something
@@ -236,3 +259,4 @@ WP7 和 WP8 您還可以指定值為 #AARRGGBB，其中 AA 是 Alpha 值
 *   安卓系統
 *   Windows Phone 7
 *   Windows Phone 8
+*   Windows Phone 8.1
