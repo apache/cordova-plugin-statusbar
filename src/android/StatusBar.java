@@ -20,6 +20,8 @@
 package org.apache.cordova.statusbar;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.os.Build;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -54,6 +56,7 @@ public class StatusBar extends CordovaPlugin {
                 // by the Cordova.
                 Window window = cordova.getActivity().getWindow();
                 window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+                setStatusBarBackgroundColor();
             }
         });
     }
@@ -97,5 +100,27 @@ public class StatusBar extends CordovaPlugin {
         }
 
         return false;
+    }
+
+    /**
+     * Read 'AndroidStatusBarBackgroundColor' from config.xml. We expect a hex #RRGGBB string.
+     */
+    private void setStatusBarBackgroundColor() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            final String colorPref = preferences.getString("AndroidStatusBarBackgroundColor", null);
+            if (colorPref != null) {
+                final Window window = cordova.getActivity().getWindow();
+                // Method and constants not available on all SDKs but we want to be able to compile this code with any SDK
+                window.clearFlags(0x04000000); // SDK 19: WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                window.addFlags(0x80000000); // SDK 21: WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                try {
+                    // Using reflection makes sure any 5.0+ device will work without having to compile with SDK level 21
+                    window.getClass().getDeclaredMethod("setStatusBarColor", int.class).invoke(window, Color.parseColor(colorPref));
+                } catch (Exception ignore) {
+                    // this should not happen, only in case Android removes this method in a version > 21
+                    Log.w(TAG, "Method window.setStatusBarColor not found for SDK level " + Build.VERSION.SDK_INT);
+                }
+            }
+        }
     }
 }

@@ -41,6 +41,10 @@ Preferences
 
         <preference name="StatusBarBackgroundColor" value="#000000" />
 
+- __AndroidStatusBarBackgroundColor__ (color hex string, defaults to the Android theme default). On Android 5 and up, the background color can be set by a hex string (#RRGGBB) at startup. We don't use the same property as for iOS because on iOS you typically want the statusbar to have the same color as the app background, but the Android 5+ guidelines specify using a different color than you apps main color, so the value of this property is typically different than the one specified by StatusBarBackgroundColor.
+
+        <preference name="AndroidStatusBarBackgroundColor" value="#000000" />
+
 - __StatusBarStyle__ (status bar style, defaults to lightcontent). On iOS 7, set the status bar style. Available options default, lightcontent, blacktranslucent, blackopaque.
 
         <preference name="StatusBarStyle" value="lightcontent" />
