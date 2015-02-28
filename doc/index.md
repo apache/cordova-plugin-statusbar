@@ -37,17 +37,21 @@ Preferences
 
         <preference name="StatusBarOverlaysWebView" value="true" />
 
-- __StatusBarBackgroundColor__ (color hex string, defaults to #000000). On iOS 7, set the background color of the statusbar by a hex string (#RRGGBB) at startup.
+- __StatusBarBackgroundColor__ (color hex string, defaults to #000000). On iOS 7 and Android 5, set the background color of the statusbar by a hex string (#RRGGBB) at startup.
 
         <preference name="StatusBarBackgroundColor" value="#000000" />
-
-- __AndroidStatusBarBackgroundColor__ (color hex string, defaults to the Android theme default). On Android 5 and up, the background color can be set by a hex string (#RRGGBB) at startup. We don't use the same property as for iOS because on iOS you typically want the statusbar to have the same color as the app background, but the Android 5+ guidelines specify using a different color than you apps main color, so the value of this property is typically different than the one specified by StatusBarBackgroundColor.
-
-        <preference name="AndroidStatusBarBackgroundColor" value="#000000" />
 
 - __StatusBarStyle__ (status bar style, defaults to lightcontent). On iOS 7, set the status bar style. Available options default, lightcontent, blacktranslucent, blackopaque.
 
         <preference name="StatusBarStyle" value="lightcontent" />
+
+### Android Quirks
+The Android 5+ guidelines specify using a different color for the statusbar than your main app color (unlike the uniform statusbar color of many iOS 7+ apps), so you may want to set the statusbar color at runtime instead via `StatusBar.backgroundColorByHexString` or `StatusBar.backgroundColorByName`. One way to do that would be:
+```js
+if (cordova.platformId == 'android') {
+    StatusBar.backgroundColorByHexString("#333");
+}
+```
 
 Hiding at startup
 -----------

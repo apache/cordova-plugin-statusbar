@@ -57,8 +57,8 @@ public class StatusBar extends CordovaPlugin {
                 Window window = cordova.getActivity().getWindow();
                 window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 
-                // Read 'AndroidStatusBarBackgroundColor' from config.xml. We expect a hex string like #999999.
-                setStatusBarBackgroundColor(preferences.getString("AndroidStatusBarBackgroundColor", null));
+                // Read 'StatusBarBackgroundColor' from config.xml, default is #000000.
+                setStatusBarBackgroundColor(preferences.getString("StatusBarBackgroundColor", "#000000"));
             }
         });
     }
@@ -108,7 +108,7 @@ public class StatusBar extends CordovaPlugin {
                     try {
                         setStatusBarBackgroundColor(args.getString(0));
                     } catch (JSONException ignore) {
-                        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "Invalid hexString argument, use '#RRGGBB'"));
+                        Log.e(TAG, "Invalid hexString argument, use f.i. '#777777'");
                     }
                 }
             });
@@ -119,8 +119,8 @@ public class StatusBar extends CordovaPlugin {
     }
 
     private void setStatusBarBackgroundColor(final String colorPref) {
-        if (colorPref != null && !colorPref.isEmpty()) {
-            if (Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            if (colorPref != null && !colorPref.isEmpty()) {
                 final Window window = cordova.getActivity().getWindow();
                 // Method and constants not available on all SDKs but we want to be able to compile this code with any SDK
                 window.clearFlags(0x04000000); // SDK 19: WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -128,6 +128,8 @@ public class StatusBar extends CordovaPlugin {
                 try {
                     // Using reflection makes sure any 5.0+ device will work without having to compile with SDK level 21
                     window.getClass().getDeclaredMethod("setStatusBarColor", int.class).invoke(window, Color.parseColor(colorPref));
+                } catch (IllegalArgumentException ignore) {
+                    Log.e(TAG, "Invalid hexString argument, use f.i. '#999999'");
                 } catch (Exception ignore) {
                     // this should not happen, only in case Android removes this method in a version > 21
                     Log.w(TAG, "Method window.setStatusBarColor not found for SDK level " + Build.VERSION.SDK_INT);
