@@ -19,4 +19,6 @@
 
 # org.apache.cordova.statusbar
 
+[![Build Status](https://travis-ci.org/apache/cordova-plugin-statusbar.svg)](https://travis-ci.org/apache/cordova-plugin-statusbar)
+
 Plugin documentation: [doc/index.md](doc/index.md)
