@@ -17,7 +17,7 @@
     under the License.
 -->
 
-# org.apache.cordova.statusbar
+# cordova-plugin-statusbar
 
 # StatusBar
 
@@ -25,7 +25,7 @@
 
 ## Installation
 
-    cordova plugin add org.apache.cordova.statusbar
+    cordova plugin add cordova-plugin-statusbar
     
 
 ## Préférences

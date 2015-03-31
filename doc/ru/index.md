@@ -17,7 +17,7 @@
     under the License.
 -->
 
-# org.apache.cordova.statusbar
+# cordova-plugin-statusbar
 
 # StatusBar
 

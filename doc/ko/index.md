@@ -17,7 +17,7 @@
     under the License.
 -->
 
-# org.apache.cordova.statusbar
+# cordova-plugin-statusbar
 
 # StatusBar
 
@@ -25,7 +25,7 @@
 
 ## 설치
 
-    cordova plugin add org.apache.cordova.statusbar
+    cordova plugin add cordova-plugin-statusbar
     
 
 ## 환경 설정
