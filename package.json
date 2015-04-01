@@ -3,7 +3,7 @@
   "version": "0.1.11-dev",
   "description": "Cordova StatusBar Plugin",
   "cordova": {
-    "id": "cordova-plugin-statusbar",
+    "id": "org.apache.cordova.statusbar",
     "platforms": [
       "android",
       "ios",
