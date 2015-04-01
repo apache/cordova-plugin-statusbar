@@ -21,7 +21,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="org.apache.cordova.statusbar"
+    id="cordova-plugin-statusbar"
     version="0.1.11-dev">
     <name>StatusBar</name>
     <description>Cordova StatusBar Plugin</description>
