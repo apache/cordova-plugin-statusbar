@@ -66,3 +66,17 @@
 
 ### 0.1.10 (Feb 04, 2015)
 * CB-8351 ios: Use argumentForIndex rather than NSArray extension
+
+### 1.0.0 (Apr 15, 2015)
+* CB-8746 gave plugin major version bump
+* CB-8683 changed plugin-id to pacakge-name
+* CB-8653 properly updated translated docs to use new id
+* CB-8653 updated translated docs to use new id
+* Use TRAVIS_BUILD_DIR, install paramedic by npm
+* CB-8653 Updated Readme
+* - Use StatusBarBackgroundColor instead of AndroidStatusBarBackgroundColor, and added a quirk to the readme.
+* - Add support for StatusBar.backgroundColorByHexString (and StatusBar.backgroundColorByName) on Android 5 and up
+* Allow setting the statusbar backgroundcolor on Android
+* CB-8575 Integrate TravisCI
+* CB-8438 cordova-plugin-statusbar documentation translation: cordova-plugin-statusbar
+* CB-8538 Added package.json file
