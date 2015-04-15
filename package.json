@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-statusbar",
-  "version": "1.0.0-dev",
+  "version": "1.0.0",
   "description": "Cordova StatusBar Plugin",
   "cordova": {
     "id": "cordova-plugin-statusbar",
