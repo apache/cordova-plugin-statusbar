@@ -1,4 +1,3 @@
-/*
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -19,20 +18,22 @@
  *
  */
 
- var isSupported = true; // we assume
+ var _supported = null; // set to null so we can check first time
+
+ function isSupported() {
+	// if not checked before, run check
+    if (_supported == null) {
+        var ViewMan = Windows.UI.ViewManagement; // quick alias to save char
+        _supported = (ViewMan.StatusBar && ViewMan.StatusBar.getForCurrentView)
+    }
+    return _supported;
+ }
 
 function getViewStatusBar() {
-    if(isSupported) {
-        var ViewMan = Windows.UI.ViewManagement; // quick alias to save char
-        if( ViewMan.StatusBar && 
-            ViewMan.StatusBar.getForCurrentView ) {
-            return ViewMan.StatusBar.getForCurrentView();
-        }
-        else {
-            isSupported = false; // so we won't check again
-        }
+    var ViewMan = Windows.UI.ViewManagement; // quick alias to save char
+    if (ViewMan.StatusBar && ViewMan.StatusBar.getForCurrentView) {
+        return ViewMan.StatusBar.getForCurrentView();
     }
-    return null;
 }
 
 function hexToRgb(hex) {
@@ -61,12 +62,14 @@ module.exports = {
 
     styleDefault: function () {
         // dark text ( to be used on a light background )
-        getViewStatusBar().foregroundColor = { a: 0, r: 0, g: 0, b: 0 };
+        if (isSupported())
+            getViewStatusBar().foregroundColor = { a: 0, r: 0, g: 0, b: 0 };
     },
 
     styleLightContent: function () {
         // light text ( to be used on a dark background )
-        getViewStatusBar().foregroundColor = { a: 0, r: 255, g: 255, b: 255 };
+        if (isSupported())
+            getViewStatusBar().foregroundColor = { a: 0, r: 255, g: 255, b: 255 };
     },
 
     styleBlackTranslucent: function () {
@@ -81,19 +84,23 @@ module.exports = {
 
     backgroundColorByHexString: function (win, fail, args) {
         var rgb = hexToRgb(args[0]);
-        var statusBar = getViewStatusBar();
-        if(statusBar) {
+        if(isSupported()) {
+            var statusBar = getViewStatusBar();
             statusBar.backgroundColor = { a: 0, r: rgb.r, g: rgb.g, b: rgb.b };
             statusBar.backgroundOpacity = 1;
         }
     },
 
     show: function (win, fail) {
-        getViewStatusBar().showAsync().done(win, fail);
+		// added support check so no error thrown, when calling this method
+        if (isSupported())
+            getViewStatusBar().showAsync().done(win, fail);
     },
 
     hide: function (win, fail) {
-        getViewStatusBar().hideAsync().done(win, fail);
+		// added support check so no error thrown, when calling this method
+        if (isSupported())
+            getViewStatusBar().hideAsync().done(win, fail);
     }
 };
 
