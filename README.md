@@ -29,7 +29,7 @@ StatusBar
 
 ## Installation
 
-    cordova plugin add cordova-plugin-statusbar
+    cordova plugin add org.apache.cordova.statusbar
 
 Preferences
 -----------
