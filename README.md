@@ -29,7 +29,16 @@ StatusBar
 
 ## Installation
 
+This installation method requires cordova 5.0+
+
     cordova plugin add cordova-plugin-statusbar
+Older versions of cordova can still install via the __deprecated__ id
+
+    cordova plugin add org.apache.cordova.statusbar
+It is also possible to install via repo url directly ( unstable )
+
+    cordova plugin add https://github.com/apache/cordova-plugin-statusbar.git
+    
 
 Preferences
 -----------
