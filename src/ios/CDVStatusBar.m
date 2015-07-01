@@ -370,7 +370,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
             CGRect frame = self.webView.frame;
             frame.origin.y = 0;
             if (!self.statusBarOverlaysWebView) {
-                if (UIDeviceOrientationIsLandscape(self.viewController.interfaceOrientation)) {
+                if (UIDeviceOrientationIsLandscape(self.viewController.interfaceOrientation) && !IsAtLeastiOSVersion(@"8.0")) {
                     frame.size.height += statusBarFrame.size.width;
                 } else {
                     frame.size.height += statusBarFrame.size.height;
