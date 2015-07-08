@@ -19,8 +19,6 @@
 
 # cordova-plugin-statusbar
 
-[![Build Status](https://travis-ci.org/apache/cordova-plugin-statusbar.svg)](https://travis-ci.org/apache/cordova-plugin-statusbar)
-
 StatusBar
 ======
 
