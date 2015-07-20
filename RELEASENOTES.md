@@ -80,3 +80,9 @@
 * CB-8575 Integrate TravisCI
 * CB-8438 cordova-plugin-statusbar documentation translation: cordova-plugin-statusbar
 * CB-8538 Added package.json file
+
+### 1.0.1 (Jun 17, 2015)
+* add auto-tests for basic api
+* CB-9180 Add correct supported check for Windows 8.1 desktop
+* CB-9128 cordova-plugin-statusbar documentation translation: cordova-plugin-statusbar
+* fix npm md issue

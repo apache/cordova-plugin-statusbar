@@ -19,8 +19,6 @@
 
 # cordova-plugin-statusbar
 
-[![Build Status](https://travis-ci.org/apache/cordova-plugin-statusbar.svg)](https://travis-ci.org/apache/cordova-plugin-statusbar)
-
 StatusBar
 ======
 
@@ -29,7 +27,16 @@ StatusBar
 
 ## Installation
 
+This installation method requires cordova 5.0+
+
     cordova plugin add cordova-plugin-statusbar
+Older versions of cordova can still install via the __deprecated__ id
+
+    cordova plugin add org.apache.cordova.statusbar
+It is also possible to install via repo url directly ( unstable )
+
+    cordova plugin add https://github.com/apache/cordova-plugin-statusbar.git
+    
 
 Preferences
 -----------
@@ -40,7 +47,7 @@ Preferences
 
         <preference name="StatusBarOverlaysWebView" value="true" />
 
-- __StatusBarBackgroundColor__ (color hex string, defaults to #000000). On iOS 7 and Android 5, set the background color of the statusbar by a hex string (#RRGGBB) at startup.
+- __StatusBarBackgroundColor__ (color hex string, no default value). On iOS 7, set the background color of the statusbar by a hex string (#RRGGBB) at startup. If this value is not set, the background color will be transparent.
 
         <preference name="StatusBarBackgroundColor" value="#000000" />
 

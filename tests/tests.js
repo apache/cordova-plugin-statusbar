@@ -19,6 +19,47 @@
  *
 */
 
+exports.defineAutoTests = function () {
+    describe("StatusBar", function () {
+        it("statusbar.spec.1 should exist", function() {
+            expect(window.StatusBar).toBeDefined();
+        });
+
+        it("statusbar.spec.2 should have show|hide methods", function() {
+            expect(window.StatusBar.show).toBeDefined();
+            expect(typeof window.StatusBar.show).toBe("function");
+
+            expect(window.StatusBar.hide).toBeDefined();
+            expect(typeof window.StatusBar.hide).toBe("function");
+        });
+
+        it("statusbar.spec.3 should have set backgroundColor methods", function() {
+            expect(window.StatusBar.backgroundColorByName).toBeDefined();
+            expect(typeof window.StatusBar.backgroundColorByName).toBe("function");
+
+            expect(window.StatusBar.backgroundColorByHexString).toBeDefined();
+            expect(typeof window.StatusBar.backgroundColorByHexString).toBe("function");
+        });
+
+        it("statusbar.spec.4 should have set style methods", function() {
+            expect(window.StatusBar.styleBlackTranslucent).toBeDefined();
+            expect(typeof window.StatusBar.styleBlackTranslucent).toBe("function");
+
+            expect(window.StatusBar.styleDefault).toBeDefined();
+            expect(typeof window.StatusBar.styleDefault).toBe("function");
+
+            expect(window.StatusBar.styleLightContent).toBeDefined();
+            expect(typeof window.StatusBar.styleLightContent).toBe("function");
+
+            expect(window.StatusBar.styleBlackOpaque).toBeDefined();
+            expect(typeof window.StatusBar.styleBlackOpaque).toBe("function");
+
+            expect(window.StatusBar.overlaysWebView).toBeDefined();
+            expect(typeof window.StatusBar.overlaysWebView).toBe("function");
+        });
+    });
+};
+
 exports.defineManualTests = function (contentEl, createActionButton) {
     function log(msg) {
         var el = document.getElementById("info");
