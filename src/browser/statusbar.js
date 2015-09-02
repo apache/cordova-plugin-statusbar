@@ -26,6 +26,12 @@ function notSupported() {
 }
 
 module.exports = {
+    isVisible: false,
+    styleBlackTranslucent:notSupported,
+    styleDefault:notSupported,
+    styleLightContent:notSupported,
+    styleBlackOpaque:notSupported,
+    overlaysWebView:notSupported,
     overlaysWebView: notSupported,
     styleDefault: notSupported,
     styleLightContect: notSupported,
@@ -37,4 +43,3 @@ module.exports = {
     show: notSupported
 };
 
-require('cordova/exec/proxy').add('StatusBar', module.exports);
