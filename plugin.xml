@@ -22,7 +22,7 @@
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="cordova-plugin-statusbar"
-    version="1.0.2-dev">
+    version="2.0.0-dev">
     <name>StatusBar</name>
     <description>Cordova StatusBar Plugin</description>
     <license>Apache 2.0</license>
@@ -45,6 +45,12 @@
                 <param name="onload" value="true" />
             </feature>
         </config-file>
+    </platform>
+
+    <platform name="browser">
+        <js-module src="src/browser/statusbar.js" name="statusbar">
+            <merges target="window.StatusBar" />
+        </js-module>
     </platform>
 
     <!-- ios -->
