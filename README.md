@@ -24,6 +24,8 @@ StatusBar
 
 > The `StatusBar` object provides some functions to customize the iOS and Android StatusBar.
 
+:warning: Report issues on the [Apache Cordova issue tracker](https://issues.apache.org/jira/issues/?jql=project%20%3D%20CB%20AND%20status%20in%20%28Open%2C%20%22In%20Progress%22%2C%20Reopened%29%20AND%20resolution%20%3D%20Unresolved%20AND%20component%20%3D%20%22Plugin%20Statusbar%22%20ORDER%20BY%20priority%20DESC%2C%20summary%20ASC%2C%20updatedDate%20DESC)
+
 
 ## Installation
 
@@ -36,7 +38,7 @@ Older versions of cordova can still install via the __deprecated__ id
 It is also possible to install via repo url directly ( unstable )
 
     cordova plugin add https://github.com/apache/cordova-plugin-statusbar.git
-    
+
 
 Preferences
 -----------
@@ -300,5 +302,3 @@ Supported Platforms
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
-
-
