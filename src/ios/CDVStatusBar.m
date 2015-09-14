@@ -179,7 +179,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 - (CGRect) invertFrameIfNeeded:(CGRect)rect orientation:(UIInterfaceOrientation)orientation {
     // landscape is where (width > height). On iOS < 8, we need to invert since frames are
     // always in Portrait context
-    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) && (rect.size.width < rect.size.height) && (rect.size.width < rect.size.height) ) {
+    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) && (rect.size.width < rect.size.height)) {
         CGFloat temp = rect.size.width;
         rect.size.width = rect.size.height;
         rect.size.height = temp;
@@ -201,7 +201,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     if (statusBarOverlaysWebView) {
 
         [_statusBarBackgroundView removeFromSuperview];
-        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) && (rect.size.width < rect.size.height)) {
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
             self.webView.frame = CGRectMake(0, 0, bounds.size.height, bounds.size.width);
         } else {
             self.webView.frame = bounds;
