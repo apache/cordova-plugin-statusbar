@@ -179,7 +179,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 - (CGRect) invertFrameIfNeeded:(CGRect)rect orientation:(UIInterfaceOrientation)orientation {
     // landscape is where (width > height). On iOS < 8, we need to invert since frames are
     // always in Portrait context
-    if (UIDeviceOrientationIsLandscape(orientation) && (rect.size.width < rect.size.height) ) {
+    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) && (rect.size.width < rect.size.height)) {
         CGFloat temp = rect.size.width;
         rect.size.width = rect.size.height;
         rect.size.height = temp;
@@ -201,7 +201,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     if (statusBarOverlaysWebView) {
 
         [_statusBarBackgroundView removeFromSuperview];
-        if (UIDeviceOrientationIsLandscape(self.viewController.interfaceOrientation)) {
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
             self.webView.frame = CGRectMake(0, 0, bounds.size.height, bounds.size.width);
         } else {
             self.webView.frame = bounds;
@@ -291,12 +291,22 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
 - (void) styleBlackTranslucent:(CDVInvokedUrlCommand*)command
 {
-    [self setStyleForStatusBar:UIStatusBarStyleBlackTranslucent];
+    #if __IPHONE_OS_VERSION_MAX_ALLOWED < 70000
+    # define TRANSLUCENT_STYLE UIStatusBarStyleBlackTranslucent
+    #else
+    # define TRANSLUCENT_STYLE UIStatusBarStyleLightContent
+    #endif
+    [self setStyleForStatusBar:TRANSLUCENT_STYLE];
 }
 
 - (void) styleBlackOpaque:(CDVInvokedUrlCommand*)command
 {
-    [self setStyleForStatusBar:UIStatusBarStyleBlackOpaque];
+    #if __IPHONE_OS_VERSION_MAX_ALLOWED < 70000
+    # define OPAQUE_STYLE UIStatusBarStyleBlackOpaque
+    #else
+    # define OPAQUE_STYLE UIStatusBarStyleLightContent
+    #endif
+    [self setStyleForStatusBar:OPAQUE_STYLE];
 }
 
 - (void) backgroundColorByName:(CDVInvokedUrlCommand*)command
@@ -356,7 +366,6 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
     if (!app.isStatusBarHidden)
     {
-        self.viewController.wantsFullScreenLayout = YES;
         CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
 
         [self hideStatusBar];
@@ -400,7 +409,6 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     if (app.isStatusBarHidden)
     {
         BOOL isIOS7 = (IsAtLeastiOSVersion(@"7.0"));
-        self.viewController.wantsFullScreenLayout = isIOS7;
 
         [self showStatusBar];
 
