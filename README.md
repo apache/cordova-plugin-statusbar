@@ -256,6 +256,8 @@ Hide the statusbar.
 
     StatusBar.hide();
 
+On iOS, you can pass 2 optional parameters, animated and duration, in order to animate hiding the statusbar. By default, the animated parameter is set to false.
+
 
 Supported Platforms
 -------------------
@@ -265,6 +267,13 @@ Supported Platforms
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
+
+Quick Example
+-------------
+
+    StatusBar.hide();
+    StatusBar.hide(true); // => default duration value is 0.1s
+    StatusBar.hide(true, 0.3);
 
 StatusBar.show
 =================
@@ -273,6 +282,8 @@ Shows the statusbar.
 
     StatusBar.show();
 
+On iOS, you can pass 2 optional parameters, animated and duration in seconds, in order to animate showing the statusbar. By default, the animated parameter is set to false.
+
 
 Supported Platforms
 -------------------
@@ -282,6 +293,13 @@ Supported Platforms
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
+
+Quick Example
+-------------
+
+    StatusBar.show();
+    StatusBar.show(true); // => default duration value is 0.1s
+    StatusBar.show(true, 0.3);
 
 
 StatusBar.isVisible
