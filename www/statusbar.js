@@ -83,13 +83,13 @@ var StatusBar = {
         exec(null, null, "StatusBar", "backgroundColorByHexString", [hexString]);
     },
 
-    hide: function () {
-        exec(null, null, "StatusBar", "hide", []);
+    hide: function (animated, duration) {
+        exec(null, null, "StatusBar", "hide", [animated, duration]);
         StatusBar.isVisible = false;
     },
 
-    show: function () {
-        exec(null, null, "StatusBar", "show", []);
+    show: function (animated, duration) {
+        exec(null, null, "StatusBar", "show", [animated, duration]);
         StatusBar.isVisible = true;
     }
 
