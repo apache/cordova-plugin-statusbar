@@ -93,7 +93,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 -(void)statusBarDidChangeFrame:(NSNotification*)notification
 {
     //add a small delay for iOS 7 ( 0.1 seconds )
-    _weak CDVStatusBar* weakSelf = self;
+    __weak CDVStatusBar* weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [weakSelf resizeWebView];
     });
