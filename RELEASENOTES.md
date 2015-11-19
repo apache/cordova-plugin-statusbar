@@ -20,6 +20,19 @@
 -->
 # Release Notes
 
+### 2.0.0 (Nov 18, 2015)
+* CB-10035 Updated `RELEASENOTES` to be newest to oldest
+* Added `weakSelf` reference for block use
+* Fixes CB-4712, CB-5439 statusbar issues
+* Fixing contribute link.
+* CB-7965 Add cordova-plugin-statusbar support for **browser** platform
+* Don't use `IsAtLeastiOSVersion` macro to determine height
+* Use correct statusbar height for landscape orientation in iOS >= 8
+* remove travis-ci
+* CB-9202 updated repo url to github mirror in package.json
+* Added verbose install text for users on < cordova 5.0
+* update docs for `StatusBarBackgroundColor`
+
 ### 1.0.1 (Jun 17, 2015)
 * add auto-tests for basic api
 * CB-9180 Add correct supported check for Windows 8.1 desktop
