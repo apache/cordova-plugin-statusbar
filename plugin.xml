@@ -48,7 +48,7 @@
     </platform>
 
     <platform name="browser">
-        <js-module src="src/browser/statusbar.js" name="statusbar">
+        <js-module src="src/browser/statusbar.js" name="statusbar.Browser">
             <merges target="window.StatusBar" />
         </js-module>
     </platform>
