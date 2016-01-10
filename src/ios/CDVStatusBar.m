@@ -182,6 +182,17 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
     statusBarFrame = [self invertFrameIfNeeded:statusBarFrame];
 
+    if ([[UIApplication sharedApplication]statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown &&
+        statusBarFrame.size.height + statusBarFrame.origin.y == [[UIScreen mainScreen] bounds].size.height) {
+
+        // When started in upside-down orientation on iOS 7, status bar will be bound to lower edge of the
+        // screen (statusBarFrame.origin.y will be somewhere around screen height). In this case we need to
+        // correct frame's coordinates
+        statusBarFrame.origin.y = 0;
+    }
+
+    statusBarFrame = [self invertFrameIfNeeded:statusBarFrame];
+
     _statusBarBackgroundView = [[UIView alloc] initWithFrame:statusBarFrame];
     _statusBarBackgroundView.backgroundColor = _statusBarBackgroundColor;
     _statusBarBackgroundView.autoresizingMask = (UIViewAutoresizingFlexibleWidth  | UIViewAutoresizingFlexibleBottomMargin);
