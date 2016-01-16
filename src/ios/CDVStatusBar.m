@@ -468,7 +468,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 - (void) dealloc
 {
     [[UIApplication sharedApplication] removeObserver:self forKeyPath:@"statusBarHidden"];
-    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:UIApplicationDidChangeStatusBarFrameNotification];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
 }
 
 
