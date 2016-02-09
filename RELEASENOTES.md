@@ -20,6 +20,9 @@
 -->
 # Release Notes
 
+### 2.1.1 (Feb 09, 2016)
+* [CB-10102](https://issues.apache.org/jira/browse/CB-10102) The removeObserver code was wrong and it might crash on plugin deallocation
+
 ### 2.1.0 (Jan 15, 2016)
 * CB-9513 Allow to show/hide status bar in fullscreen mode.
 * CB-8720 Fix status bar position when app started upside down on **iOS 7**.
