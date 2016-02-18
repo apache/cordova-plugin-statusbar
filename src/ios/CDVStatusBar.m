@@ -99,6 +99,10 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     });
 }
 
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [self resizeWebView];
+}
+
 - (void)pluginInitialize
 {
     BOOL isiOS7 = (IsAtLeastiOSVersion(@"7.0"));
@@ -201,13 +205,17 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 - (CGRect) invertFrameIfNeeded:(CGRect)rect orientation:(UIInterfaceOrientation)orientation {
     // landscape is where (width > height). On iOS < 8, we need to invert since frames are
     // always in Portrait context
-    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) && (rect.size.width < rect.size.height)) {
-        CGFloat temp = rect.size.width;
-        rect.size.width = rect.size.height;
-        rect.size.height = temp;
-        rect.origin = CGPointZero;
+    BOOL isIOS8 = (IsAtLeastiOSVersion(@"8.0"));
+
+    if (!isIOS8) {
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) && (rect.size.width < rect.size.height)) {
+            CGFloat temp = rect.size.width;
+            rect.size.width = rect.size.height;
+            rect.size.height = temp;
+            rect.origin = CGPointZero;
+        }
     }
-    
+
     return rect;
 }
 
@@ -217,7 +225,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     if (!IsAtLeastiOSVersion(@"7.0") || statusBarOverlaysWebView == _statusBarOverlaysWebView) {
         return;
     }
-    
+
     _statusBarOverlaysWebView = statusBarOverlaysWebView;
 
     [self resizeWebView];
@@ -376,7 +384,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
     if (!app.isStatusBarHidden)
     {
-        
+
         [self hideStatusBar];
 
         if (IsAtLeastiOSVersion(@"7.0")) {
@@ -441,28 +449,27 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 }
 
 -(void)resizeWebView {
-    
-    CGRect bounds = [[UIScreen mainScreen] bounds];
-    
+    CGRect bounds = self.viewController.view.window.frame;
+
     bounds = [self invertFrameIfNeeded:bounds orientation:self.viewController.interfaceOrientation];
-    
+
     if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) {
         self.viewController.view.frame = bounds;
     }
-    
+
     self.webView.frame = bounds;
-    
+
     if (!self.statusBarOverlaysWebView) {
-        
+
         CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
         statusBarFrame = [self invertFrameIfNeeded:statusBarFrame orientation:self.viewController.interfaceOrientation];
-        
+
         CGRect frame = self.webView.frame;
         frame.origin.y = statusBarFrame.size.height;
         frame.size.height -= statusBarFrame.size.height;
         self.webView.frame = frame;
     }
-    
+
 }
 
 - (void) dealloc
