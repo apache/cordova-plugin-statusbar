@@ -19,6 +19,8 @@
  *
 */
 
+/* global cordova */
+
 var exec = require('cordova/exec');
 
 var namedColors = {
