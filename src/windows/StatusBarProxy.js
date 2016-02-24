@@ -55,9 +55,11 @@ function hexToRgb(hex) {
 
 module.exports = {
     _ready: function(win, fail) {
-        win(statusBar.occludedRect.height !== 0);
+        if(isSupported()) {
+            var statusBar = getViewStatusBar();
+            win(statusBar.occludedRect.height !== 0);
+        }
     },
-
     overlaysWebView: function () {
         // not supported
     },
