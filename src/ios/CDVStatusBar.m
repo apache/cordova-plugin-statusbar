@@ -411,10 +411,9 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
         BOOL isIOS7 = (IsAtLeastiOSVersion(@"7.0"));
 
         [self showStatusBar];
+        [self resizeWebView];
 
         if (isIOS7) {
-
-            [self resizeWebView];
 
             if (!self.statusBarOverlaysWebView) {
 
@@ -430,39 +429,37 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
             }
 
-        } else {
-
-            CGRect bounds = [[UIScreen mainScreen] applicationFrame];
-            self.viewController.view.frame = bounds;
         }
 
         _statusBarBackgroundView.hidden = NO;
     }
 }
 
--(void)resizeWebView {
-    
-    CGRect bounds = [[UIScreen mainScreen] bounds];
-    
-    bounds = [self invertFrameIfNeeded:bounds];
-    
-    if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) {
+-(void)resizeWebView
+{
+    BOOL isIOS7 = (IsAtLeastiOSVersion(@"7.0"));
+
+    if (isIOS7) {
+        CGRect bounds = [[UIScreen mainScreen] bounds];
+        bounds = [self invertFrameIfNeeded:bounds];
+        
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) {
+            self.viewController.view.frame = bounds;
+        }
+        self.webView.frame = bounds;
+        
+        if (!self.statusBarOverlaysWebView) {
+            CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
+            statusBarFrame = [self invertFrameIfNeeded:statusBarFrame];
+            CGRect frame = self.webView.frame;
+            frame.origin.y = statusBarFrame.size.height;
+            frame.size.height -= statusBarFrame.size.height;
+            self.webView.frame = frame;
+        }
+    } else {
+        CGRect bounds = [[UIScreen mainScreen] applicationFrame];
         self.viewController.view.frame = bounds;
     }
-    
-    self.webView.frame = bounds;
-    
-    if (!self.statusBarOverlaysWebView) {
-        
-        CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
-        statusBarFrame = [self invertFrameIfNeeded:statusBarFrame];
-        
-        CGRect frame = self.webView.frame;
-        frame.origin.y = statusBarFrame.size.height;
-        frame.size.height -= statusBarFrame.size.height;
-        self.webView.frame = frame;
-    }
-    
 }
 
 - (void) dealloc
