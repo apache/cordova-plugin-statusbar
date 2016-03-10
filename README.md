@@ -188,6 +188,19 @@ Supported Platforms
 - Windows Phone 8
 - Windows Phone 8.1
 
+StatusBar.styleAndroidTranslucent
+=================
+
+Use the translucent statusbar of Android 5.
+
+    StatusBar.styleAndroidTranslucent();
+
+
+Supported Platforms
+-------------------
+
+- Android 5+
+
 StatusBar.styleBlackOpaque
 =================
 
