@@ -445,6 +445,8 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
         
         if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) {
             self.viewController.view.frame = bounds;
+        } else if (self.viewController.presentedViewController != nil) {
+            bounds = CGRectMake(0, 0, bounds.size.height, bounds.size.width);
         }
         self.webView.frame = bounds;
         
