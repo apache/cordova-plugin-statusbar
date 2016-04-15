@@ -20,6 +20,10 @@
 -->
 # Release Notes
 
+### 2.1.3 (Apr 15, 2016)
+* CB-11018 Fix statusbar with `inappbrowser` causing incorrect orientation on **iOS8**
+* CB-10884 `Inappbrowser` breaks UI while Screen orientation changes from landscape to portrait on **iOS**
+
 ### 2.1.2 (Mar 09, 2016)
 * [CB-10752](https://issues.apache.org/jira/browse/CB-10752) for for status bar overlays the webview on **iOS** 6 in some cases
 * [CB-10683](https://issues.apache.org/jira/browse/CB-10683) Fix wrong StatusBar.isVisible initial value on **Windows**
