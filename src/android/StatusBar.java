@@ -140,6 +140,16 @@ public class StatusBar extends CordovaPlugin {
             return true;
         }
 
+        if ("styleAndroidTranslucent".equals(action)) {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                     styleAndroidTranslucent();
+                }
+            });
+            return true;
+        }
+
         return false;
     }
 
@@ -162,4 +172,14 @@ public class StatusBar extends CordovaPlugin {
             }
         }
     }
+
+    private void styleAndroidTranslucent() {
+        if (Build.VERSION.SDK_INT >= 19) {
+            final Window window = cordova.getActivity().getWindow();
+            // Method and constants not available on all SDKs but we want to be able to compile this code with any SDK
+            window.clearFlags(0x80000000); // SDK 21: WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.addFlags(0x04000000); // SDK 19: WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+    }
+
 }

@@ -33,6 +33,7 @@ module.exports = {
     styleLightContect: notSupported,
     backgroundColorByName: notSupported,
     backgroundColorByHexString: notSupported,
+    styleAndroidTranslucent: notSupported,
     hide: notSupported,
     show: notSupported
 };
