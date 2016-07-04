@@ -454,7 +454,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
                 bounds = CGRectMake(0, 0, bounds.size.width, bounds.size.height);
             } else {
                 // iOS7, iOS9+
-                if ([self.viewController.presentedViewController.presentationController isKindOfClass:[UIPopoverPresentationController class]]) {
+                if ([self.viewController.presentedViewController.presentationController isKindOfClass:[UIPopoverPresentationController class]] || UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
                     bounds = CGRectMake(0, 0, bounds.size.width, bounds.size.height);
                 } else {
                     bounds = CGRectMake(0, 0, bounds.size.height, bounds.size.width);
