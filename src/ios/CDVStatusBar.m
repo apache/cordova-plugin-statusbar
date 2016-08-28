@@ -132,13 +132,15 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
     // blank scroll view to intercept status bar taps
     self.webView.scrollView.scrollsToTop = NO;
-    UIScrollView *fakeScrollView = [[UIScrollView alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    
+    CGRect bounds = [self.viewController.view.window bounds];
+    UIScrollView *fakeScrollView = [[UIScrollView alloc] initWithFrame:bounds];
     fakeScrollView.delegate = self;
     fakeScrollView.scrollsToTop = YES;
     [self.viewController.view addSubview:fakeScrollView]; // Add scrollview to the view heirarchy so that it will begin accepting status bar taps
     [self.viewController.view sendSubviewToBack:fakeScrollView]; // Send it to the very back of the view heirarchy
-    fakeScrollView.contentSize = CGSizeMake(UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height * 2.0f); // Make the scroll view longer than the screen itself
-    fakeScrollView.contentOffset = CGPointMake(0.0f, UIScreen.mainScreen.bounds.size.height); // Scroll down so a tap will take scroll view back to the top
+    fakeScrollView.contentSize = CGSizeMake(bounds.size.width, bounds.size.height * 2.0f); // Make the scroll view longer than the screen itself
+    fakeScrollView.contentOffset = CGPointMake(0.0f, bounds.size.height); // Scroll down so a tap will take scroll view back to the top
 }
 
 - (void)onReset {
@@ -182,7 +184,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
 
     if ([[UIApplication sharedApplication]statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown &&
-        statusBarFrame.size.height + statusBarFrame.origin.y == [[UIScreen mainScreen] bounds].size.height) {
+        statusBarFrame.size.height + statusBarFrame.origin.y == [self.viewController.view.window bounds].size.height) {
 
         // When started in upside-down orientation on iOS 7, status bar will be bound to lower edge of the
         // screen (statusBarFrame.origin.y will be somewhere around screen height). In this case we need to
@@ -200,8 +202,8 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
 - (CGRect) invertFrameIfNeeded:(CGRect)rect {
     // landscape is where (width > height). On iOS < 8, we need to invert since frames are
-    // always in Portrait context
-    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) && (rect.size.width < rect.size.height)) {
+    // always in Portrait context. Do not run this on ios 8 or above to avoid breaking ipad pro multitask layout
+    if (!IsAtLeastiOSVersion(@"8.0") && UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) && (rect.size.width < rect.size.height)) {
         CGFloat temp = rect.size.width;
         rect.size.width = rect.size.height;
         rect.size.height = temp;
@@ -440,8 +442,8 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     BOOL isIOS7 = (IsAtLeastiOSVersion(@"7.0"));
 
     if (isIOS7) {
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        bounds = [self invertFrameIfNeeded:bounds];
+           CGRect bounds = [self.viewController.view.window bounds];
+           bounds = [self invertFrameIfNeeded:bounds];
         
         if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) {
             self.viewController.view.frame = bounds;
@@ -472,7 +474,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
             self.webView.frame = frame;
         }
     } else {
-        CGRect bounds = [[UIScreen mainScreen] applicationFrame];
+        CGRect bounds = [self.viewController.view.window bounds];
         self.viewController.view.frame = bounds;
     }
 }
