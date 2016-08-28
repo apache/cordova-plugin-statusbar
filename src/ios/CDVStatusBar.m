@@ -203,7 +203,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 - (CGRect) invertFrameIfNeeded:(CGRect)rect {
     // landscape is where (width > height). On iOS < 8, we need to invert since frames are
     // always in Portrait context. Do not run this on ios 8 or above to avoid breaking ipad pro multitask layout
-    if (!IsAtLeastiOSVersion(@"8.0") && UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) && (rect.size.width < rect.size.height)) {
+    if (!IsAtLeastiOSVersion(@"8.0") && UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
         CGFloat temp = rect.size.width;
         rect.size.width = rect.size.height;
         rect.size.height = temp;
@@ -442,8 +442,8 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     BOOL isIOS7 = (IsAtLeastiOSVersion(@"7.0"));
 
     if (isIOS7) {
-           CGRect bounds = [self.viewController.view.window bounds];
-           bounds = [self invertFrameIfNeeded:bounds];
+        CGRect bounds = [self.viewController.view.window bounds];
+        bounds = [self invertFrameIfNeeded:bounds];
         
         if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) {
             self.viewController.view.frame = bounds;
@@ -474,7 +474,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
             self.webView.frame = frame;
         }
     } else {
-        CGRect bounds = [self.viewController.view.window bounds];
+        CGRect bounds = [[UIScreen mainScreen] applicationFrame];
         self.viewController.view.frame = bounds;
     }
 }
