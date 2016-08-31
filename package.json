@@ -34,6 +34,9 @@
     "cordovaDependencies": {
       "0.1.0": {
         "cordova": ">=3.0.0"
+      },
+      "3.0.0": {
+        "cordova": ">100"
       }
     }
   },
