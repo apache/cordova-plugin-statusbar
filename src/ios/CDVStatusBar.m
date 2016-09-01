@@ -463,23 +463,20 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
         }
         self.webView.frame = bounds;
 
+        CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
+        statusBarFrame = [self invertFrameIfNeeded:statusBarFrame];
+        CGRect frame = self.webView.frame;
+
         if (!self.statusBarOverlaysWebView) {
-            CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
-            statusBarFrame = [self invertFrameIfNeeded:statusBarFrame];
-            CGRect frame = self.webView.frame;
             frame.origin.y = statusBarFrame.size.height;
             frame.size.height -= statusBarFrame.size.height;
-            self.webView.frame = frame;
         } else {
             // even if overlay is used, we want to handle in-call/recording/hotspot larger status bar
-            CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
-            statusBarFrame = [self invertFrameIfNeeded:statusBarFrame];
-            CGRect frame = self.webView.frame;
             CGFloat height = statusBarFrame.size.height;
             frame.origin.y = height >= 20 ? height - 20 : 0;
             frame.size.height -= frame.origin.y;
-            self.webView.frame = frame;
         }
+        self.webView.frame = frame;
     } else {
         CGRect bounds = [[UIScreen mainScreen] applicationFrame];
         self.viewController.view.frame = bounds;
