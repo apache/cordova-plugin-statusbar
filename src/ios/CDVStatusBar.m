@@ -132,15 +132,13 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
     // blank scroll view to intercept status bar taps
     self.webView.scrollView.scrollsToTop = NO;
-    
-    CGRect bounds = [self.viewController.view.window bounds];
-    UIScrollView *fakeScrollView = [[UIScrollView alloc] initWithFrame:bounds];
+    UIScrollView *fakeScrollView = [[UIScrollView alloc] initWithFrame:UIScreen.mainScreen.bounds];
     fakeScrollView.delegate = self;
     fakeScrollView.scrollsToTop = YES;
     [self.viewController.view addSubview:fakeScrollView]; // Add scrollview to the view heirarchy so that it will begin accepting status bar taps
     [self.viewController.view sendSubviewToBack:fakeScrollView]; // Send it to the very back of the view heirarchy
-    fakeScrollView.contentSize = CGSizeMake(bounds.size.width, bounds.size.height * 2.0f); // Make the scroll view longer than the screen itself
-    fakeScrollView.contentOffset = CGPointMake(0.0f, bounds.size.height); // Scroll down so a tap will take scroll view back to the top
+    fakeScrollView.contentSize = CGSizeMake(UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height * 2.0f); // Make the scroll view longer than the screen itself
+    fakeScrollView.contentOffset = CGPointMake(0.0f, UIScreen.mainScreen.bounds.size.height); // Scroll down so a tap will take scroll view back to the top
 }
 
 - (void)onReset {
