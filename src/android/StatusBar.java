@@ -60,6 +60,22 @@ public class StatusBar extends CordovaPlugin {
 
                 // Read 'StatusBarBackgroundColor' from config.xml, default is #000000.
                 setStatusBarBackgroundColor(preferences.getString("StatusBarBackgroundColor", "#000000"));
+                
+                //Since Android M, it's possible to enable LightStatusBar (white)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    int newUiVisibility = window.getDecorView().getSystemUiVisibility();
+                    String option = preferences.getString("StatusBarStyle", "lightcontent");
+
+                    if (option.equals("blackopaque")) {
+                        //Dark Text to show up on your light status bar
+                        newUiVisibility |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                    } else {
+                        //Light Text to show up on your dark status bar
+                        newUiVisibility &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                    }
+
+                    window.getDecorView().setSystemUiVisibility(newUiVisibility);
+                }
             }
         });
     }
