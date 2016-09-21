@@ -90,6 +90,11 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     }
 }
 
+-(void)cordovaViewWillAppear:(NSNotification*)notification
+{
+    [self resizeWebView];
+}
+
 -(void)statusBarDidChangeFrame:(NSNotification*)notification
 {
     //add a small delay for iOS 7 ( 0.1 seconds )
@@ -111,6 +116,8 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     [[UIApplication sharedApplication] addObserver:self forKeyPath:@"statusBarHidden" options:NSKeyValueObservingOptionNew context:NULL];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarDidChangeFrame:) name: UIApplicationDidChangeStatusBarFrameNotification object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cordovaViewWillAppear:) name: @"CDVViewWillAppearNotification" object:nil];
 
     _statusBarOverlaysWebView = YES; // default
 
