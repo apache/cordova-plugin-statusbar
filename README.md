@@ -61,7 +61,7 @@ Preferences
 
         <preference name="StatusBarBackgroundColor" value="#000000" />
 
-- __StatusBarStyle__ (status bar style, defaults to lightcontent). On iOS 7, set the status bar style. Available options default, lightcontent, blacktranslucent, blackopaque.
+- __StatusBarStyle__ (status bar style, defaults to black foreground). On iOS 7, set the status bar style. Available options default, lightcontent, blacktranslucent ([deprecated](https://developer.apple.com/reference/uikit/uistatusbarstyle)), blackopaque ([deprecated](https://developer.apple.com/reference/uikit/uistatusbarstyle)).
 
         <preference name="StatusBarStyle" value="lightcontent" />
 
@@ -101,8 +101,8 @@ Although in the global scope, it is not available until after the `deviceready` 
 - StatusBar.overlaysWebView
 - StatusBar.styleDefault
 - StatusBar.styleLightContent
-- StatusBar.styleBlackTranslucent
-- StatusBar.styleBlackOpaque
+- StatusBar.styleBlackTranslucent (deprecated, use styleDefault)
+- StatusBar.styleBlackOpaque (deprecated, use styleLightContent)
 - StatusBar.backgroundColorByName
 - StatusBar.backgroundColorByHexString
 - StatusBar.hide
