@@ -18,6 +18,8 @@
  *
  */
 
+var BRIGHTEST_SUPPORTED_COLOR = '#EFEFEF';
+
 var _supported = null; // set to null so we can check first time
 
 var statusBarThemeMetaTag = null;
@@ -88,7 +90,7 @@ module.exports = {
     styleLightContent: function () {
         // light text ( to be used on a dark background )
         if (isSupported()) {
-            setStatusBarColor('#000000');
+            setStatusBarColor(BRIGHTEST_SUPPORTED_COLOR);
         }
     },
 
