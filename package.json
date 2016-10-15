@@ -6,6 +6,7 @@
     "id": "cordova-plugin-statusbar",
     "platforms": [
       "android",
+      "browser",
       "ios",
       "wp7",
       "wp8",

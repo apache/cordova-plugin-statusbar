@@ -18,31 +18,110 @@
  *
  */
 
-function notSupported(win,fail) {
-    //
-    console.log('StatusBar is not supported');
-    setTimeout(function(){
-        win();
-        // note that while it is not explicitly supported, it does not fail
-        // this is really just here to allow developers to test their code in the browser
-        // and if we fail, then their app might as well. -jm
-    },0);
+var _supported = null; // set to null so we can check first time
+
+var statusBarThemeMetaTag = null;
+
+function isSupported() {
+    // if not checked before, run check
+
+    // TODO: add checks to verify on a supported browser and OS
+    // if (_supported === null) {
+    //     if (navigator.userAgent.indexOf('Android' > -1)) {
+    //         _supported = true;
+    //     } else {
+    //         _supported = false;
+    //     }
+    // }
+
+    _supported = true;
+
+    return _supported;
+}
+
+function getStatusBar() {
+    if (!isSupported()) {
+        throw new Error("Status bar is not supported");
+    }
+
+    var metaTags = document.head.getElementsByTagName('meta');
+    if (metaTags) {
+        for (var i = 0; i < metaTags.length; i++) {
+            if (metaTags[i].name === 'theme-color') {
+                statusBarThemeMetaTag = metaTags[i];
+                break;
+            }
+        }
+    } else {
+        statusBarThemeMetaTag = new HTMLMetaElement();
+        statusBarThemeMetaTag.name = 'theme-color';
+
+        document.head.appendChild(statusBarThemeMetaTag);
+    }
+}
+
+function setStatusBarColor(hexColor) {
+    if (statusBarThemeMetaTag) {
+        statusBarThemeMetaTag.content = hexColor;
+    }
 }
 
 module.exports = {
-    isVisible: false,
-    styleBlackTranslucent:notSupported,
-    styleDefault:notSupported,
-    styleLightContent:notSupported,
-    styleBlackOpaque:notSupported,
-    overlaysWebView:notSupported,
-    styleLightContect: notSupported,
-    backgroundColorByName: notSupported,
-    backgroundColorByHexString: notSupported,
-    hide: notSupported,
-    show: notSupported,
-    _ready:notSupported
+    _ready: function(win, fail) {
+        if(isSupported()) {
+            getStatusBar();
+            win(true);
+        }
+    },
+
+    overlaysWebView: function () {
+        // not supported
+    },
+
+    styleDefault: function () {
+        // dark text ( to be used on a light background )
+        if (isSupported()) {
+            setStatusBarColor('');
+        }
+    },
+
+    styleLightContent: function () {
+        // light text ( to be used on a dark background )
+        if (isSupported()) {
+            setStatusBarColor('#000000');
+        }
+    },
+
+    styleBlackTranslucent: function () {
+        // #88000000 ? Apple says to use lightContent instead
+        return module.exports.styleLightContent();
+    },
+
+    styleBlackOpaque: function () {
+        // #FF000000 ? Apple says to use lightContent instead
+        return module.exports.styleLightContent();
+    },
+
+    backgroundColorByHexString: function (win, fail, args) {
+        var hex = args[0];
+        if(isSupported()) {
+            setStatusBarColor(hex);
+        }
+    },
+
+    show: function (win, fail) {
+        // added support check so no error thrown, when calling this method
+        if (isSupported()) {
+            return;
+        }
+    },
+
+    hide: function (win, fail) {
+        // added support check so no error thrown, when calling this method
+        if (isSupported()) {
+            return;
+        }
+    }
 };
 
 require("cordova/exec/proxy").add("StatusBar", module.exports);
-
