@@ -49,7 +49,12 @@ function getStatusBar() {
     var metaTags = document.head.getElementsByTagName('meta');
     if (metaTags) {
         for (var i = 0; i < metaTags.length; i++) {
-            if (metaTags[i].name === 'theme-color') {
+            // Chrome, Firefox OS, Opera and Vivaldi
+            if (metaTags[i].name === 'theme-color' ||
+                // iOS Safari
+                metaTags[i].name === 'apple-mobile-web-app-status-bar-style' ||
+                // Windows Phone
+                metaTags[i].name === 'msapplication-navbutton-color') {
                 statusBarThemeMetaTag = metaTags[i];
                 break;
             }
