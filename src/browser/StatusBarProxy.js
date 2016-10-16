@@ -24,21 +24,37 @@ var _supported = null; // set to null so we can check first time
 
 var statusBarThemeMetaTag = null;
 
+var appropriateMetaTagName = null;
+
+var MetaTagName = {
+    IOS_SAFARI: 'apple-mobile-web-app-status-bar-style',
+    WINDOWS_PHONE: 'msapplication-navbutton-color',
+    DEFAULT: 'theme-color'
+};
+
 function isSupported() {
-    // if not checked before, run check
-
-    // TODO: add checks to verify on a supported browser and OS
-    // if (_supported === null) {
-    //     if (navigator.userAgent.indexOf('Android' > -1)) {
-    //         _supported = true;
-    //     } else {
-    //         _supported = false;
-    //     }
-    // }
-
-    _supported = true;
+    if (_supported === null) {
+        if (getAppropriateMetaTagName()) {
+            _supported = true;
+        } else {
+            _supported = false;
+        }
+    }
 
     return _supported;
+}
+
+function findMetaTag(tagName) {
+    var metaTags = document.head.getElementsByTagName('meta');
+    if(metaTags) {
+        for (var i = 0; i < metaTags.length; i++) {
+            if (metaTags[i].name === tagName) {
+                return metaTags[i];
+            }
+        }
+    } else {
+        return false;
+    }
 }
 
 function getStatusBar() {
@@ -46,25 +62,46 @@ function getStatusBar() {
         throw new Error("Status bar is not supported");
     }
 
-    var metaTags = document.head.getElementsByTagName('meta');
-    if (metaTags) {
-        for (var i = 0; i < metaTags.length; i++) {
-            // Chrome, Firefox OS, Opera and Vivaldi
-            if (metaTags[i].name === 'theme-color' ||
-                // iOS Safari
-                metaTags[i].name === 'apple-mobile-web-app-status-bar-style' ||
-                // Windows Phone
-                metaTags[i].name === 'msapplication-navbutton-color') {
-                statusBarThemeMetaTag = metaTags[i];
-                break;
+    statusBarThemeMetaTag = findMetaTag(getAppropriateMetaTagName());
+
+    if(!statusBarThemeMetaTag) {
+        statusBarThemeMetaTag = document.createElement('meta');
+        statusBarThemeMetaTag.name = getAppropriateMetaTagName();
+
+        if (getAppropriateMetaTagName() === MetaTagName.IOS_SAFARI) {
+            /*
+             * The meta tag has no effect on iOS Safari unless you first specify full-screen mode as described in apple-apple-mobile-web-app-capable.
+             * If the apple-apple-mobile-web-app-capable isn't in place already, we'll add it here.
+             */
+            if (!findMetaTag('apple-mobile-web-app-capable')) {
+                var iOSwebAppMetaTag = document.createElement('meta');
+                iOSwebAppMetaTag.name = 'apple-mobile-web-app-capable';
+                iOSwebAppMetaTag.content = 'yes';
+
+                document.head.appendChild(iOSwebAppMetaTag);
             }
         }
-    } else {
-        statusBarThemeMetaTag = new HTMLMetaElement();
-        statusBarThemeMetaTag.name = 'theme-color';
 
         document.head.appendChild(statusBarThemeMetaTag);
     }
+}
+
+function getAppropriateMetaTagName() {
+    if (appropriateMetaTagName === null) {
+        // TODO: Make userAgent identification more robust
+        if(navigator.userAgent.indexOf('iPhone' > -1) && navigator.userAgent.indexOf('Chrome' === -1)) {
+            // iOS Safari
+            appropriateMetaTagName = MetaTagName.IOS_SAFARI;
+        } if (navigator.userAgent.indexOf('IEMobile' > -1)) {
+            // Windows Phone
+            appropriateMetaTagName = MetaTagName.WINDOWS_PHONE;
+        } else {
+            // Chrome, Firefox OS, Opera and Vivaldi
+            appropriateMetaTagName = MetaTagName.DEFAULT;
+        }
+    }
+
+    return appropriateMetaTagName;    
 }
 
 function setStatusBarColor(hexColor) {
@@ -82,30 +119,47 @@ module.exports = {
     },
 
     overlaysWebView: function () {
-        // not supported
+        var overlay = false;
+
+        if (getAppropriateMetaTagName() === MetaTagName.IOS_SAFARI &&
+            statusBarThemeMetaTag.content === 'black-translucent') {
+            overlay = true;
+        }        
+
+        return overlay;
     },
 
     styleDefault: function () {
         // dark text ( to be used on a light background )
         if (isSupported()) {
-            setStatusBarColor('');
+            if (getAppropriateMetaTagName() === MetaTagName.IOS_SAFARI) {
+                setStatusBarColor('default');
+            } else {
+                setStatusBarColor('');
+            }
         }
     },
 
     styleLightContent: function () {
         // light text ( to be used on a dark background )
         if (isSupported()) {
-            setStatusBarColor(BRIGHTEST_SUPPORTED_COLOR);
+            if (getAppropriateMetaTagName() === MetaTagName.IOS_SAFARI) {
+                setStatusBarColor('black');
+            } else {
+                setStatusBarColor(BRIGHTEST_SUPPORTED_COLOR);
+            }
         }
     },
 
     styleBlackTranslucent: function () {
-        // #88000000 ? Apple says to use lightContent instead
-        return module.exports.styleLightContent();
+        if (getAppropriateMetaTagName() === MetaTagName.IOS_SAFARI) {
+            return setStatusBarColor('black-translucent');
+        } else {
+            return module.exports.styleLightContent();
+        }
     },
 
     styleBlackOpaque: function () {
-        // #FF000000 ? Apple says to use lightContent instead
         return module.exports.styleLightContent();
     },
 
