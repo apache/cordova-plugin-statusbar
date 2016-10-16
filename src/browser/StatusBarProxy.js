@@ -170,6 +170,8 @@ module.exports = {
         }
     },
 
+    isVisible: true,
+
     show: function (win, fail) {
         // added support check so no error thrown, when calling this method
         if (isSupported()) {

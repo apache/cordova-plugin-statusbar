@@ -21,9 +21,9 @@ description: Control the device status bar.
 #         under the License.
 -->
 
-|Android|iOS| Windows 8.1 Store | Windows 8.1 Phone | Windows 10 Store | Travis CI |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-|[![Build Status](http://cordova-ci.cloudapp.net:8080/buildStatus/icon?job=cordova-periodic-build/PLATFORM=android,PLUGIN=cordova-plugin-statusbar)](http://cordova-ci.cloudapp.net:8080/job/cordova-periodic-build/PLATFORM=android,PLUGIN=cordova-plugin-statusbar/)|[![Build Status](http://cordova-ci.cloudapp.net:8080/buildStatus/icon?job=cordova-periodic-build/PLATFORM=ios,PLUGIN=cordova-plugin-statusbar)](http://cordova-ci.cloudapp.net:8080/job/cordova-periodic-build/PLATFORM=ios,PLUGIN=cordova-plugin-statusbar/)|[![Build Status](http://cordova-ci.cloudapp.net:8080/buildStatus/icon?job=cordova-periodic-build/PLATFORM=windows-8.1-store,PLUGIN=cordova-plugin-statusbar)](http://cordova-ci.cloudapp.net:8080/job/cordova-periodic-build/PLATFORM=windows-8.1-store,PLUGIN=cordova-plugin-statusbar/)|[![Build Status](http://cordova-ci.cloudapp.net:8080/buildStatus/icon?job=cordova-periodic-build/PLATFORM=windows-8.1-phone,PLUGIN=cordova-plugin-statusbar)](http://cordova-ci.cloudapp.net:8080/job/cordova-periodic-build/PLATFORM=windows-8.1-phone,PLUGIN=cordova-plugin-statusbar/)|[![Build Status](http://cordova-ci.cloudapp.net:8080/buildStatus/icon?job=cordova-periodic-build/PLATFORM=windows-10-store,PLUGIN=cordova-plugin-statusbar)](http://cordova-ci.cloudapp.net:8080/job/cordova-periodic-build/PLATFORM=windows-10-store,PLUGIN=cordova-plugin-statusbar/)|[![Build Status](https://travis-ci.org/apache/cordova-plugin-statusbar.svg?branch=master)](https://travis-ci.org/apache/cordova-plugin-statusbar)|
+| Android | Browser | iOS | Windows 8.1 Store | Windows 8.1 Phone | Windows 10 Store | Travis CI |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|[![Build Status](http://cordova-ci.cloudapp.net:8080/buildStatus/icon?job=cordova-periodic-build/PLATFORM=android,PLUGIN=cordova-plugin-statusbar)](http://cordova-ci.cloudapp.net:8080/job/cordova-periodic-build/PLATFORM=android,PLUGIN=cordova-plugin-statusbar/)|[![Build Status](http://cordova-ci.cloudapp.net:8080/buildStatus/icon?job=cordova-periodic-build/PLATFORM=browser,PLUGIN=cordova-plugin-statusbar)](http://cordova-ci.cloudapp.net:8080/job/cordova-periodic-build/PLATFORM=browser,PLUGIN=cordova-plugin-statusbar/)|[![Build Status](http://cordova-ci.cloudapp.net:8080/buildStatus/icon?job=cordova-periodic-build/PLATFORM=ios,PLUGIN=cordova-plugin-statusbar)](http://cordova-ci.cloudapp.net:8080/job/cordova-periodic-build/PLATFORM=ios,PLUGIN=cordova-plugin-statusbar/)|[![Build Status](http://cordova-ci.cloudapp.net:8080/buildStatus/icon?job=cordova-periodic-build/PLATFORM=windows-8.1-store,PLUGIN=cordova-plugin-statusbar)](http://cordova-ci.cloudapp.net:8080/job/cordova-periodic-build/PLATFORM=windows-8.1-store,PLUGIN=cordova-plugin-statusbar/)|[![Build Status](http://cordova-ci.cloudapp.net:8080/buildStatus/icon?job=cordova-periodic-build/PLATFORM=windows-8.1-phone,PLUGIN=cordova-plugin-statusbar)](http://cordova-ci.cloudapp.net:8080/job/cordova-periodic-build/PLATFORM=windows-8.1-phone,PLUGIN=cordova-plugin-statusbar/)|[![Build Status](http://cordova-ci.cloudapp.net:8080/buildStatus/icon?job=cordova-periodic-build/PLATFORM=windows-10-store,PLUGIN=cordova-plugin-statusbar)](http://cordova-ci.cloudapp.net:8080/job/cordova-periodic-build/PLATFORM=windows-10-store,PLUGIN=cordova-plugin-statusbar/)|[![Build Status](https://travis-ci.org/apache/cordova-plugin-statusbar.svg?branch=master)](https://travis-ci.org/apache/cordova-plugin-statusbar)|
 
 # cordova-plugin-statusbar
 
@@ -72,6 +72,9 @@ if (cordova.platformId == 'android') {
     StatusBar.backgroundColorByHexString("#333");
 }
 ```
+
+### Browser Support
+Only a limited selection of browsers offer support for setting status bar colors.
 
 Hiding at startup
 -----------
@@ -138,6 +141,7 @@ On iOS 7, set to false to make the statusbar appear like iOS 6. Set the style an
 Supported Platforms
 -------------------
 
+- Browser
 - iOS
 
 Quick Example
@@ -157,6 +161,7 @@ Use the default statusbar (dark text, for light backgrounds).
 Supported Platforms
 -------------------
 
+- Browser
 - iOS
 - Windows Phone 7
 - Windows Phone 8
@@ -173,6 +178,7 @@ Use the lightContent statusbar (light text, for dark backgrounds).
 Supported Platforms
 -------------------
 
+- Browser
 - iOS
 - Windows Phone 7
 - Windows Phone 8
@@ -189,6 +195,7 @@ Use the blackTranslucent statusbar (light text, for dark backgrounds).
 Supported Platforms
 -------------------
 
+- Browser
 - iOS
 - Windows Phone 7
 - Windows Phone 8
@@ -205,6 +212,7 @@ Use the blackOpaque statusbar (light text, for dark backgrounds).
 Supported Platforms
 -------------------
 
+- Browser
 - iOS
 - Windows Phone 7
 - Windows Phone 8
@@ -226,8 +234,9 @@ Supported color names are:
 Supported Platforms
 -------------------
 
-- iOS
 - Android 5+
+- Browser
+- iOS
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
@@ -251,8 +260,9 @@ On WP7 and WP8 you can also specify values as #AARRGGBB, where AA is an alpha va
 Supported Platforms
 -------------------
 
-- iOS
 - Android 5+
+- Browser
+- iOS
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
@@ -268,8 +278,8 @@ Hide the statusbar.
 Supported Platforms
 -------------------
 
-- iOS
 - Android
+- iOS
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
@@ -285,8 +295,8 @@ Shows the statusbar.
 Supported Platforms
 -------------------
 
-- iOS
 - Android
+- iOS
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
@@ -305,8 +315,8 @@ Read this property to see if the statusbar is visible or not.
 Supported Platforms
 -------------------
 
-- iOS
 - Android
+- iOS
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
