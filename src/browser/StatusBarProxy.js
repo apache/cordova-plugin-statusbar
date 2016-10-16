@@ -92,7 +92,7 @@ function getAppropriateMetaTagName() {
         if(navigator.userAgent.indexOf('iPhone' > -1) && navigator.userAgent.indexOf('Chrome' === -1)) {
             // iOS Safari
             appropriateMetaTagName = MetaTagName.IOS_SAFARI;
-        } if (navigator.userAgent.indexOf('IEMobile' > -1)) {
+        } if (navigator.userAgent.indexOf('IEMobile') > -1) {
             // Windows Phone
             appropriateMetaTagName = MetaTagName.WINDOWS_PHONE;
         } else {
