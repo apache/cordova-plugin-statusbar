@@ -214,7 +214,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 - (void) setStatusBarOverlaysWebView:(BOOL)statusBarOverlaysWebView
 {
     // we only care about the latest iOS version or a change in setting
-    if (!IsAtLeastiOSVersion(@"7.0") || statusBarOverlaysWebView == _statusBarOverlaysWebView) {
+    if (!IsAtLeastiOSVersion(@"7.0")) {
         return;
     }
     
