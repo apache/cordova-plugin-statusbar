@@ -113,6 +113,11 @@ Properties
 
 - StatusBar.isVisible
 
+Events
+------
+
+- statusTap
+
 Permissions
 -----------
 
@@ -310,3 +315,19 @@ Supported Platforms
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
+
+
+statusTap
+=========
+
+Listen for this event to know if the statusbar was tapped.
+
+    window.addEventListener('statusTap', function() {
+        // scroll-up with document.body.scrollTop = 0; or do whatever you want
+    });
+
+
+Supported Platforms
+-------------------
+
+- iOS
