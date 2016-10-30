@@ -473,16 +473,16 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
         CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
         statusBarFrame = [self invertFrameIfNeeded:statusBarFrame];
         CGRect frame = self.webView.frame;
+        CGFloat height = statusBarFrame.size.height;
 
         if (!self.statusBarOverlaysWebView) {
-            frame.origin.y = statusBarFrame.size.height;
-            frame.size.height -= statusBarFrame.size.height;
+            // CB-10158 If a full screen video is playing the status bar height will be 0, set it to 20
+            frame.origin.y = height > 0 ? height: 20;
         } else {
-            // even if overlay is used, we want to handle in-call/recording/hotspot larger status bar
-            CGFloat height = statusBarFrame.size.height;
+            // Even if overlay is used, we want to handle in-call/recording/hotspot larger status bar
             frame.origin.y = height >= 20 ? height - 20 : 0;
-            frame.size.height -= frame.origin.y;
         }
+        frame.size.height -= frame.origin.y;
         self.webView.frame = frame;
     } else {
         CGRect bounds = [[UIScreen mainScreen] applicationFrame];
