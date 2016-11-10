@@ -89,7 +89,7 @@ function getStatusBar() {
 function getAppropriateMetaTagName() {
     if (appropriateMetaTagName === null) {
         // TODO: Make userAgent identification more robust
-        if(navigator.userAgent.indexOf('iPhone' > -1) && navigator.userAgent.indexOf('Chrome' === -1)) {
+        if(navigator.userAgent.indexOf('iPhone') > -1 && navigator.userAgent.indexOf('Chrome') === -1) {
             // iOS Safari
             appropriateMetaTagName = MetaTagName.IOS_SAFARI;
         } if (navigator.userAgent.indexOf('IEMobile') > -1) {
