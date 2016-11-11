@@ -189,7 +189,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
 
     if ([[UIApplication sharedApplication]statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown &&
-        statusBarFrame.size.height + statusBarFrame.origin.y == [[UIScreen mainScreen] bounds].size.height) {
+        statusBarFrame.size.height + statusBarFrame.origin.y == [self.viewController.view.window bounds].size.height) {
 
         // When started in upside-down orientation on iOS 7, status bar will be bound to lower edge of the
         // screen (statusBarFrame.origin.y will be somewhere around screen height). In this case we need to
@@ -207,8 +207,8 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
 - (CGRect) invertFrameIfNeeded:(CGRect)rect {
     // landscape is where (width > height). On iOS < 8, we need to invert since frames are
-    // always in Portrait context
-    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) && (rect.size.width < rect.size.height)) {
+    // always in Portrait context. Do not run this on ios 8 or above to avoid breaking ipad pro multitask layout
+    if (!IsAtLeastiOSVersion(@"8.0") && UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
         CGFloat temp = rect.size.width;
         rect.size.width = rect.size.height;
         rect.size.height = temp;
@@ -447,7 +447,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     BOOL isIOS7 = (IsAtLeastiOSVersion(@"7.0"));
 
     if (isIOS7) {
-        CGRect bounds = [[UIScreen mainScreen] bounds];
+        CGRect bounds = [self.viewController.view.window bounds];
         bounds = [self invertFrameIfNeeded:bounds];
 
         if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) {
