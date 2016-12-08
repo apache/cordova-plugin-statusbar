@@ -20,6 +20,14 @@
 -->
 # Release Notes
 
+### 2.2.1 (Dec 07, 2016)
+* [CB-10288](https://issues.apache.org/jira/browse/CB-10288) statusbar plugin interaction with iOS multitasking
+* [CB-10158](https://issues.apache.org/jira/browse/CB-10158) (ios) fix StatusBar issue when recovering from fullscreen video
+* [CB-10341](https://issues.apache.org/jira/browse/CB-10341) ios, document statusTap event
+* [CB-11191](https://issues.apache.org/jira/browse/CB-11191) Statusbar plugin causing issues with webview size
+* [CB-11917](https://issues.apache.org/jira/browse/CB-11917) - Remove pull request template checklist item: "iCLA has been submitted…"
+* [CB-11832](https://issues.apache.org/jira/browse/CB-11832) Incremented plugin version.
+
 ### 2.2.0 (Sep 08, 2016)
 * [CB-11795](https://issues.apache.org/jira/browse/CB-11795) Add 'protective' entry to cordovaDependencies
 * Handle extended status bar on **iOS**
