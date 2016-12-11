@@ -21,6 +21,7 @@
 # Release Notes
 
 ### 2.2.1 (Dec 07, 2016)
+* [CB-12224](https://issues.apache.org/jira/browse/CB-12224) Updated version and RELEASENOTES.md for release 2.2.1
 * [CB-10288](https://issues.apache.org/jira/browse/CB-10288) statusbar plugin interaction with iOS multitasking
 * [CB-10158](https://issues.apache.org/jira/browse/CB-10158) (ios) fix StatusBar issue when recovering from fullscreen video
 * [CB-10341](https://issues.apache.org/jira/browse/CB-10341) ios, document statusTap event
