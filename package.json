@@ -2,6 +2,7 @@
   "name": "cordova-plugin-statusbar",
   "version": "2.2.2-dev",
   "description": "Cordova StatusBar Plugin",
+  "types": "./types/index.d.ts",
   "cordova": {
     "id": "cordova-plugin-statusbar",
     "platforms": [
