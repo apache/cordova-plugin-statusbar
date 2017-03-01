@@ -20,6 +20,14 @@
 -->
 # Release Notes
 
+### 2.2.2 (Feb 28, 2017)
+* [CB-12188](https://issues.apache.org/jira/browse/CB-12188) Status Bar is not changing in some specific **Android** phone (Red MI 3s Prime)
+* [CB-12369](https://issues.apache.org/jira/browse/CB-12369) Add plugin typings from `DefinitelyTyped` 
+* [CB-12363](https://issues.apache.org/jira/browse/CB-12363) Added build badges for **iOS 9.3** and **iOS 10.0** 
+* [CB-12196](https://issues.apache.org/jira/browse/CB-12196) **iOS** fix Status Bar Not Hiding
+* [CB-12141](https://issues.apache.org/jira/browse/CB-12141) **iOS** fix white app screen after camera overlay shown on iPad
+* [CB-12230](https://issues.apache.org/jira/browse/CB-12230) Removed **Windows 8.1** build badges
+
 ### 2.2.1 (Dec 07, 2016)
 * [CB-12224](https://issues.apache.org/jira/browse/CB-12224) Updated version and RELEASENOTES.md for release 2.2.1
 * [CB-10288](https://issues.apache.org/jira/browse/CB-10288) statusbar plugin interaction with iOS multitasking
@@ -75,7 +83,7 @@
 
 ### 1.0.1 (Jun 17, 2015)
 * add auto-tests for basic api
-* [CB-9180](https://issues.apache.org/jira/browse/CB-9180) Add correct supported check for Windows 8.1 desktop
+* [CB-9180](https://issues.apache.org/jira/browse/CB-9180) Add correct supported check for **Windows 8.1** desktop
 * [CB-9128](https://issues.apache.org/jira/browse/CB-9128) cordova-plugin-statusbar documentation translation: cordova-plugin-statusbar
 * fix npm md issue
 
