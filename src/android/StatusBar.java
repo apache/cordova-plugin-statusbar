@@ -34,6 +34,7 @@ import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.LOG;
 import org.apache.cordova.PluginResult;
 import org.json.JSONException;
+import java.util.Arrays;
 
 public class StatusBar extends CordovaPlugin {
     private static final String TAG = "StatusBar";
@@ -60,6 +61,9 @@ public class StatusBar extends CordovaPlugin {
 
                 // Read 'StatusBarBackgroundColor' from config.xml, default is #000000.
                 setStatusBarBackgroundColor(preferences.getString("StatusBarBackgroundColor", "#000000"));
+
+                // Read 'StatusBarStyle' from config.xml, default is 'lightcontent'.
+                setStatusBarStyle(preferences.getString("StatusBarStyle", "lightcontent"));
             }
         });
     }
@@ -142,6 +146,46 @@ public class StatusBar extends CordovaPlugin {
             return true;
         }
 
+        if ("styleDefault".equals(action)) {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setStatusBarStyle("default");
+                }
+            });
+            return true;
+        }
+
+        if ("styleLightContent".equals(action)) {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setStatusBarStyle("lightcontent");
+                }
+            });
+            return true;
+        }
+
+        if ("styleBlackTranslucent".equals(action)) {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setStatusBarStyle("blacktranslucent");
+                }
+            });
+            return true;
+        }
+
+        if ("styleBlackOpaque".equals(action)) {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setStatusBarStyle("blackopaque");
+                }
+            });
+            return true;
+        }
+
         return false;
     }
 
@@ -161,6 +205,37 @@ public class StatusBar extends CordovaPlugin {
                     // this should not happen, only in case Android removes this method in a version > 21
                     LOG.w(TAG, "Method window.setStatusBarColor not found for SDK level " + Build.VERSION.SDK_INT);
                 }
+            }
+        }
+    }
+
+    private void setStatusBarStyle(final String style) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (style != null && !style.isEmpty()) {
+                View decorView = cordova.getActivity().getWindow().getDecorView();
+                int uiOptions = decorView.getSystemUiVisibility();
+
+                String[] darkContentStyles = {
+                    "default",
+                };
+
+                String[] lightContentStyles = {
+                    "lightcontent",
+                    "blacktranslucent",
+                    "blackopaque",
+                };
+
+                if (Arrays.asList(darkContentStyles).contains(style.toLowerCase())) {
+                    decorView.setSystemUiVisibility(uiOptions | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                    return;
+                }
+
+                if (Arrays.asList(lightContentStyles).contains(style.toLowerCase())) {
+                    decorView.setSystemUiVisibility(uiOptions & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                    return;
+                }
+
+                LOG.e(TAG, "Invalid style, must be either 'default', 'lightcontent' or the deprecated 'blacktranslucent' and 'blackopaque'");
             }
         }
     }
