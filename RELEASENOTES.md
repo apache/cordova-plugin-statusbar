@@ -20,6 +20,11 @@
 -->
 # Release Notes
 
+### 2.2.3 (Apr 27, 2017)
+* [CB-12622](https://issues.apache.org/jira/browse/CB-12622) Added **Android 6.0** build badge to `README`
+* [CB-10879](https://issues.apache.org/jira/browse/CB-10879) Enable overlaysWebView on **Android** API 21+
+* [CB-12685](https://issues.apache.org/jira/browse/CB-12685) added `package.json` to tests folder
+
 ### 2.2.2 (Feb 28, 2017)
 * [CB-12188](https://issues.apache.org/jira/browse/CB-12188) Status Bar is not changing in some specific **Android** phone (Red MI 3s Prime)
 * [CB-12369](https://issues.apache.org/jira/browse/CB-12369) Add plugin typings from `DefinitelyTyped` 
