@@ -142,6 +142,23 @@ public class StatusBar extends CordovaPlugin {
             return true;
         }
 
+        if ("overlaysWebView".equals(action)) {
+            if (Build.VERSION.SDK_INT >= 21) {
+                this.cordova.getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            setStatusBarTransparent(args.getBoolean(0));
+                        } catch (JSONException ignore) {
+                            LOG.e(TAG, "Invalid boolean argument");
+                        }
+                    }
+                });
+                return true;
+            }
+            else return args.getBoolean(0) == false;
+        }
+
         return false;
     }
 
@@ -154,13 +171,30 @@ public class StatusBar extends CordovaPlugin {
                 window.addFlags(0x80000000); // SDK 21: WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                 try {
                     // Using reflection makes sure any 5.0+ device will work without having to compile with SDK level 21
-                    window.getClass().getDeclaredMethod("setStatusBarColor", int.class).invoke(window, Color.parseColor(colorPref));
+                    window.getClass().getMethod("setStatusBarColor", int.class).invoke(window, Color.parseColor(colorPref));
                 } catch (IllegalArgumentException ignore) {
                     LOG.e(TAG, "Invalid hexString argument, use f.i. '#999999'");
                 } catch (Exception ignore) {
                     // this should not happen, only in case Android removes this method in a version > 21
                     LOG.w(TAG, "Method window.setStatusBarColor not found for SDK level " + Build.VERSION.SDK_INT);
                 }
+            }
+        }
+    }
+
+    private void setStatusBarTransparent(final boolean transparent) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            final Window window = cordova.getActivity().getWindow();
+            if (transparent) {
+                window.getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+                window.setStatusBarColor(Color.TRANSPARENT);
+            }
+            else {
+                window.getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                                | View.SYSTEM_UI_FLAG_VISIBLE);
             }
         }
     }
