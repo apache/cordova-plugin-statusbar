@@ -27,6 +27,8 @@ description: Control the device status bar.
 
 # cordova-plugin-statusbar
 
+Dummy Entry
+
 StatusBar
 ======
 
