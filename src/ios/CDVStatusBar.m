@@ -511,20 +511,25 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
             }
             else{
                 // CB-13291: Fill bottom gap iOS 11 when status bar hides
+                #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
                 if (isIOS11){
                     float safeAreaTop = self.webView.safeAreaInsets.top;
                     frame.origin.y    = height > 0 ? height : (safeAreaTop == 0 ? 20 : safeAreaTop);
                 }
+                #endif
             }
             
+            #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
             // CB-13291: Allow bottom to extend pass home indicator if statusBarCropsWebView is false
-            if (!self.statusBarCropsWebView){
+            if (!self.statusBarCropsWebView && isIOS11){
                 frame.size.height = frame.size.height+self.webView.safeAreaInsets.bottom;;
             }
+            #endif
             
             
         } else {
             
+            #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
             if (isIOS11){
                 
                 // CB-13291:
@@ -559,6 +564,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
                 frame.origin.y = height >= 20 ? height - 20 : 0;
                 
             }
+            #endif
         }
         
         frame.size.height -= frame.origin.y;
