@@ -21,7 +21,7 @@
 #import <Cordova/CDVInvokedUrlCommand.h>
 
 @interface CDVStatusBar : CDVPlugin {
-    @protected
+@protected
     BOOL _statusBarOverlaysWebView;
     UIView* _statusBarBackgroundView;
     BOOL _uiviewControllerBasedStatusBarAppearance;
@@ -30,10 +30,10 @@
 }
 
 @property (atomic, assign) BOOL statusBarOverlaysWebView;
+@property (atomic, assign) BOOL statusBarCropsWebView;
 @property (atomic, assign) BOOL statusBarVisible;
 
 - (void) overlaysWebView:(CDVInvokedUrlCommand*)command;
-
 - (void) styleDefault:(CDVInvokedUrlCommand*)command;
 - (void) styleLightContent:(CDVInvokedUrlCommand*)command;
 - (void) styleBlackTranslucent:(CDVInvokedUrlCommand*)command;
@@ -44,7 +44,8 @@
 
 - (void) hide:(CDVInvokedUrlCommand*)command;
 - (void) show:(CDVInvokedUrlCommand*)command;
-    
+
 - (void) _ready:(CDVInvokedUrlCommand*)command;
 
 @end
+
