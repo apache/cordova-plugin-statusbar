@@ -472,10 +472,12 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
                 frame.origin.y = height > 0 ? height: 20;
             }
         } else {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
           if (isIOS11){
             // iOS 11 has "safe-areas" meant for universal margins and odd screen sizings...looking at you iphoneX
             float safeAreaTop = self.webView.safeAreaInsets.top;
             frame.origin.y = height >= safeAreaTop ? height - safeAreaTop : 0;
+#endif
           } else {
             // Even if overlay is used, we want to handle in-call/recording/hotspot larger status bar
             frame.origin.y = height >= 20 ? height - 20 : 0;
