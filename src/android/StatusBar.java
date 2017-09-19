@@ -60,6 +60,9 @@ public class StatusBar extends CordovaPlugin {
 
                 // Read 'StatusBarBackgroundColor' from config.xml, default is #000000.
                 setStatusBarBackgroundColor(preferences.getString("StatusBarBackgroundColor", "#000000"));
+                
+                //Since Android M, it's possible to enable LightStatusBar (white)
+                setStatusBarStyle(preferences.getString("StatusBarStyle", "default"));
             }
         });
     }
@@ -142,6 +145,26 @@ public class StatusBar extends CordovaPlugin {
             return true;
         }
 
+        if ("styleDefault".equals(action) || "styleBlackTranslucent".equals(action)) {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setStatusBarStyle("default");
+                }
+            });
+            return true;
+        }
+
+        if ("styleLightContent".equals(action) || "styleBlackOpaque".equals(action)) {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setStatusBarStyle("lightcontent");
+                }
+            });
+            return true;
+        }
+        
         if ("overlaysWebView".equals(action)) {
             if (Build.VERSION.SDK_INT >= 21) {
                 this.cordova.getActivity().runOnUiThread(new Runnable() {
@@ -179,6 +202,23 @@ public class StatusBar extends CordovaPlugin {
                     LOG.w(TAG, "Method window.setStatusBarColor not found for SDK level " + Build.VERSION.SDK_INT);
                 }
             }
+        }
+    }
+
+    private void setStatusBarStyle(final String style) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Window window = cordova.getActivity().getWindow();
+            int newUiVisibility = window.getDecorView().getSystemUiVisibility();
+
+            if (style.equals("default") || style.equals("blacktranslucent")) {
+                //Dark Text to show up on a light status bar
+                newUiVisibility |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            } else if (style.equals("lightcontent") || style.equals("blackopaque")) {
+                //Light Text to show up on a dark status bar
+                newUiVisibility &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            }
+
+            window.getDecorView().setSystemUiVisibility(newUiVisibility);
         }
     }
 
