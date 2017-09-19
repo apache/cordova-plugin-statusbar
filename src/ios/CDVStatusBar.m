@@ -472,8 +472,8 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
                 frame.origin.y = height > 0 ? height: 20;
             }
         } else {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
           if (isIOS11){
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
             // iOS 11 has "safe-areas" meant for universal margins and odd screen sizings...looking at you iphoneX
             float safeAreaTop = self.webView.safeAreaInsets.top;
             frame.origin.y = height >= safeAreaTop ? height - safeAreaTop : 0;
