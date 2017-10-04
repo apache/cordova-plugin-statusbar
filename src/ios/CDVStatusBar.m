@@ -103,6 +103,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
         [weakSelf resizeWebView];
     });
     
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000    
     if (_isiPhoneX) {
         if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
             [self hide:nil];
@@ -110,19 +111,21 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
             [self show:nil];
         }
     }
+#endif
 }
 
 - (void)pluginInitialize
 {
     BOOL isiOS7 = (IsAtLeastiOSVersion(@"7.0"));
     
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
     // observe orientation changes if iPhoneX
     // to make remove statusbar in landscape mode
     if (@available(iOS 11.0, *)) {
         UIWindow *keyWindow = [[[UIApplication sharedApplication] delegate] window];
         _isiPhoneX = (keyWindow.safeAreaInsets.top + keyWindow.safeAreaInsets.right + keyWindow.safeAreaInsets.left > 0);
     }
-    
+#endif
     
     // init
     NSNumber* uiviewControllerBasedStatusBarAppearance = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"UIViewControllerBasedStatusBarAppearance"];
