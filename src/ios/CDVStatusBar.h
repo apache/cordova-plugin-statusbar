@@ -22,7 +22,9 @@
 
 @interface CDVStatusBar : CDVPlugin {
     @protected
+    BOOL _hideCalledFromExternal;
     BOOL _statusBarOverlaysWebView;
+    BOOL _isiPhoneX;
     UIView* _statusBarBackgroundView;
     BOOL _uiviewControllerBasedStatusBarAppearance;
     UIColor* _statusBarBackgroundColor;
@@ -48,3 +50,4 @@
 - (void) _ready:(CDVInvokedUrlCommand*)command;
 
 @end
+ 
