@@ -163,6 +163,7 @@ Supported Platforms
 -------------------
 
 - iOS
+- Android 6+ 
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
@@ -179,6 +180,7 @@ Supported Platforms
 -------------------
 
 - iOS
+- Android 6+ 
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
@@ -195,6 +197,7 @@ Supported Platforms
 -------------------
 
 - iOS
+- Android 6+ 
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
@@ -211,6 +214,7 @@ Supported Platforms
 -------------------
 
 - iOS
+- Android 6+ 
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
