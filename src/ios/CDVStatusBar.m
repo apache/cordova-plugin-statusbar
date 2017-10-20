@@ -100,6 +100,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     //add a small delay for iOS 7 ( 0.1 seconds )
     __weak CDVStatusBar* weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self resizeStatusBarBackgroundView];
         [weakSelf resizeWebView];
     });
 }
@@ -431,11 +432,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
                 // there is a possibility that when the statusbar was hidden, it was in a different orientation
                 // from the current one. Therefore we need to expand the statusBarBackgroundView as well to the
                 // statusBar's current size
-                CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
-                statusBarFrame = [self invertFrameIfNeeded:statusBarFrame];
-                CGRect sbBgFrame = _statusBarBackgroundView.frame;
-                sbBgFrame.size = statusBarFrame.size;
-                _statusBarBackgroundView.frame = sbBgFrame;
+                [self resizeStatusBarBackgroundView];
                 [self.webView.superview addSubview:_statusBarBackgroundView];
 
             }
@@ -444,6 +441,14 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
         _statusBarBackgroundView.hidden = NO;
     }
+}
+
+-(void)resizeStatusBarBackgroundView {
+    CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
+    statusBarFrame = [self invertFrameIfNeeded:statusBarFrame];
+    CGRect sbBgFrame = _statusBarBackgroundView.frame;
+    sbBgFrame.size = statusBarFrame.size;
+    _statusBarBackgroundView.frame = sbBgFrame;
 }
 
 -(void)resizeWebView
@@ -468,10 +473,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
         CGFloat height = statusBarFrame.size.height;
 
         if (!self.statusBarOverlaysWebView) {
-            if (_statusBarVisible) {
-                // CB-10158 If a full screen video is playing the status bar height will be 0, set it to 20 if _statusBarVisible
-                frame.origin.y = height > 0 ? height: 20;
-            }
+            frame.origin.y = height;
         } else {
             if (isIOS11) {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
