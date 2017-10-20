@@ -217,7 +217,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
         rect.size.height = temp;
         rect.origin = CGPointZero;
     }
-    
+
     return rect;
 }
 
@@ -227,7 +227,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     if (!IsAtLeastiOSVersion(@"7.0") || statusBarOverlaysWebView == _statusBarOverlaysWebView) {
         return;
     }
-    
+
     _statusBarOverlaysWebView = statusBarOverlaysWebView;
 
     [self resizeWebView];
@@ -387,7 +387,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
     if (!app.isStatusBarHidden)
     {
-        
+
         [self hideStatusBar];
 
         if (IsAtLeastiOSVersion(@"7.0")) {
@@ -475,6 +475,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
         if (!self.statusBarOverlaysWebView) {
             frame.origin.y = height;
         } else {
+            frame.origin.y = height >= 20 ? height - 20 : 0;
             if (isIOS11) {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
                 if (@available(iOS 11.0, *)) {
@@ -487,9 +488,6 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
                     }
                 }
 #endif
-            } else {
-                // Even if overlay is used, we want to handle in-call/recording/hotspot larger status bar
-                frame.origin.y = height >= 20 ? height - 20 : 0;
             }
         }
         frame.size.height -= frame.origin.y;
