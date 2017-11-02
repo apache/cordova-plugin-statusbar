@@ -138,8 +138,14 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
         [self setStatusBarStyle:[self settingForKey:setting]];
     }
 
+    setting  = @"StatusBarDefaultScrollToTop";
+    if ([self settingForKey:setting]) {
+        self.webView.scrollView.scrollsToTop = [(NSNumber*)[self settingForKey:setting] boolValue];
+    } else {
+        self.webView.scrollView.scrollsToTop = NO;
+    }
+ 
     // blank scroll view to intercept status bar taps
-    self.webView.scrollView.scrollsToTop = NO;
     UIScrollView *fakeScrollView = [[UIScrollView alloc] initWithFrame:UIScreen.mainScreen.bounds];
     fakeScrollView.delegate = self;
     fakeScrollView.scrollsToTop = YES;
