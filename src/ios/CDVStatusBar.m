@@ -97,21 +97,15 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
 -(void)statusBarDidChangeFrame:(NSNotification*)notification
 {
-    //add a small delay for iOS 7 ( 0.1 seconds )
-    __weak CDVStatusBar* weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [self resizeStatusBarBackgroundView];
-        [weakSelf resizeWebView];
-    });
+    [self resizeStatusBarBackgroundView];
+    [self resizeWebView];
 }
 
 - (void)pluginInitialize
 {
-    BOOL isiOS7 = (IsAtLeastiOSVersion(@"7.0"));
-
     // init
     NSNumber* uiviewControllerBasedStatusBarAppearance = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"UIViewControllerBasedStatusBarAppearance"];
-    _uiviewControllerBasedStatusBarAppearance = (uiviewControllerBasedStatusBarAppearance == nil || [uiviewControllerBasedStatusBarAppearance boolValue]) && isiOS7;
+    _uiviewControllerBasedStatusBarAppearance = (uiviewControllerBasedStatusBarAppearance == nil || [uiviewControllerBasedStatusBarAppearance boolValue]);
 
     // observe the statusBarHidden property
     [[UIApplication sharedApplication] addObserver:self forKeyPath:@"statusBarHidden" options:NSKeyValueObservingOptionNew context:NULL];
@@ -206,31 +200,16 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
         statusBarFrame.origin.y = 0;
     }
 
-    statusBarFrame = [self invertFrameIfNeeded:statusBarFrame];
-
     _statusBarBackgroundView = [[UIView alloc] initWithFrame:statusBarFrame];
     _statusBarBackgroundView.backgroundColor = _statusBarBackgroundColor;
     _statusBarBackgroundView.autoresizingMask = (UIViewAutoresizingFlexibleWidth  | UIViewAutoresizingFlexibleBottomMargin);
     _statusBarBackgroundView.autoresizesSubviews = YES;
 }
 
-- (CGRect) invertFrameIfNeeded:(CGRect)rect {
-    // landscape is where (width > height). On iOS < 8, we need to invert since frames are
-    // always in Portrait context. Do not run this on ios 8 or above to avoid breaking ipad pro multitask layout
-    if (!IsAtLeastiOSVersion(@"8.0") && UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
-        CGFloat temp = rect.size.width;
-        rect.size.width = rect.size.height;
-        rect.size.height = temp;
-        rect.origin = CGPointZero;
-    }
-
-    return rect;
-}
-
 - (void) setStatusBarOverlaysWebView:(BOOL)statusBarOverlaysWebView
 {
     // we only care about the latest iOS version or a change in setting
-    if (!IsAtLeastiOSVersion(@"7.0") || statusBarOverlaysWebView == _statusBarOverlaysWebView) {
+    if (statusBarOverlaysWebView == _statusBarOverlaysWebView) {
         return;
     }
 
@@ -317,22 +296,12 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
 - (void) styleBlackTranslucent:(CDVInvokedUrlCommand*)command
 {
-    #if __IPHONE_OS_VERSION_MAX_ALLOWED < 70000
-    # define TRANSLUCENT_STYLE UIStatusBarStyleBlackTranslucent
-    #else
-    # define TRANSLUCENT_STYLE UIStatusBarStyleLightContent
-    #endif
-    [self setStyleForStatusBar:TRANSLUCENT_STYLE];
+    [self setStyleForStatusBar:UIStatusBarStyleLightContent];
 }
 
 - (void) styleBlackOpaque:(CDVInvokedUrlCommand*)command
 {
-    #if __IPHONE_OS_VERSION_MAX_ALLOWED < 70000
-    # define OPAQUE_STYLE UIStatusBarStyleBlackOpaque
-    #else
-    # define OPAQUE_STYLE UIStatusBarStyleLightContent
-    #endif
-    [self setStyleForStatusBar:OPAQUE_STYLE];
+    [self setStyleForStatusBar:UIStatusBarStyleLightContent];
 }
 
 - (void) backgroundColorByName:(CDVInvokedUrlCommand*)command
@@ -396,9 +365,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
         [self hideStatusBar];
 
-        if (IsAtLeastiOSVersion(@"7.0")) {
-            [_statusBarBackgroundView removeFromSuperview];
-        }
+        [_statusBarBackgroundView removeFromSuperview];
 
         [self resizeWebView];
 
@@ -426,22 +393,16 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
     if (app.isStatusBarHidden)
     {
-        BOOL isIOS7 = (IsAtLeastiOSVersion(@"7.0"));
-
         [self showStatusBar];
         [self resizeWebView];
 
-        if (isIOS7) {
+        if (!self.statusBarOverlaysWebView) {
 
-            if (!self.statusBarOverlaysWebView) {
-
-                // there is a possibility that when the statusbar was hidden, it was in a different orientation
-                // from the current one. Therefore we need to expand the statusBarBackgroundView as well to the
-                // statusBar's current size
-                [self resizeStatusBarBackgroundView];
-                [self.webView.superview addSubview:_statusBarBackgroundView];
-
-            }
+            // there is a possibility that when the statusbar was hidden, it was in a different orientation
+            // from the current one. Therefore we need to expand the statusBarBackgroundView as well to the
+            // statusBar's current size
+            [self resizeStatusBarBackgroundView];
+            [self.webView.superview addSubview:_statusBarBackgroundView];
 
         }
 
@@ -451,7 +412,6 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
 -(void)resizeStatusBarBackgroundView {
     CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
-    statusBarFrame = [self invertFrameIfNeeded:statusBarFrame];
     CGRect sbBgFrame = _statusBarBackgroundView.frame;
     sbBgFrame.size = statusBarFrame.size;
     _statusBarBackgroundView.frame = sbBgFrame;
@@ -459,49 +419,42 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
 -(void)resizeWebView
 {
-    BOOL isIOS7 = (IsAtLeastiOSVersion(@"7.0"));
     BOOL isIOS11 = (IsAtLeastiOSVersion(@"11.0"));
 
-    if (isIOS7) {
-        CGRect bounds = [self.viewController.view.window bounds];
-        if (CGRectEqualToRect(bounds, CGRectZero)) {
-            bounds = [[UIScreen mainScreen] bounds];
-        }
-        bounds = [self invertFrameIfNeeded:bounds];
-
-        self.viewController.view.frame = bounds;
-
-        self.webView.frame = bounds;
-
-        CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
-        statusBarFrame = [self invertFrameIfNeeded:statusBarFrame];
-        CGRect frame = self.webView.frame;
-        CGFloat height = statusBarFrame.size.height;
-
-        if (!self.statusBarOverlaysWebView) {
-            frame.origin.y = height;
-        } else {
-            frame.origin.y = height >= 20 ? height - 20 : 0;
-            if (isIOS11) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
-                if (@available(iOS 11.0, *)) {
-                    float safeAreaTop = self.webView.safeAreaInsets.top;
-                    if (height >= safeAreaTop && safeAreaTop >0) {
-                        // Sometimes when in-call/recording/hotspot larger status bar is present, the safeAreaTop is 40 but we want frame.origin.y to be 20
-                        frame.origin.y = safeAreaTop == 40 ? 20 : height - safeAreaTop;
-                    } else {
-                        frame.origin.y = 0;
-                    }
-                }
-#endif
-            }
-        }
-        frame.size.height -= frame.origin.y;
-        self.webView.frame = frame;
-    } else {
-        CGRect bounds = [[UIScreen mainScreen] applicationFrame];
-        self.viewController.view.frame = bounds;
+    CGRect bounds = [self.viewController.view.window bounds];
+    if (CGRectEqualToRect(bounds, CGRectZero)) {
+        bounds = [[UIScreen mainScreen] bounds];
     }
+
+    self.viewController.view.frame = bounds;
+
+    self.webView.frame = bounds;
+
+    CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
+    CGRect frame = self.webView.frame;
+    CGFloat height = statusBarFrame.size.height;
+
+    if (!self.statusBarOverlaysWebView) {
+        frame.origin.y = height;
+    } else {
+        frame.origin.y = height >= 20 ? height - 20 : 0;
+        if (isIOS11) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
+            if (@available(iOS 11.0, *)) {
+                float safeAreaTop = self.webView.safeAreaInsets.top;
+                if (height >= safeAreaTop && safeAreaTop >0) {
+                    // Sometimes when in-call/recording/hotspot larger status bar is present, the safeAreaTop is 40 but we want frame.origin.y to be 20
+                    frame.origin.y = safeAreaTop == 40 ? 20 : height - safeAreaTop;
+                } else {
+                    frame.origin.y = 0;
+                }
+            }
+#endif
+        }
+    }
+    frame.size.height -= frame.origin.y;
+    self.webView.frame = frame;
+    
 }
 
 - (void) dealloc
