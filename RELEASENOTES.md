@@ -20,6 +20,9 @@
 -->
 # Release Notes
 
+### 2.4.0 (Dec 15, 2017)
+* [CB-13623](https://issues.apache.org/jira/browse/CB-13623) (iOS): Remove **iOS** 6-7 code
+
 ### 2.3.0 (Nov 06, 2017)
 * [CB-13476](https://issues.apache.org/jira/browse/CB-13476) (iOS): handle double size statusbar on SDK 10 for **iOS 11**
 * [CB-13394](https://issues.apache.org/jira/browse/CB-13394) (iOS): fix `iPhone X` StatusBar rendering in landscape
