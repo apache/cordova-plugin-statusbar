@@ -111,6 +111,7 @@ Although in the global scope, it is not available until after the `deviceready` 
 - StatusBar.backgroundColorByHexString
 - StatusBar.hide
 - StatusBar.show
+- StatusBar.getStatusBarHeight (Android only)
 
 Properties
 --------
@@ -284,6 +285,18 @@ StatusBar.show
 Shows the statusbar.
 
     StatusBar.show();
+
+
+StatusBar.getStatusBarHeight
+=================
+
+Gets the current height (in CSS pixels) of system statusbar.
+
+**Note that this is implemented currently only on Android**
+
+    StatusBar.getStatusBarHeight(function(height) {
+        // height in CSS pixels, i.e. 25
+    });
 
 
 Supported Platforms
