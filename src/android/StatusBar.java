@@ -25,6 +25,8 @@ import android.os.Build;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.graphics.Rect;
+import android.content.res.Resources;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaArgs;
@@ -203,6 +205,17 @@ public class StatusBar extends CordovaPlugin {
             return true;
         }
 
+        if ("getStatusBarHeight".equals(action)) {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, getStatusBarHeight()));
+                }
+            });
+            return true;
+        }
+
+
         return false;
     }
 
@@ -272,5 +285,15 @@ public class StatusBar extends CordovaPlugin {
                 LOG.e(TAG, "Invalid style, must be either 'default', 'lightcontent' or the deprecated 'blacktranslucent' and 'blackopaque'");
             }
         }
+    }
+
+    private int getStatusBarHeight() {
+
+        Rect rectangle = new Rect();
+        Window window = cordova.getActivity().getWindow();
+        window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
+        int statusBarHeight = Math.round(rectangle.top / Resources.getSystem().getDisplayMetrics().density);
+        return statusBarHeight;
+
     }
 }
