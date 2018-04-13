@@ -20,6 +20,9 @@
 -->
 # Release Notes
 
+### 2.4.2 (Apr 12, 2018)
+* [CB-12679](https://issues.apache.org/jira/browse/CB-12679) Remove Permissions section
+
 ### 2.4.1 (Dec 27, 2017)
 * [CB-13712](https://issues.apache.org/jira/browse/CB-13712) (iOS): fix overlaysWebView reset on rotation (#92)
 
