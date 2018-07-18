@@ -292,6 +292,7 @@ Shows the statusbar.
 
     StatusBar.show();
 
+
 Supported Platforms
 -------------------
 
@@ -305,8 +306,6 @@ StatusBar.getStatusBarHeight
 =================
 
 Gets the current height (in CSS pixels) of system statusbar.
-
-**Note that this is implemented currently only on Android**
 
     StatusBar.getStatusBarHeight(function(height) {
         // height in CSS pixels, i.e. 25
