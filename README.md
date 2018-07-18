@@ -116,7 +116,7 @@ Although in the global scope, it is not available until after the `deviceready` 
 - StatusBar.backgroundColorByHexString
 - StatusBar.hide
 - StatusBar.show
-- StatusBar.getStatusBarHeight (Android only)
+- StatusBar.getStatusBarHeight
 
 Properties
 --------
@@ -292,6 +292,14 @@ Shows the statusbar.
 
     StatusBar.show();
 
+Supported Platforms
+-------------------
+
+- iOS
+- Android
+- Windows Phone 7
+- Windows Phone 8
+- Windows Phone 8.1
 
 StatusBar.getStatusBarHeight
 =================
@@ -304,16 +312,10 @@ Gets the current height (in CSS pixels) of system statusbar.
         // height in CSS pixels, i.e. 25
     });
 
-
 Supported Platforms
 -------------------
 
-- iOS
 - Android
-- Windows Phone 7
-- Windows Phone 8
-- Windows Phone 8.1
-
 
 StatusBar.isVisible
 =================
