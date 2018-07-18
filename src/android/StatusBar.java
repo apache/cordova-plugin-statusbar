@@ -215,7 +215,6 @@ public class StatusBar extends CordovaPlugin {
             return true;
         }
 
-
         return false;
     }
 
@@ -288,7 +287,6 @@ public class StatusBar extends CordovaPlugin {
     }
 
     private int getStatusBarHeight() {
-
         Rect rectangle = new Rect();
         Window window = cordova.getActivity().getWindow();
         window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
