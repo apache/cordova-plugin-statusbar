@@ -286,12 +286,26 @@ public class StatusBar extends CordovaPlugin {
         }
     }
 
-    private int getStatusBarHeight() {
+     private int getStatusBarHeight() {
+
+        // Get WebView top offset
         Rect rectangle = new Rect();
         Window window = cordova.getActivity().getWindow();
         window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
-        int statusBarHeight = Math.round(rectangle.top / Resources.getSystem().getDisplayMetrics().density);
+        int webViewTopOffset = Math.round(rectangle.top / Resources.getSystem().getDisplayMetrics().density);
+
+        // Get StatusBar height from resources
+        int statusBarHeight = 0;
+        int resourceId = cordova.getActivity().getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            statusBarHeight = Math.round(cordova.getActivity().getResources().getDimensionPixelSize(resourceId) / Resources.getSystem().getDisplayMetrics().density);
+        }
+
+        if (webViewTopOffset > statusBarHeight) {
+            // we're in vertical split mode at the bottom so no statusbar overlaying our app
+            return 0;
+        }
         return statusBarHeight;
 
-    }
+     }
 }
