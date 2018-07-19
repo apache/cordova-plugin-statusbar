@@ -99,7 +99,6 @@ var StatusBar = {
         exec(function (result) {
             successCallback(result);
         }, errorCallback, "StatusBar", "getStatusBarHeight", []);
-        StatusBar.isVisible = true;
     }
 
 };
