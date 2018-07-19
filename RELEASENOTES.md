@@ -20,6 +20,24 @@
 -->
 # Release Notes
 
+### 2.4.2 (Apr 12, 2018)
+* [CB-12679](https://issues.apache.org/jira/browse/CB-12679) Remove Permissions section
+
+### 2.4.1 (Dec 27, 2017)
+* [CB-13712](https://issues.apache.org/jira/browse/CB-13712) (iOS): fix overlaysWebView reset on rotation (#92)
+
+### 2.4.0 (Dec 15, 2017)
+* [CB-13623](https://issues.apache.org/jira/browse/CB-13623) (iOS): Remove **iOS** 6-7 code
+
+### 2.3.0 (Nov 06, 2017)
+* [CB-13476](https://issues.apache.org/jira/browse/CB-13476) (iOS): handle double size statusbar on SDK 10 for **iOS 11**
+* [CB-13394](https://issues.apache.org/jira/browse/CB-13394) (iOS): fix `iPhone X` StatusBar rendering in landscape
+* [CB-11858](https://issues.apache.org/jira/browse/CB-11858) (android) Add `StatusBarStyle` feature support for **Android M+**
+* [CB-13311](https://issues.apache.org/jira/browse/CB-13311) (iOS) Statusbar does not overlay correctly on `iPhone X`
+* [CB-13028](https://issues.apache.org/jira/browse/CB-13028) (CI) **Browser** builds on Travis and AppVeyor
+* [CB-12812](https://issues.apache.org/jira/browse/CB-12812) (browser) Fix statusbar plugin with **Browser** platform
+* [CB-12847](https://issues.apache.org/jira/browse/CB-12847) added `bugs` entry to `package.json`.
+
 ### 2.2.3 (Apr 27, 2017)
 * [CB-12622](https://issues.apache.org/jira/browse/CB-12622) Added **Android 6.0** build badge to `README`
 * [CB-10879](https://issues.apache.org/jira/browse/CB-10879) Enable overlaysWebView on **Android** API 21+
