@@ -25,6 +25,8 @@ import android.os.Build;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.graphics.Rect;
+import android.content.res.Resources;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaArgs;
@@ -38,6 +40,7 @@ import java.util.Arrays;
 
 public class StatusBar extends CordovaPlugin {
     private static final String TAG = "StatusBar";
+    private static final int STATUS_BAR_HEIGHT_PX = 24;
 
     /**
      * Sets the context of the Command. This can then be used to do things like
@@ -203,6 +206,16 @@ public class StatusBar extends CordovaPlugin {
             return true;
         }
 
+        if ("getStatusBarHeight".equals(action)) {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, getStatusBarHeight()));
+                }
+            });
+            return true;
+        }
+
         return false;
     }
 
@@ -273,4 +286,20 @@ public class StatusBar extends CordovaPlugin {
             }
         }
     }
+
+    private int getStatusBarHeight() {
+
+        // Get WebView top offset
+        Rect rectangle = new Rect();
+        Window window = cordova.getActivity().getWindow();
+        window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
+        int webViewTopOffsetPx = Math.round(rectangle.top / Resources.getSystem().getDisplayMetrics().density);
+
+        if (webViewTopOffsetPx > STATUS_BAR_HEIGHT_PX) {
+            // we're in vertical split mode at the bottom so no statusbar overlaying our app
+            return 0;
+        }
+        return STATUS_BAR_HEIGHT_PX;
+
+     }
 }

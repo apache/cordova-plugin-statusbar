@@ -116,6 +116,7 @@ Although in the global scope, it is not available until after the `deviceready` 
 - StatusBar.backgroundColorByHexString
 - StatusBar.hide
 - StatusBar.show
+- StatusBar.getStatusBarHeight
 
 Properties
 --------
@@ -301,6 +302,23 @@ Supported Platforms
 - Windows Phone 8
 - Windows Phone 8.1
 
+StatusBar.getStatusBarHeight
+=================
+
+Gets the current height (in CSS pixels) of system statusbar.
+
+Note that default Android StatusBar height is setup as `24dp` which in practice means `24px` in WebView. 
+
+This method works well with Android Split Window mode so when app is at the bottom of split view, it returns `0` as the StatusBar height as there is no bar that overlaps app from the top.
+
+    StatusBar.getStatusBarHeight(function(height) {
+        // height in CSS pixels, i.e. 25
+    });
+
+Supported Platforms
+-------------------
+
+- Android
 
 StatusBar.isVisible
 =================
