@@ -40,6 +40,7 @@ import java.util.Arrays;
 
 public class StatusBar extends CordovaPlugin {
     private static final String TAG = "StatusBar";
+    private static final int STATUS_BAR_HEIGHT_PX = 24;
 
     /**
      * Sets the context of the Command. This can then be used to do things like
@@ -286,26 +287,19 @@ public class StatusBar extends CordovaPlugin {
         }
     }
 
-     private int getStatusBarHeight() {
+    private int getStatusBarHeight() {
 
         // Get WebView top offset
         Rect rectangle = new Rect();
         Window window = cordova.getActivity().getWindow();
         window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
-        int webViewTopOffset = Math.round(rectangle.top / Resources.getSystem().getDisplayMetrics().density);
+        int webViewTopOffsetPx = Math.round(rectangle.top / Resources.getSystem().getDisplayMetrics().density);
 
-        // Get StatusBar height from resources
-        int statusBarHeight = 0;
-        int resourceId = cordova.getActivity().getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            statusBarHeight = Math.round(cordova.getActivity().getResources().getDimensionPixelSize(resourceId) / Resources.getSystem().getDisplayMetrics().density);
-        }
-
-        if (webViewTopOffset > statusBarHeight) {
+        if (webViewTopOffsetPx > STATUS_BAR_HEIGHT_PX) {
             // we're in vertical split mode at the bottom so no statusbar overlaying our app
             return 0;
         }
-        return statusBarHeight;
+        return STATUS_BAR_HEIGHT_PX;
 
      }
 }
