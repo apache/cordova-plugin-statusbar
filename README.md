@@ -74,7 +74,7 @@ if (cordova.platformId == 'android') {
 }
 ```
 
-It is also possible to make the status bar semi-transparent. For example, a black status bar with 20% opacity:
+It is also possible to make the status bar semi-transparent. For example, a black status bar with 33% opacity:
 ```js
 if (cordova.platformId == 'android') {
     StatusBar.overlaysWebView(true);
