@@ -74,7 +74,9 @@ if (cordova.platformId == 'android') {
 }
 ```
 
-It is also possible to make the status bar semi-transparent. For example, a black status bar with 20% opacity:
+It is also possible to make the status bar semi-transparent. Android uses hexadecimal ARGB values, which are formatted as #AARRGGBB. That first pair of letters, the AA, represent the alpha channel. You must convert your decimal opacity values to a hexadecimal value. You can read more about it [here](https://stackoverflow.com/questions/5445085/understanding-colors-on-android-six-characters/11019879#11019879).
+
+For example, a black status bar with 20% opacity:
 ```js
 if (cordova.platformId == 'android') {
     StatusBar.overlaysWebView(true);
