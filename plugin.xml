@@ -38,6 +38,7 @@
 
     <platform name="android">
         <source-file src="src/android/StatusBar.java" target-dir="src/org/apache/cordova/statusbar" />
+        <source-file src="src/android/StatusBarViewHelper.java" target-dir="src/org/apache/cordova/statusbar" />
 
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="StatusBar">
