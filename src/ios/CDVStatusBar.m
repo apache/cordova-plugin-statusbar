@@ -142,7 +142,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     } else {
         self.webView.scrollView.scrollsToTop = NO;
     }
- 
+
     // blank scroll view to intercept status bar taps
     UIScrollView *fakeScrollView = [[UIScrollView alloc] initWithFrame:UIScreen.mainScreen.bounds];
     fakeScrollView.delegate = self;
@@ -249,15 +249,31 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     self.statusBarOverlaysWebView = [value boolValue];
 }
 
-- (void) refreshStatusBarAppearance
+- (void) refreshStatusBarAppearanceWithAnimation:(BOOL)refreshAnimated duration:(NSTimeInterval)duration
 {
     SEL sel = NSSelectorFromString(@"setNeedsStatusBarAppearanceUpdate");
     if ([self.viewController respondsToSelector:sel]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [self.viewController performSelector:sel withObject:nil];
+        if (refreshAnimated) {
+            [UIView animateWithDuration:duration animations:^() {
+                [self.viewController performSelector:sel withObject:nil];
+            }completion:^(BOOL finished){}];
+        } else {
+            [self.viewController performSelector:sel withObject:nil];
+        }
 #pragma clang diagnostic pop
     }
+}
+
+- (void) refreshStatusBarAppearanceWithAnimation:(BOOL)refreshAnimated
+{
+    [self refreshStatusBarAppearanceWithAnimation:refreshAnimated duration:0.1];
+}
+
+- (void) refreshStatusBarAppearance
+{
+    [self refreshStatusBarAppearanceWithAnimation:NO];
 }
 
 - (void) setStyleForStatusBar:(UIStatusBarStyle)style
@@ -346,16 +362,16 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     [self _backgroundColorByHexString:value];
 }
 
-- (void) hideStatusBar
+- (void) hideStatusBarWithAnimation:(BOOL)animated duration:(NSTimeInterval)duration
 {
     if (_uiviewControllerBasedStatusBarAppearance) {
         CDVViewController* vc = (CDVViewController*)self.viewController;
         vc.sb_hideStatusBar = [NSNumber numberWithBool:YES];
-        [self refreshStatusBarAppearance];
+        [self refreshStatusBarAppearanceWithAnimation:animated duration:duration];
 
     } else {
         UIApplication* app = [UIApplication sharedApplication];
-        [app setStatusBarHidden:YES];
+        [app setStatusBarHidden:YES withAnimation:animated];
     }
 }
 
@@ -367,7 +383,17 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     if (!app.isStatusBarHidden)
     {
 
-        [self hideStatusBar];
+        id animated = [command argumentAtIndex:0];
+        if (!([animated isKindOfClass:[NSNumber class]])) {
+            animated = [NSNumber numberWithBool:NO];
+        }
+
+        id duration = [command argumentAtIndex:1];
+        if (!([duration isKindOfClass:[NSNumber class]])) {
+            duration = [NSNumber numberWithDouble:0.1];
+        }
+
+        [self hideStatusBarWithAnimation:[animated boolValue] duration:[duration doubleValue]];
 
         [_statusBarBackgroundView removeFromSuperview];
 
@@ -377,16 +403,16 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     }
 }
 
-- (void) showStatusBar
+- (void) showStatusBarWithAnimation:(BOOL)animated duration:(NSTimeInterval)duration
 {
     if (_uiviewControllerBasedStatusBarAppearance) {
         CDVViewController* vc = (CDVViewController*)self.viewController;
         vc.sb_hideStatusBar = [NSNumber numberWithBool:NO];
-        [self refreshStatusBarAppearance];
+        [self refreshStatusBarAppearanceWithAnimation:animated duration:duration];
 
     } else {
         UIApplication* app = [UIApplication sharedApplication];
-        [app setStatusBarHidden:NO];
+        [app setStatusBarHidden:NO withAnimation:animated];
     }
 }
 
@@ -397,7 +423,17 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
     if (app.isStatusBarHidden)
     {
-        [self showStatusBar];
+        id animated = [command argumentAtIndex:0];
+        if (!([animated isKindOfClass:[NSNumber class]])) {
+            animated = [NSNumber numberWithBool:NO];
+        }
+
+        id duration = [command argumentAtIndex:1];
+        if (!([duration isKindOfClass:[NSNumber class]])) {
+            duration = [NSNumber numberWithDouble:0.1];
+        }
+
+        [self showStatusBarWithAnimation:[animated boolValue] duration:[duration doubleValue]];
         [self resizeWebView];
 
         if (!self.statusBarOverlaysWebView) {
@@ -458,7 +494,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     }
     frame.size.height -= frame.origin.y;
     self.webView.frame = frame;
-    
+
 }
 
 - (void) dealloc
