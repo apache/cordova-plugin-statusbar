@@ -5,35 +5,34 @@ addons:
 env:
   global:
   - SAUCE_USERNAME=snay
-  - TRAVIS_NODE_VERSION="4.2"
 matrix:
   include:
   - env: PLATFORM=browser-chrome
     os: linux
     language: node_js
-    node_js: '4.2'
+    node_js: '6'
   - env: PLATFORM=browser-firefox
     os: linux
     language: node_js
-    node_js: '4.2'
+    node_js: '6'
   - env: PLATFORM=browser-safari
     os: linux
     language: node_js
-    node_js: '4.2'
+    node_js: '6'
   - env: PLATFORM=browser-edge
     os: linux
     language: node_js
-    node_js: '4.2'
+    node_js: '6'
   - env: PLATFORM=ios-9.3
     os: osx
     osx_image: xcode7.3
     language: node_js
-    node_js: '4.2'
+    node_js: '6'
   - env: PLATFORM=ios-10.0
     os: osx
     osx_image: xcode7.3
     language: node_js
-    node_js: '4.2'
+    node_js: '6'
   - env: PLATFORM=android-4.4
     os: linux
     language: android
@@ -67,9 +66,7 @@ matrix:
       - tools
       - build-tools-26.0.2
 before_install:
-- rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm
-  && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm
-  install $TRAVIS_NODE_VERSION
+- if [[ "$PLATFORM" =~ android ]]; then nvm install 6; fi
 - node --version
 - if [[ "$PLATFORM" =~ android ]]; then gradle --version; fi
 - if [[ "$PLATFORM" =~ ios ]]; then npm install -g ios-deploy; fi
