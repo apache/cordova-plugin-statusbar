@@ -53,9 +53,7 @@
         </js-module>
     </platform>
 
-    <!-- ios -->
     <platform name="ios">
-
         <config-file target="config.xml" parent="/*">
             <feature name="StatusBar">
                 <param name="ios-package" value="CDVStatusBar" />
@@ -67,30 +65,8 @@
 
         <header-file src="src/ios/CDVStatusBar.h" />
         <source-file src="src/ios/CDVStatusBar.m" />
-
     </platform>
 
-    <!-- wp7 -->
-    <platform name="wp7">
-        <config-file target="config.xml" parent="/*">
-            <feature name="StatusBar">
-                <param name="wp-package" value="StatusBar"/>
-            </feature>
-        </config-file>
-        <source-file src="src/wp/StatusBar.cs" />
-    </platform>
-
-    <!-- wp8 -->
-    <platform name="wp8">
-        <config-file target="config.xml" parent="/*">
-            <feature name="StatusBar">
-                <param name="wp-package" value="StatusBar"/>
-            </feature>
-        </config-file>
-        <source-file src="src/wp/StatusBar.cs" />
-    </platform>
-
-    <!-- windows -->
     <platform name="windows">
         <js-module src="src/windows/StatusBarProxy.js" name="StatusBarProxy">
             <runs />
