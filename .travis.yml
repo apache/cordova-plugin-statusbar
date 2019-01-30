@@ -10,7 +10,7 @@ env:
     - TRAVIS_NODE_VERSION=6
 
 language: node_js
-node_js: "6"
+node_js: "$TRAVIS_NODE_VERSION"
 
 matrix:
   include:
