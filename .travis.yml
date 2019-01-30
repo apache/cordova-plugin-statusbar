@@ -71,7 +71,7 @@ matrix:
           - build-tools-26.0.2
 
 before_install:
-  # language: android has no Node.js installed, therfore it's needed to install it manually
+  # `language: android` has no Node.js installed, therefore we need to install it manually
   - if [[ "$PLATFORM" =~ android ]]; then nvm install $TRAVIS_NODE_VERSION; fi
   - node --version
   - if [[ "$PLATFORM" =~ android ]]; then gradle --version; fi
