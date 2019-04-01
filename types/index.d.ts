@@ -63,6 +63,11 @@ interface StatusBar {
     backgroundColorByHexString(color: string): void;
 
     /**
+     * Get the statusbar's height
+     */
+    height(onSuccess: (height: number) => void, onError?: (error: any) => void): void;
+
+    /**
     * Hide the statusbar.
     */
     hide(): void;

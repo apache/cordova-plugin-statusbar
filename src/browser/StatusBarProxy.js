@@ -41,6 +41,7 @@ module.exports = {
     styleLightContect: notSupported,
     backgroundColorByName: notSupported,
     backgroundColorByHexString: notSupported,
+    height: 0,
     hide: notSupported,
     show: notSupported,
     _ready: notSupported

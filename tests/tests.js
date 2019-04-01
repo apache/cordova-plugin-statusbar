@@ -59,6 +59,11 @@ exports.defineAutoTests = function () {
             expect(window.StatusBar.overlaysWebView).toBeDefined();
             expect(typeof window.StatusBar.overlaysWebView).toBe('function');
         });
+
+        it('statusbar.spec.5 should have get height method', function () {
+            expect(window.StatusBar.height).toBeDefined();
+            expect(typeof window.StatusBar.height).toBe('function');
+        });
     });
 };
 
@@ -100,6 +105,18 @@ exports.defineManualTests = function (contentEl, createActionButton) {
         showOverlay = !showOverlay;
         StatusBar.overlaysWebView(showOverlay);
         log('Set overlay=' + showOverlay);
+    }
+
+    function onGetHeightSuccess (height) {
+        log('Got our status bar height as ' + height + 'px');
+    }
+
+    function onGetHeightError (error) {
+        log('Our height call failed with the error logs: ' + error);
+    }
+
+    function getStatusBarHeight () {
+        StatusBar.height(onGetHeightSuccess, onGetHeightError);
     }
 
     /******************************************************************************/
@@ -176,4 +193,6 @@ exports.defineManualTests = function (contentEl, createActionButton) {
         },
         'action-overlays'
     );
+
+    getStatusBarHeight();
 };
