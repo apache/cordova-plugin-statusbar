@@ -22,23 +22,23 @@
 
 var _supported = null; // set to null so we can check first time
 
-function isSupported() {
+function isSupported () {
     // if not checked before, run check
     if (_supported === null) {
-        var viewMan = Windows.UI.ViewManagement; 
+        var viewMan = Windows.UI.ViewManagement;
         _supported = (viewMan.StatusBar && viewMan.StatusBar.getForCurrentView);
     }
     return _supported;
 }
 
-function getViewStatusBar() {
+function getViewStatusBar () {
     if (!isSupported()) {
-        throw new Error("Status bar is not supported");
+        throw new Error('Status bar is not supported');
     }
     return Windows.UI.ViewManagement.StatusBar.getForCurrentView();
 }
 
-function hexToRgb(hex) {
+function hexToRgb (hex) {
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
     var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     hex = hex.replace(shorthandRegex, function (m, r, g, b) {
@@ -54,8 +54,8 @@ function hexToRgb(hex) {
 }
 
 module.exports = {
-    _ready: function(win, fail) {
-        if(isSupported()) {
+    _ready: function (win, fail) {
+        if (isSupported()) {
             var statusBar = getViewStatusBar();
             win(statusBar.occludedRect.height !== 0);
         }
@@ -90,7 +90,7 @@ module.exports = {
 
     backgroundColorByHexString: function (win, fail, args) {
         var rgb = hexToRgb(args[0]);
-        if(isSupported()) {
+        if (isSupported()) {
             var statusBar = getViewStatusBar();
             statusBar.backgroundColor = { a: 0, r: rgb.r, g: rgb.g, b: rgb.b };
             statusBar.backgroundOpacity = 1;
@@ -111,4 +111,4 @@ module.exports = {
         }
     }
 };
-require("cordova/exec/proxy").add("StatusBar", module.exports);
+require('cordova/exec/proxy').add('StatusBar', module.exports);
