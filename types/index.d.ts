@@ -1,4 +1,4 @@
-// Type definitions for cordova-plugin-statusbar 2.4
+// Type definitions for cordova-plugin-statusbar
 // Project: https://github.com/apache/cordova-plugin-statusbar
 // Definitions by: Xinkai Chen <https://github.com/Xinkai>
 //                 Tim Brust <https://github.com/timbru31>
