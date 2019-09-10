@@ -46,6 +46,11 @@ var StatusBar = {
 
     overlaysWebView: function (doOverlay) {
         exec(null, null, "StatusBar", "overlaysWebView", [doOverlay]);
+        if(doOverlay){
+            document.body.classList.add('statusbar-overlay-on');
+        } else {
+            document.body.classList.remove('statusbar-overlay-on');
+        }
     },
 
     styleDefault: function () {
