@@ -92,7 +92,11 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
 -(void)cordovaViewWillAppear:(NSNotification*)notification
 {
-    [self resizeWebView];
+    //add a small delay ( 0.1 seconds ) or statusbar size will be wrong
+    __weak CDVStatusBar* weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [weakSelf resizeWebView];
+    });
 }
 
 -(void)statusBarDidChangeFrame:(NSNotification*)notification
