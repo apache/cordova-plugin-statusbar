@@ -59,7 +59,7 @@ Preferences
 
         <preference name="StatusBarBackgroundColor" value="#000000" />
 
-- __StatusBarStyle__ (status bar style, defaults to lightcontent). Set the status bar style. Available options default, lightcontent, blacktranslucent, blackopaque.
+- __StatusBarStyle__ (status bar style, defaults to lightcontent). Set the status bar style (e.g. text color). Available options: default, lightcontent, blacktranslucent, blackopaque.
 
         <preference name="StatusBarStyle" value="lightcontent" />
 
