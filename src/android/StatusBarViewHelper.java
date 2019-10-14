@@ -6,6 +6,7 @@ import android.view.DisplayCutout;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
+import android.view.DisplayCutout;
 
 public class StatusBarViewHelper {
 
