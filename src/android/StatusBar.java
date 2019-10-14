@@ -51,11 +51,14 @@ public class StatusBar extends CordovaPlugin {
         LOG.v(TAG, "StatusBar: initialization");
         super.initialize(cordova, webView);
 
+        StatusBar statusbar = this;
+
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                // CB-13300: This corrects keyboard behaviour when overlaysWebView is true
-                StatusBarViewHelper.assistActivity(cordova.getActivity());
+                //https://github.com/apache/cordova-plugin-statusbar/issues/110
+                //This corrects keyboard behaviour when overlaysWebView is true
+                StatusBarViewHelper.assist(cordova.getActivity(), statusbar);
                 
                 // Clear flag FLAG_FORCE_NOT_FULLSCREEN which is set initially
                 // by the Cordova.
@@ -68,7 +71,7 @@ public class StatusBar extends CordovaPlugin {
                 // Read 'StatusBarStyle' from config.xml, default is 'lightcontent'.
                 setStatusBarStyle(preferences.getString("StatusBarStyle", "lightcontent"));
             }
-        });
+        }
     }
 
     /**
