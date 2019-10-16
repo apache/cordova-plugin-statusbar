@@ -2,11 +2,9 @@ package org.apache.cordova.statusbar;
 
 import android.app.Activity;
 import android.graphics.Rect;
-import android.view.DisplayCutout;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
-import android.view.DisplayCutout;
 
 public class StatusBarViewHelper {
 
@@ -65,28 +63,10 @@ public class StatusBarViewHelper {
 
         int usableHeight = r.bottom;
 
-        if (isStatusBarVisible) {
-            //If not fullscreen, then we have to take the status bar into consideration (represented by r.top)
-            //r.bottom defines the keyboard, or navigation bar, or both.
-            if (!isFullscreen) {
-                usableHeight = usableHeight - r.top;
-            }
-        }
-        else {
-            int cutoutTop = 0;
-            int cutoutBottom = 0;
-
-            // On devices with screen cutouts, this code will think that screen is available, when in reality it is not.
-            // This piece gets the cutout information so that we can correct the computeUsableHeight
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P)  {
-                DisplayCutout cutout = activity.getWindow().getDecorView().getRootWindowInsets().getDisplayCutout();
-                if (cutout != null) {
-                    cutoutTop = cutout.getSafeInsetTop();
-                    cutoutBottom = cutout.getSafeInsetBottom();
-                }
-            }
-
-            usableHeight = usableHeight - cutoutTop - cutoutBottom;
+        // This handles both overlayed status bars and reserved spaces for cutouts when the
+        // status bar is hidden
+        if (!isFullscreen || (isFullscreen && !isStatusBarVisible)) {
+            usableHeight = usableHeight - r.top;
         }
 
         return usableHeight;
