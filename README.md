@@ -27,7 +27,7 @@ description: Control the device status bar.
 
 # cordova-plugin-statusbar
 
-> The `StatusBar` object provides some functions to customize the iOS and Android StatusBar.
+> The `StatusBar` object provides some functions to customize the iOS and Android StatusBar, as well as some browser chrome.
 
 ## Installation
 
@@ -84,6 +84,12 @@ if (cordova.platformId == 'android') {
     StatusBar.backgroundColorByHexString('#33000000');
 }
 ```
+
+### Browser Quirks
+Currently, there is support for the following browsers:
+- Chrome on Android
+- Safari on iOS
+- Internet Explorer on Windows Phone
 
 Hiding at startup
 -----------
@@ -148,6 +154,7 @@ Supported Platforms
 
 - iOS 7+
 - Android 5+
+- Browser
 
 Quick Example
 -------------
@@ -166,6 +173,7 @@ Use the default statusbar (dark text, for light backgrounds).
 Supported Platforms
 -------------------
 
+- Browser
 - iOS
 - Android 6+
 - Windows Phone 7
@@ -183,6 +191,7 @@ Use the lightContent statusbar (light text, for dark backgrounds).
 Supported Platforms
 -------------------
 
+- Browser
 - iOS
 - Android 6+
 - Windows Phone 7
@@ -200,6 +209,7 @@ Use the blackTranslucent statusbar (light text, for dark backgrounds).
 Supported Platforms
 -------------------
 
+- Browser
 - iOS
 - Android 6+
 - Windows Phone 7
@@ -217,6 +227,7 @@ Use the blackOpaque statusbar (light text, for dark backgrounds).
 Supported Platforms
 -------------------
 
+- Browser
 - iOS
 - Android 6+
 - Windows Phone 7
@@ -239,8 +250,9 @@ Supported color names are:
 Supported Platforms
 -------------------
 
-- iOS
 - Android 5+
+- Browser
+- iOS
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
@@ -264,8 +276,9 @@ On Android, when StatusBar.overlaysWebView is true, and on WP7&8, you can also s
 Supported Platforms
 -------------------
 
-- iOS
 - Android 5+
+- Browser
+- iOS
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
@@ -281,8 +294,8 @@ Hide the statusbar.
 Supported Platforms
 -------------------
 
-- iOS
 - Android
+- iOS
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
@@ -298,8 +311,8 @@ Shows the statusbar.
 Supported Platforms
 -------------------
 
-- iOS
 - Android
+- iOS
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1
@@ -318,8 +331,8 @@ Read this property to see if the statusbar is visible or not.
 Supported Platforms
 -------------------
 
-- iOS
 - Android
+- iOS
 - Windows Phone 7
 - Windows Phone 8
 - Windows Phone 8.1

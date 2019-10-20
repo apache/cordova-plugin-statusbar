@@ -36,6 +36,7 @@
         <clobbers target="window.StatusBar" />
     </js-module>
 
+    <!-- android -->
     <platform name="android">
         <source-file src="src/android/StatusBar.java" target-dir="src/org/apache/cordova/statusbar" />
 
@@ -47,6 +48,7 @@
         </config-file>
     </platform>
 
+    <!-- browser -->
     <platform name="browser">
         <js-module src="src/browser/StatusBarProxy.js" name="StatusBarProxy">
             <runs />
