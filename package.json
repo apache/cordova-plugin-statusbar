@@ -8,8 +8,6 @@
     "platforms": [
       "android",
       "ios",
-      "wp7",
-      "wp8",
       "windows"
     ]
   },
@@ -26,8 +24,6 @@
     "ecosystem:cordova",
     "cordova-android",
     "cordova-ios",
-    "cordova-wp7",
-    "cordova-wp8",
     "cordova-windows"
   ],
   "scripts": {
