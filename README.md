@@ -85,6 +85,15 @@ if (cordova.platformId == 'android') {
 }
 ```
 
+### iOS Quirks
+Starting with iOS 11 you must include `viewport-fit=cover` in your viewport meta tag if you want the status bar to overlay the webview:
+
+```html
+<meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+```
+
+
+
 Hiding at startup
 -----------
 
