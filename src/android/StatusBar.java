@@ -38,6 +38,8 @@ import java.util.Arrays;
 
 public class StatusBar extends CordovaPlugin {
     private static final String TAG = "StatusBar";
+    private String _bgColor;
+    private String _overlayBgColor;
 
     /**
      * Sets the context of the Command. This can then be used to do things like
@@ -54,13 +56,30 @@ public class StatusBar extends CordovaPlugin {
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+
                 // Clear flag FLAG_FORCE_NOT_FULLSCREEN which is set initially
                 // by the Cordova.
                 Window window = cordova.getActivity().getWindow();
                 window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 
                 // Read 'StatusBarBackgroundColor' from config.xml, default is #000000.
-                setStatusBarBackgroundColor(preferences.getString("StatusBarBackgroundColor", "#000000"));
+                _bgColor = preferences.getString("StatusBarBackgroundColor", "#000000");
+                setStatusBarBackgroundColor(_bgColor);
+
+                int color;
+                try {
+                    color = Color.parseColor(_bgColor);
+                    // If `StatusBarBackgroundColor` contains alpha other than 1, then it
+                    // is reasonable to assume that the color is intended for overlayed statusbar
+                    if (Color.alpha(color) != 1) {
+                        _overlayBgColor = _bgColor;
+                    } else {
+                        _overlayBgColor = "#00000000"; //Transparent
+                    }
+                } catch (IllegalArgumentException e) {
+                    LOG.w(TAG, "Invalid color " + _bgColor + ". Defaulting to #00000000.");
+                    _overlayBgColor = "#00000000";
+                }
 
                 // Read 'StatusBarStyle' from config.xml, default is 'lightcontent'.
                 setStatusBarStyle(preferences.getString("StatusBarStyle", "lightcontent"));
@@ -210,6 +229,17 @@ public class StatusBar extends CordovaPlugin {
         if (Build.VERSION.SDK_INT >= 21) {
             if (colorPref != null && !colorPref.isEmpty()) {
                 final Window window = cordova.getActivity().getWindow();
+
+                // This is so that we can return to the last set statusbar colours if overlay state changes.
+                int uiOptions = window.getDecorView().getSystemUiVisibility();
+                boolean isOverlayed = ((uiOptions | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN) == uiOptions);
+                if (isOverlayed) {
+                    _overlayBgColor = colorPref;
+                } else {
+                    _bgColor = colorPref;
+                }
+
+                
                 // Method and constants not available on all SDKs but we want to be able to compile this code with any SDK
                 window.clearFlags(0x04000000); // SDK 19: WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 window.addFlags(0x80000000); // SDK 21: WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -233,12 +263,13 @@ public class StatusBar extends CordovaPlugin {
                 window.getDecorView().setSystemUiVisibility(
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-                window.setStatusBarColor(Color.TRANSPARENT);
+                setStatusBarBackgroundColor(_overlayBgColor);
             }
             else {
                 window.getDecorView().setSystemUiVisibility(
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                                 | View.SYSTEM_UI_FLAG_VISIBLE);
+                setStatusBarBackgroundColor(_bgColor);
             }
         }
     }
