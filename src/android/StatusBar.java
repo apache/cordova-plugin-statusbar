@@ -59,6 +59,9 @@ public class StatusBar extends CordovaPlugin {
                 Window window = cordova.getActivity().getWindow();
                 window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 
+                // Read 'StatusBarOverlaysWebView' from config.xml, default is true.
+                setStatusBarTransparent(preferences.getBoolean("StatusBarOverlaysWebView", true));
+
                 // Read 'StatusBarBackgroundColor' from config.xml, default is #000000.
                 setStatusBarBackgroundColor(preferences.getString("StatusBarBackgroundColor", "#000000"));
 
