@@ -55,7 +55,7 @@ Preferences
     
     Only supported on Android 5 or later. Earlier versions will ignore this preference.
 
-- __StatusBarBackgroundColor__ (color hex string, no default value). Set the background color of the statusbar by a hex string (#RRGGBB) at startup. If this value is not set, the background color will be transparent.
+- __StatusBarBackgroundColor__ (color hex string, no default value). Set the background color of the statusbar by a hex string (#RRGGBB) at startup. If this value is not set, the background color will be transparent. If `StatusBarOverlaysWebView` is set to true, then a 8 digit hex (#AARRGGBB) string can optionally be used to define the transparency.
 
         <preference name="StatusBarBackgroundColor" value="#000000" />
 
