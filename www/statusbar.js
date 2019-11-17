@@ -59,12 +59,12 @@ var StatusBar = {
     },
 
     styleBlackTranslucent: function () {
-        // #88000000 ? Apple says to use lightContent instead
+        console.warn('styleBlackTranslucent is deprecated and will be removed in next major release, use styleLightContent');
         exec(null, null, "StatusBar", "styleBlackTranslucent", []);
     },
 
     styleBlackOpaque: function () {
-        // #FF000000 ? Apple says to use lightContent instead
+        console.warn('styleBlackOpaque is deprecated and will be removed in next major release, use styleLightContent')
         exec(null, null, "StatusBar", "styleBlackOpaque", []);
     },
 
