@@ -64,7 +64,7 @@ var StatusBar = {
     },
 
     styleBlackOpaque: function () {
-        console.warn('styleBlackOpaque is deprecated and will be removed in next major release, use styleLightContent')
+        console.warn('styleBlackOpaque is deprecated and will be removed in next major release, use styleLightContent');
         exec(null, null, "StatusBar", "styleBlackOpaque", []);
     },
 
