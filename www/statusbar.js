@@ -49,13 +49,18 @@ var StatusBar = {
     },
 
     styleDefault: function () {
-        // dark text ( to be used on a light background )
+        // dark text ( to be used on a light background and on iOS depending on a device configuration )
         exec(null, null, "StatusBar", "styleDefault", []);
     },
 
     styleLightContent: function () {
         // light text ( to be used on a dark background )
         exec(null, null, "StatusBar", "styleLightContent", []);
+    },
+
+    styleDarkContent: function () {
+        // dark text ( to be used on a light background )
+        exec(null, null, "StatusBar", "styleDarkContent", []);
     },
 
     styleBlackTranslucent: function () {

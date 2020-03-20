@@ -183,6 +183,16 @@ public class StatusBar extends CordovaPlugin {
             return true;
         }
 
+        if ("styleDarkContent".equals(action)) {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setStatusBarStyle("darkcontent");
+                }
+            });
+            return true;
+        }
+
         if ("styleBlackTranslucent".equals(action)) {
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -251,6 +261,7 @@ public class StatusBar extends CordovaPlugin {
 
                 String[] darkContentStyles = {
                     "default",
+                    "darkcontent"
                 };
 
                 String[] lightContentStyles = {
@@ -269,7 +280,7 @@ public class StatusBar extends CordovaPlugin {
                     return;
                 }
 
-                LOG.e(TAG, "Invalid style, must be either 'default', 'lightcontent' or the deprecated 'blacktranslucent' and 'blackopaque'");
+                LOG.e(TAG, "Invalid style, must be either 'default', 'lightcontent', 'darkcontent' or the deprecated 'blacktranslucent' and 'blackopaque'");
             }
         }
     }

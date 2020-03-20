@@ -78,6 +78,13 @@ module.exports = {
         }
     },
 
+    styleDarkContent: function () {
+        // dark text ( to be used on a light background )
+        if (isSupported()) {
+            getViewStatusBar().foregroundColor = { a: 0, r: 0, g: 0, b: 0 };
+        }
+    },
+
     styleBlackTranslucent: function () {
         // #88000000 ? Apple says to use lightContent instead
         return module.exports.styleLightContent();
