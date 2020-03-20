@@ -285,6 +285,8 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
         [self styleDefault:nil];
     } else if ([lcStatusBarStyle isEqualToString:@"lightcontent"]) {
         [self styleLightContent:nil];
+    } else if ([lcStatusBarStyle isEqualToString:@"darkcontent"]) {
+        [self styleDarkContent:nil];
     } else if ([lcStatusBarStyle isEqualToString:@"blacktranslucent"]) {
         [self styleBlackTranslucent:nil];
     } else if ([lcStatusBarStyle isEqualToString:@"blackopaque"]) {
