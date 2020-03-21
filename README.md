@@ -34,9 +34,7 @@ description: Control the device status bar.
 This installation method requires cordova 5.0+
 
     cordova plugin add cordova-plugin-statusbar
-Older versions of cordova can still install via the __deprecated__ id
 
-    cordova plugin add org.apache.cordova.statusbar
 It is also possible to install via repo url directly ( unstable )
 
     cordova plugin add https://github.com/apache/cordova-plugin-statusbar.git
@@ -59,7 +57,7 @@ Preferences
 
         <preference name="StatusBarBackgroundColor" value="#000000" />
 
-- __StatusBarStyle__ (status bar style, defaults to lightcontent). Set the status bar style (e.g. text color). Available options: default, lightcontent, blacktranslucent, blackopaque.
+- __StatusBarStyle__ (status bar style, defaults to lightcontent). Set the status bar style (e.g. text color). Available options: `default`, `lightcontent`. `blacktranslucent` and `blackopaque` are also available, but __deprecated__, will be removed in next major release, use `lightcontent` instead.
 
         <preference name="StatusBarStyle" value="lightcontent" />
 
@@ -197,6 +195,8 @@ Supported Platforms
 StatusBar.styleBlackTranslucent
 =================
 
+Note: `styleBlackTranslucent` is __deprecated__ and will be removed in next major release, use `styleLightContent` instead.
+
 Use the blackTranslucent statusbar (light text, for dark backgrounds).
 
     StatusBar.styleBlackTranslucent();
@@ -211,6 +211,8 @@ Supported Platforms
 
 StatusBar.styleBlackOpaque
 =================
+
+Note: `styleBlackOpaque` is __deprecated__ and will be removed in next major release, use `styleLightContent` instead.
 
 Use the blackOpaque statusbar (light text, for dark backgrounds).
 
