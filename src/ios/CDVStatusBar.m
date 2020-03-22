@@ -137,7 +137,11 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
     setting  = @"StatusBarStyle";
     if ([self settingForKey:setting]) {
-        [self setStatusBarStyle:[self settingForKey:setting]];
+        NSString * styleSetting = [self settingForKey:setting];
+        if ([styleSetting isEqualToString:@"blacktranslucent"] || [styleSetting isEqualToString:@"blackopaque"]) {
+            NSLog(@"%@ is deprecated and will be removed in next major release, use lightcontent", styleSetting);
+        }
+        [self setStatusBarStyle:styleSetting];
     }
 
     setting  = @"StatusBarDefaultScrollToTop";
