@@ -311,7 +311,8 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 - (void) styleDarkContent:(CDVInvokedUrlCommand*)command
 {
     if (@available(iOS 13.0, *)) {
-        [self setStyleForStatusBar:UIStatusBarStyleDarkContent];
+        // [self setStyleForStatusBar:UIStatusBarStyleDarkContent];
+        [self setStyleForStatusBar:3];
     } else {
         [self styleDefault: command];
     }
