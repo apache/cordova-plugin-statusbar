@@ -92,7 +92,11 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
 -(void)cordovaViewWillAppear:(NSNotification*)notification
 {
-    [self resizeWebView];
+    //add a small delay ( 0.1 seconds ) or statusbar size will be wrong
+    __weak CDVStatusBar* weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [weakSelf resizeWebView];
+    });
 }
 
 -(void)statusBarDidChangeFrame:(NSNotification*)notification
@@ -133,7 +137,11 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
     setting  = @"StatusBarStyle";
     if ([self settingForKey:setting]) {
-        [self setStatusBarStyle:[self settingForKey:setting]];
+        NSString * styleSetting = [self settingForKey:setting];
+        if ([styleSetting isEqualToString:@"blacktranslucent"] || [styleSetting isEqualToString:@"blackopaque"]) {
+            NSLog(@"%@ is deprecated and will be removed in next major release, use lightcontent", styleSetting);
+        }
+        [self setStatusBarStyle:styleSetting];
     }
 
     setting  = @"StatusBarDefaultScrollToTop";
@@ -306,7 +314,12 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
 - (void) styleDefault:(CDVInvokedUrlCommand*)command
 {
-    [self setStyleForStatusBar:UIStatusBarStyleDefault];
+    if (@available(iOS 13.0, *)) {
+        // TODO - Replace with UIStatusBarStyleDarkContent once Xcode 10 support is dropped
+        [self setStyleForStatusBar:3];
+    } else {
+        [self setStyleForStatusBar:UIStatusBarStyleDefault];
+    }
 }
 
 - (void) styleLightContent:(CDVInvokedUrlCommand*)command

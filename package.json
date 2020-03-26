@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-statusbar",
-  "version": "2.4.3-dev",
+  "version": "2.4.4-dev",
   "description": "Cordova StatusBar Plugin",
   "types": "./types/index.d.ts",
   "cordova": {
@@ -8,8 +8,6 @@
     "platforms": [
       "android",
       "ios",
-      "wp7",
-      "wp8",
       "windows"
     ]
   },
@@ -18,7 +16,7 @@
     "url": "https://github.com/apache/cordova-plugin-statusbar"
   },
   "bugs": {
-    "url": "https://issues.apache.org/jira/browse/CB"
+    "url": "https://github.com/apache/cordova-plugin-statusbar/issues"
   },
   "keywords": [
     "cordova",
@@ -26,8 +24,6 @@
     "ecosystem:cordova",
     "cordova-android",
     "cordova-ios",
-    "cordova-wp7",
-    "cordova-wp8",
     "cordova-windows"
   ],
   "scripts": {
