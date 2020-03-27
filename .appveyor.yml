@@ -12,10 +12,7 @@ image:
   - Visual Studio 2017
 
 environment:
-  PLATFORM: windows-10-store
-  JUST_BUILD: --justBuild
   matrix:
-    - nodejs_version: "8"
     - nodejs_version: "10"
     - nodejs_version: "12"
 
@@ -32,4 +29,4 @@ install:
 build: off
 
 test_script:
-  - cordova-paramedic --config pr\%PLATFORM% --plugin . %JUST_BUILD%
+  - cordova-paramedic --config pr\windows-10-store --plugin . --justBuild
