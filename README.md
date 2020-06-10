@@ -153,7 +153,7 @@ Set to true to make the statusbar overlay on top of your app. Ensure that you ad
 Supported Platforms
 -------------------
 
-- iOS 7+
+- iOS
 - Android 5+
 
 Quick Example
