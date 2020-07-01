@@ -11,13 +11,8 @@
       "windows"
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/apache/cordova-plugin-statusbar"
-  },
-  "bugs": {
-    "url": "https://github.com/apache/cordova-plugin-statusbar/issues"
-  },
+  "repository": "github:apache/cordova-plugin-statusbar",
+  "bugs": "https://github.com/apache/cordova-plugin-statusbar/issues",
   "keywords": [
     "cordova",
     "statusbar",
