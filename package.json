@@ -22,8 +22,8 @@
     "cordova-windows"
   ],
   "scripts": {
-    "test": "npm run jshint",
-    "jshint": "node node_modules/jshint/bin/jshint www && node node_modules/jshint/bin/jshint src && node node_modules/jshint/bin/jshint tests"
+    "test": "npm run lint",
+    "lint": "eslint ."
   },
   "engines": {
     "cordovaDependencies": {
@@ -38,6 +38,6 @@
   "author": "Apache Software Foundation",
   "license": "Apache-2.0",
   "devDependencies": {
-    "jshint": "^2.6.0"
+    "@cordova/eslint-config": "^3.0.0"
   }
 }
