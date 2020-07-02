@@ -26,6 +26,7 @@ interface StatusBar {
 
     /**
     * Use the default statusbar (dark text, for light backgrounds).
+    * For iOS - dark or light text depending on a device configuration.
     */
     styleDefault(): void;
 
@@ -33,6 +34,11 @@ interface StatusBar {
     * Use the lightContent statusbar (light text, for dark backgrounds).
     */
     styleLightContent(): void;
+
+    /**
+     * Use the darkContent statusbar (dark text, for light backgrounds).
+     */
+    styleDarkContent(): void;
 
     /**
     * Use the blackTranslucent statusbar (light text, for dark backgrounds).

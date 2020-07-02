@@ -36,6 +36,7 @@ module.exports = {
     styleBlackTranslucent:notSupported,
     styleDefault:notSupported,
     styleLightContent:notSupported,
+    styleDarkContent: notSupported,
     styleBlackOpaque:notSupported,
     overlaysWebView:notSupported,
     styleLightContect: notSupported,
