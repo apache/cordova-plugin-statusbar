@@ -448,7 +448,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
                 float safeAreaTop = self.webView.safeAreaInsets.top;
                 if (height >= safeAreaTop && safeAreaTop >0) {
                     // Sometimes when in-call/recording/hotspot larger status bar is present, the safeAreaTop is 40 but we want frame.origin.y to be 20
-                    frame.origin.y = safeAreaTop == 40 ? 20 : height - safeAreaTop;
+                    frame.origin.y = height - safeAreaTop;
                 } else {
                     frame.origin.y = 0;
                 }
