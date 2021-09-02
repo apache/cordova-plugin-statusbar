@@ -64,7 +64,7 @@ jobs:
           npm i -g ${{ env.cordova-paramedic-npmsource }}
           npm ci
 
-      - uses: reactivecircus/android-emulator-runner@v2
+      - uses: reactivecircus/android-emulator-runner@5de26e4bd23bf523e8a4b7f077df8bfb8e52b50e
         with:
           api-level: ${{ env.android-api }}
           target: google_apis
@@ -75,7 +75,7 @@ jobs:
           script: echo "Pregenerate the AVD before running Paramedic"
 
       - name: Run paramedic tests
-        uses: reactivecircus/android-emulator-runner@v2
+        uses: reactivecircus/android-emulator-runner@5de26e4bd23bf523e8a4b7f077df8bfb8e52b50e
         with:
           api-level: ${{ env.android-api }}
           target: google_apis
