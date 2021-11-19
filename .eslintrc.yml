@@ -17,7 +17,11 @@
 
 root: true
 extends: '@cordova/eslint-config/browser'
+rules:
+  no-var: 0
 
 overrides:
     - files: [tests/**/*.js]
       extends: '@cordova/eslint-config/node-tests'
+      rules:
+        no-var: 0
