@@ -20,6 +20,32 @@
 -->
 # Release Notes
 
+### 3.0.0 (Nov 19, 2021)
+
+* [GH-223](https://github.com/apache/cordova-plugin-statusbar/pull/223) dep(dev): `@cordova/eslint-config@4.0.0` w/ fix
+* [GH-222](https://github.com/apache/cordova-plugin-statusbar/pull/222) ci(ios): update workflow w/ **iOS** 15
+* [GH-220](https://github.com/apache/cordova-plugin-statusbar/pull/220) ci(action): add badge
+* [GH-219](https://github.com/apache/cordova-plugin-statusbar/pull/219) ci: remove travis & appveyor
+* [GH-218](https://github.com/apache/cordova-plugin-statusbar/pull/218) ci(actions): add workflows
+* [GH-208](https://github.com/apache/cordova-plugin-statusbar/pull/208) ci: add node-14.x to workflow
+* [GH-200](https://github.com/apache/cordova-plugin-statusbar/pull/200) ci(travis): update osx xcode image
+* [GH-199](https://github.com/apache/cordova-plugin-statusbar/pull/199) ci(travis): updates **Android** API level
+* [GH-196](https://github.com/apache/cordova-plugin-statusbar/pull/196) chore: adds `package-lock` file
+* [GH-194](https://github.com/apache/cordova-plugin-statusbar/pull/194) refactor(eslint): use `@cordova/eslint-config`
+* [GH-195](https://github.com/apache/cordova-plugin-statusbar/pull/195) chore(npm): use short notation in `package.json`
+* [GH-190](https://github.com/apache/cordova-plugin-statusbar/pull/190) Removed **iOS** 7+
+* [GH-171](https://github.com/apache/cordova-plugin-statusbar/pull/171) BREAKING CHANGE!: (android) Read `config.xml` for statusbar overlay preference
+* [GH-183](https://github.com/apache/cordova-plugin-statusbar/pull/183) chore(npm): improve ignore list
+* [GH-182](https://github.com/apache/cordova-plugin-statusbar/pull/182) ci: updates Node.js versions
+* [GH-173](https://github.com/apache/cordova-plugin-statusbar/pull/173) deprecate `blacktranslucent`, `blackopaque`, `styleBlackTranslucent` and `styleBlackOpaque`
+* [GH-168](https://github.com/apache/cordova-plugin-statusbar/pull/168) Update `README`.md
+* [GH-169](https://github.com/apache/cordova-plugin-statusbar/pull/169) fix(ios): make default set black text on **iOS** 13 too
+* [GH-126](https://github.com/apache/cordova-plugin-statusbar/pull/126) fix: remove deprecated platforms
+* [GH-157](https://github.com/apache/cordova-plugin-statusbar/pull/157) fix(iOS): Delay `resizeWebView` on `viewWillAppear` for correct statusbar height
+* [GH-160](https://github.com/apache/cordova-plugin-statusbar/pull/160) docs(README): Clarify `StatusBarStyle`
+* ci(appveyor): replace node 6 with node 12
+* ci(travis): upgrade to node 8
+
 ### 2.4.3 (Jun 19, 2019)
 
 -   docs: Improved documentation and removed text that implies iOS only ([#130](https://github.com/apache/cordova-plugin-statusbar/issues/130)) ([`33e410a`](https://github.com/apache/cordova-plugin-statusbar/commit/33e410a), [`14b1513`](https://github.com/apache/cordova-plugin-statusbar/commit/14b1513))
