@@ -20,8 +20,9 @@
 -->
 # Release Notes
 
-### 3.0.0 (Nov 19, 2021)
+### 3.0.0 (Nov 25, 2021)
 
+* [GH-224](https://github.com/apache/cordova-plugin-statusbar/pull/224) fix: update engines for working on 3.0.0
 * [GH-223](https://github.com/apache/cordova-plugin-statusbar/pull/223) dep(dev): `@cordova/eslint-config@4.0.0` w/ fix
 * [GH-222](https://github.com/apache/cordova-plugin-statusbar/pull/222) ci(ios): update workflow w/ **iOS** 15
 * [GH-220](https://github.com/apache/cordova-plugin-statusbar/pull/220) ci(action): add badge
