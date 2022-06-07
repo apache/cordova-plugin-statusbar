@@ -44,7 +44,6 @@ exports.defineAutoTests = function () {
         });
 
         it('statusbar.spec.4 should have set style methods', function () {
-
             expect(window.StatusBar.styleDefault).toBeDefined();
             expect(typeof window.StatusBar.styleDefault).toBe('function');
 
