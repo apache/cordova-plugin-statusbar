@@ -272,11 +272,14 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 {
     if (_uiviewControllerBasedStatusBarAppearance) {
         CDVViewController* vc = (CDVViewController*)self.viewController;
-        vc.sb_statusBarStyle = [NSNumber numberWithInt:style];
+        vc.sb_statusBarStyle = [NSNumber numberWithInt:(int)style];
         [self refreshStatusBarAppearance];
 
     } else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         [[UIApplication sharedApplication] setStatusBarStyle:style];
+#pragma clang diagnostic pop
     }
 }
 
@@ -368,7 +371,10 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
     } else {
         UIApplication* app = [UIApplication sharedApplication];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         [app setStatusBarHidden:YES];
+#pragma clang diagnostic pop
     }
 }
 
@@ -399,7 +405,10 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
     } else {
         UIApplication* app = [UIApplication sharedApplication];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         [app setStatusBarHidden:NO];
+#pragma clang diagnostic pop
     }
 }
 
