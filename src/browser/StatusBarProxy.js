@@ -33,10 +33,8 @@ function notSupported (win, fail) {
 
 module.exports = {
     isVisible: false,
-    styleBlackTranslucent: notSupported,
     styleDefault: notSupported,
     styleLightContent: notSupported,
-    styleBlackOpaque: notSupported,
     overlaysWebView: notSupported,
     styleLightContect: notSupported,
     backgroundColorByName: notSupported,

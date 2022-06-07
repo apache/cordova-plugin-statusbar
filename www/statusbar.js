@@ -57,16 +57,6 @@ var StatusBar = {
         exec(null, null, 'StatusBar', 'styleLightContent', []);
     },
 
-    styleBlackTranslucent: function () {
-        console.warn('styleBlackTranslucent is deprecated and will be removed in next major release, use styleLightContent');
-        exec(null, null, 'StatusBar', 'styleBlackTranslucent', []);
-    },
-
-    styleBlackOpaque: function () {
-        console.warn('styleBlackOpaque is deprecated and will be removed in next major release, use styleLightContent');
-        exec(null, null, 'StatusBar', 'styleBlackOpaque', []);
-    },
-
     backgroundColorByName: function (colorname) {
         return StatusBar.backgroundColorByHexString(namedColors[colorname]);
     },

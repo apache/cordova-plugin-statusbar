@@ -80,16 +80,6 @@ module.exports = {
         }
     },
 
-    styleBlackTranslucent: function () {
-        // #88000000 ? Apple says to use lightContent instead
-        return module.exports.styleLightContent();
-    },
-
-    styleBlackOpaque: function () {
-        // #FF000000 ? Apple says to use lightContent instead
-        return module.exports.styleLightContent();
-    },
-
     backgroundColorByHexString: function (win, fail, args) {
         var rgb = hexToRgb(args[0]);
         if (isSupported()) {

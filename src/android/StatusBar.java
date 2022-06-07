@@ -67,9 +67,6 @@ public class StatusBar extends CordovaPlugin {
 
                 // Read 'StatusBarStyle' from config.xml, default is 'lightcontent'.
                 String styleSetting = preferences.getString("StatusBarStyle", "lightcontent");
-                if (styleSetting.equalsIgnoreCase("blacktranslucent") || styleSetting.equalsIgnoreCase("blackopaque")) {
-                    LOG.w(TAG, styleSetting +" is deprecated and will be removed in next major release, use lightcontent");
-                }
                 setStatusBarStyle(styleSetting);
             }
         });
@@ -190,26 +187,6 @@ public class StatusBar extends CordovaPlugin {
             return true;
         }
 
-        if ("styleBlackTranslucent".equals(action)) {
-            this.cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    setStatusBarStyle("blacktranslucent");
-                }
-            });
-            return true;
-        }
-
-        if ("styleBlackOpaque".equals(action)) {
-            this.cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    setStatusBarStyle("blackopaque");
-                }
-            });
-            return true;
-        }
-
         return false;
     }
 
@@ -262,8 +239,6 @@ public class StatusBar extends CordovaPlugin {
 
                 String[] lightContentStyles = {
                     "lightcontent",
-                    "blacktranslucent",
-                    "blackopaque",
                 };
 
                 if (Arrays.asList(darkContentStyles).contains(style.toLowerCase())) {
@@ -276,7 +251,7 @@ public class StatusBar extends CordovaPlugin {
                     return;
                 }
 
-                LOG.e(TAG, "Invalid style, must be either 'default', 'lightcontent' or the deprecated 'blacktranslucent' and 'blackopaque'");
+                LOG.e(TAG, "Invalid style, must be either 'default' or 'lightcontent'");
             }
         }
     }

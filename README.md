@@ -55,7 +55,7 @@ Preferences
 
         <preference name="StatusBarBackgroundColor" value="#000000" />
 
-- __StatusBarStyle__ (status bar style, defaults to lightcontent). Set the status bar style (e.g. text color). Available options: `default`, `lightcontent`. `blacktranslucent` and `blackopaque` are also available, but __deprecated__, will be removed in next major release, use `lightcontent` instead.
+- __StatusBarStyle__ (status bar style, defaults to lightcontent). Set the status bar style (e.g. text color). Available options: `default`, `lightcontent`.
 
         <preference name="StatusBarStyle" value="lightcontent" />
 
@@ -118,8 +118,6 @@ Although in the global scope, it is not available until after the `deviceready` 
 - StatusBar.overlaysWebView
 - StatusBar.styleDefault
 - StatusBar.styleLightContent
-- StatusBar.styleBlackTranslucent
-- StatusBar.styleBlackOpaque
 - StatusBar.backgroundColorByName
 - StatusBar.backgroundColorByHexString
 - StatusBar.hide
@@ -189,41 +187,6 @@ Supported Platforms
 - iOS
 - Android 6+
 - Windows
-
-StatusBar.styleBlackTranslucent
-=================
-
-Note: `styleBlackTranslucent` is __deprecated__ and will be removed in next major release, use `styleLightContent` instead.
-
-Use the blackTranslucent statusbar (light text, for dark backgrounds).
-
-    StatusBar.styleBlackTranslucent();
-
-
-Supported Platforms
--------------------
-
-- iOS
-- Android 6+
-- Windows
-
-StatusBar.styleBlackOpaque
-=================
-
-Note: `styleBlackOpaque` is __deprecated__ and will be removed in next major release, use `styleLightContent` instead.
-
-Use the blackOpaque statusbar (light text, for dark backgrounds).
-
-    StatusBar.styleBlackOpaque();
-
-
-Supported Platforms
--------------------
-
-- iOS
-- Android 6+
-- Windows
-
 
 StatusBar.backgroundColorByName
 =================

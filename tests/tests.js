@@ -44,17 +44,12 @@ exports.defineAutoTests = function () {
         });
 
         it('statusbar.spec.4 should have set style methods', function () {
-            expect(window.StatusBar.styleBlackTranslucent).toBeDefined();
-            expect(typeof window.StatusBar.styleBlackTranslucent).toBe('function');
 
             expect(window.StatusBar.styleDefault).toBeDefined();
             expect(typeof window.StatusBar.styleDefault).toBe('function');
 
             expect(window.StatusBar.styleLightContent).toBeDefined();
             expect(typeof window.StatusBar.styleLightContent).toBe('function');
-
-            expect(window.StatusBar.styleBlackOpaque).toBeDefined();
-            expect(typeof window.StatusBar.styleBlackOpaque).toBe('function');
 
             expect(window.StatusBar.overlaysWebView).toBeDefined();
             expect(typeof window.StatusBar.overlaysWebView).toBe('function');
@@ -83,11 +78,6 @@ exports.defineManualTests = function (contentEl, createActionButton) {
     function doColor1 () {
         log('set color=red');
         StatusBar.backgroundColorByName('red');
-    }
-
-    function doColor2 () {
-        log('set style=translucent black');
-        StatusBar.styleBlackTranslucent();
     }
 
     function doColor3 () {
@@ -151,14 +141,6 @@ exports.defineManualTests = function (contentEl, createActionButton) {
             doColor1();
         },
         'action-color1'
-    );
-
-    createActionButton(
-        'Style=translucent black',
-        function () {
-            doColor2();
-        },
-        'action-color2'
     );
 
     createActionButton(
