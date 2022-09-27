@@ -7,8 +7,7 @@
     "id": "cordova-plugin-statusbar",
     "platforms": [
       "android",
-      "ios",
-      "windows"
+      "ios"
     ]
   },
   "repository": "github:apache/cordova-plugin-statusbar",
@@ -18,8 +17,7 @@
     "statusbar",
     "ecosystem:cordova",
     "cordova-android",
-    "cordova-ios",
-    "cordova-windows"
+    "cordova-ios"
   ],
   "scripts": {
     "test": "npm run lint",
