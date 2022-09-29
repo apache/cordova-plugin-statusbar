@@ -67,10 +67,4 @@
         <header-file src="src/ios/CDVStatusBar.h" />
         <source-file src="src/ios/CDVStatusBar.m" />
     </platform>
-
-    <platform name="windows">
-        <js-module src="src/windows/StatusBarProxy.js" name="StatusBarProxy">
-            <runs />
-        </js-module>
-    </platform>
 </plugin>

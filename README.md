@@ -171,7 +171,6 @@ Supported Platforms
 
 - iOS
 - Android 6+
-- Windows
 
 StatusBar.styleLightContent
 =================
@@ -186,7 +185,6 @@ Supported Platforms
 
 - iOS
 - Android 6+
-- Windows
 
 StatusBar.backgroundColorByName
 =================
@@ -204,8 +202,7 @@ Supported Platforms
 -------------------
 
 - iOS
-- Android 5+
-- Windows
+- Android
 
 StatusBar.backgroundColorByHexString
 =================
@@ -227,8 +224,7 @@ Supported Platforms
 -------------------
 
 - iOS
-- Android 5+
-- Windows
+- Android
 
 StatusBar.hide
 =================
@@ -243,7 +239,6 @@ Supported Platforms
 
 - iOS
 - Android
-- Windows
 
 StatusBar.show
 =================
@@ -258,7 +253,6 @@ Supported Platforms
 
 - iOS
 - Android
-- Windows
 
 StatusBar.isVisible
 =================
@@ -275,7 +269,6 @@ Supported Platforms
 
 - iOS
 - Android
-- Windows
 
 statusTap
 =========
