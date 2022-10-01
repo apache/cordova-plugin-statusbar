@@ -37,7 +37,6 @@ import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.LOG;
 import org.apache.cordova.PluginResult;
 import org.json.JSONException;
-import java.util.Arrays;
 
 public class StatusBar extends CordovaPlugin {
     private static final String TAG = "StatusBar";
@@ -78,8 +77,9 @@ public class StatusBar extends CordovaPlugin {
             setStatusBarBackgroundColor(preferences.getString("StatusBarBackgroundColor", "#000000"));
 
             // Read 'StatusBarStyle' from config.xml, default is 'lightcontent'.
-            String styleSetting = preferences.getString("StatusBarStyle", STYLE_LIGHT_CONTENT);
-            setStatusBarStyle(styleSetting);
+            setStatusBarStyle(
+                preferences.getString("StatusBarStyle", STYLE_LIGHT_CONTENT).toLowerCase()
+            );
         });
     }
 
@@ -202,25 +202,16 @@ public class StatusBar extends CordovaPlugin {
     }
 
     private void setStatusBarStyle(final String style) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (style != null && !style.isEmpty()) {
-                Window window = cordova.getActivity().getWindow();
-                View decorView = window.getDecorView();
-                WindowInsetsControllerCompat windowInsetsControllerCompat = WindowCompat.getInsetsController(window, decorView);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !style.isEmpty()) {
+            Window window = cordova.getActivity().getWindow();
+            View decorView = window.getDecorView();
+            WindowInsetsControllerCompat windowInsetsControllerCompat = WindowCompat.getInsetsController(window, decorView);
 
-                String[] darkContentStyles = { STYLE_DEFAULT };
-                String[] lightContentStyles = { STYLE_LIGHT_CONTENT };
-
-                if (Arrays.asList(darkContentStyles).contains(style.toLowerCase())) {
-                    windowInsetsControllerCompat.setAppearanceLightStatusBars(true);
-                    return;
-                }
-
-                if (Arrays.asList(lightContentStyles).contains(style.toLowerCase())) {
-                    windowInsetsControllerCompat.setAppearanceLightStatusBars(false);
-                    return;
-                }
-
+            if (style.equals(STYLE_DEFAULT)) {
+                windowInsetsControllerCompat.setAppearanceLightStatusBars(true);
+            } else if (style.equals(STYLE_LIGHT_CONTENT)) {
+                windowInsetsControllerCompat.setAppearanceLightStatusBars(false);
+            } else {
                 LOG.e(TAG, "Invalid style, must be either 'default' or 'lightcontent'");
             }
         }
