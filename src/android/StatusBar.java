@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *
-*/
+ */
 package org.apache.cordova.statusbar;
 
 import android.app.Activity;
@@ -41,6 +41,17 @@ import java.util.Arrays;
 
 public class StatusBar extends CordovaPlugin {
     private static final String TAG = "StatusBar";
+
+    private static final String ACTION_HIDE = "hide";
+    private static final String ACTION_SHOW = "show";
+    private static final String ACTION_READY = "_ready";
+    private static final String ACTION_BACKGROUND_COLOR_BY_HEX_STRING = "backgroundColorByHexString";
+    private static final String ACTION_OVERLAYS_WEB_VIEW = "overlaysWebView";
+    private static final String ACTION_STYLE_DEFAULT = "styleDefault";
+    private static final String ACTION_STYLE_LIGHT_CONTENT = "styleLightContent";
+
+    private static final String STYLE_DEFAULT = "default";
+    private static final String STYLE_LIGHT_CONTENT = "lightcontent";
 
     /**
      * Sets the context of the Command. This can then be used to do things like
@@ -67,7 +78,7 @@ public class StatusBar extends CordovaPlugin {
             setStatusBarBackgroundColor(preferences.getString("StatusBarBackgroundColor", "#000000"));
 
             // Read 'StatusBarStyle' from config.xml, default is 'lightcontent'.
-            String styleSetting = preferences.getString("StatusBarStyle", "lightcontent");
+            String styleSetting = preferences.getString("StatusBarStyle", STYLE_LIGHT_CONTENT);
             setStatusBarStyle(styleSetting);
         });
     }
@@ -86,13 +97,13 @@ public class StatusBar extends CordovaPlugin {
         final Activity activity = this.cordova.getActivity();
         final Window window = activity.getWindow();
 
-        if ("_ready".equals(action)) {
+        if (ACTION_READY.equals(action)) {
             boolean statusBarVisible = (window.getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) == 0;
             callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, statusBarVisible));
             return true;
         }
 
-        if ("show".equals(action)) {
+        if (ACTION_SHOW.equals(action)) {
             this.cordova.getActivity().runOnUiThread(() -> {
                 int uiOptions = window.getDecorView().getSystemUiVisibility();
                 uiOptions &= ~View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
@@ -107,11 +118,11 @@ public class StatusBar extends CordovaPlugin {
             return true;
         }
 
-        if ("hide".equals(action)) {
+        if (ACTION_HIDE.equals(action)) {
             this.cordova.getActivity().runOnUiThread(() -> {
                 int uiOptions = window.getDecorView().getSystemUiVisibility()
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN;
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
 
                 window.getDecorView().setSystemUiVisibility(uiOptions);
 
@@ -122,7 +133,7 @@ public class StatusBar extends CordovaPlugin {
             return true;
         }
 
-        if ("backgroundColorByHexString".equals(action)) {
+        if (ACTION_BACKGROUND_COLOR_BY_HEX_STRING.equals(action)) {
             this.cordova.getActivity().runOnUiThread(() -> {
                 try {
                     setStatusBarBackgroundColor(args.getString(0));
@@ -133,24 +144,24 @@ public class StatusBar extends CordovaPlugin {
             return true;
         }
 
-        if ("overlaysWebView".equals(action)) {
-                this.cordova.getActivity().runOnUiThread(() -> {
-                    try {
-                        setStatusBarTransparent(args.getBoolean(0));
-                    } catch (JSONException ignore) {
-                        LOG.e(TAG, "Invalid boolean argument");
-                    }
-                });
-                return true;
-        }
-
-        if ("styleDefault".equals(action)) {
-            this.cordova.getActivity().runOnUiThread(() -> setStatusBarStyle("default"));
+        if (ACTION_OVERLAYS_WEB_VIEW.equals(action)) {
+            this.cordova.getActivity().runOnUiThread(() -> {
+                try {
+                    setStatusBarTransparent(args.getBoolean(0));
+                } catch (JSONException ignore) {
+                    LOG.e(TAG, "Invalid boolean argument");
+                }
+            });
             return true;
         }
 
-        if ("styleLightContent".equals(action)) {
-            this.cordova.getActivity().runOnUiThread(() -> setStatusBarStyle("lightcontent"));
+        if (ACTION_STYLE_DEFAULT.equals(action)) {
+            this.cordova.getActivity().runOnUiThread(() -> setStatusBarStyle(STYLE_DEFAULT));
+            return true;
+        }
+
+        if (ACTION_STYLE_LIGHT_CONTENT.equals(action)) {
+            this.cordova.getActivity().runOnUiThread(() -> setStatusBarStyle(STYLE_LIGHT_CONTENT));
             return true;
         }
 
@@ -179,14 +190,14 @@ public class StatusBar extends CordovaPlugin {
         final Window window = cordova.getActivity().getWindow();
         if (transparent) {
             window.getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             window.setStatusBarColor(Color.TRANSPARENT);
         }
         else {
             window.getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_VISIBLE);
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_VISIBLE);
         }
     }
 
@@ -197,13 +208,8 @@ public class StatusBar extends CordovaPlugin {
                 View decorView = window.getDecorView();
                 WindowInsetsControllerCompat windowInsetsControllerCompat = WindowCompat.getInsetsController(window, decorView);
 
-                String[] darkContentStyles = {
-                    "default",
-                };
-
-                String[] lightContentStyles = {
-                    "lightcontent",
-                };
+                String[] darkContentStyles = { STYLE_DEFAULT };
+                String[] lightContentStyles = { STYLE_LIGHT_CONTENT };
 
                 if (Arrays.asList(darkContentStyles).contains(style.toLowerCase())) {
                     windowInsetsControllerCompat.setAppearanceLightStatusBars(true);
