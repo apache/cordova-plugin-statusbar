@@ -97,75 +97,71 @@ public class StatusBar extends CordovaPlugin {
         final Activity activity = this.cordova.getActivity();
         final Window window = activity.getWindow();
 
-        if (ACTION_READY.equals(action)) {
-            boolean statusBarVisible = (window.getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) == 0;
-            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, statusBarVisible));
-            return true;
+        switch (action) {
+            case ACTION_READY:
+                boolean statusBarVisible = (window.getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) == 0;
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, statusBarVisible));
+                return true;
+
+            case ACTION_SHOW:
+                activity.runOnUiThread(() -> {
+                    int uiOptions = window.getDecorView().getSystemUiVisibility();
+                    uiOptions &= ~View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+                    uiOptions &= ~View.SYSTEM_UI_FLAG_FULLSCREEN;
+
+                    window.getDecorView().setSystemUiVisibility(uiOptions);
+
+                    // CB-11197 We still need to update LayoutParams to force status bar
+                    // to be hidden when entering e.g. text fields
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                });
+                return true;
+
+            case ACTION_HIDE:
+                activity.runOnUiThread(() -> {
+                    int uiOptions = window.getDecorView().getSystemUiVisibility()
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN;
+
+                    window.getDecorView().setSystemUiVisibility(uiOptions);
+
+                    // CB-11197 We still need to update LayoutParams to force status bar
+                    // to be hidden when entering e.g. text fields
+                    window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                });
+                return true;
+
+            case ACTION_BACKGROUND_COLOR_BY_HEX_STRING:
+                activity.runOnUiThread(() -> {
+                    try {
+                        setStatusBarBackgroundColor(args.getString(0));
+                    } catch (JSONException ignore) {
+                        LOG.e(TAG, "Invalid hexString argument, use f.i. '#777777'");
+                    }
+                });
+                return true;
+
+            case ACTION_OVERLAYS_WEB_VIEW:
+                activity.runOnUiThread(() -> {
+                    try {
+                        setStatusBarTransparent(args.getBoolean(0));
+                    } catch (JSONException ignore) {
+                        LOG.e(TAG, "Invalid boolean argument");
+                    }
+                });
+                return true;
+
+            case ACTION_STYLE_DEFAULT:
+                activity.runOnUiThread(() -> setStatusBarStyle(STYLE_DEFAULT));
+                return true;
+
+            case ACTION_STYLE_LIGHT_CONTENT:
+                activity.runOnUiThread(() -> setStatusBarStyle(STYLE_LIGHT_CONTENT));
+                return true;
+
+            default:
+                return false;
         }
-
-        if (ACTION_SHOW.equals(action)) {
-            this.cordova.getActivity().runOnUiThread(() -> {
-                int uiOptions = window.getDecorView().getSystemUiVisibility();
-                uiOptions &= ~View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-                uiOptions &= ~View.SYSTEM_UI_FLAG_FULLSCREEN;
-
-                window.getDecorView().setSystemUiVisibility(uiOptions);
-
-                // CB-11197 We still need to update LayoutParams to force status bar
-                // to be hidden when entering e.g. text fields
-                window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            });
-            return true;
-        }
-
-        if (ACTION_HIDE.equals(action)) {
-            this.cordova.getActivity().runOnUiThread(() -> {
-                int uiOptions = window.getDecorView().getSystemUiVisibility()
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
-
-                window.getDecorView().setSystemUiVisibility(uiOptions);
-
-                // CB-11197 We still need to update LayoutParams to force status bar
-                // to be hidden when entering e.g. text fields
-                window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            });
-            return true;
-        }
-
-        if (ACTION_BACKGROUND_COLOR_BY_HEX_STRING.equals(action)) {
-            this.cordova.getActivity().runOnUiThread(() -> {
-                try {
-                    setStatusBarBackgroundColor(args.getString(0));
-                } catch (JSONException ignore) {
-                    LOG.e(TAG, "Invalid hexString argument, use f.i. '#777777'");
-                }
-            });
-            return true;
-        }
-
-        if (ACTION_OVERLAYS_WEB_VIEW.equals(action)) {
-            this.cordova.getActivity().runOnUiThread(() -> {
-                try {
-                    setStatusBarTransparent(args.getBoolean(0));
-                } catch (JSONException ignore) {
-                    LOG.e(TAG, "Invalid boolean argument");
-                }
-            });
-            return true;
-        }
-
-        if (ACTION_STYLE_DEFAULT.equals(action)) {
-            this.cordova.getActivity().runOnUiThread(() -> setStatusBarStyle(STYLE_DEFAULT));
-            return true;
-        }
-
-        if (ACTION_STYLE_LIGHT_CONTENT.equals(action)) {
-            this.cordova.getActivity().runOnUiThread(() -> setStatusBarStyle(STYLE_LIGHT_CONTENT));
-            return true;
-        }
-
-        return false;
     }
 
     private void setStatusBarBackgroundColor(final String colorPref) {
