@@ -19,13 +19,13 @@
  */
 package org.apache.cordova.statusbar;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
@@ -52,6 +52,9 @@ public class StatusBar extends CordovaPlugin {
     private static final String STYLE_DEFAULT = "default";
     private static final String STYLE_LIGHT_CONTENT = "lightcontent";
 
+    private AppCompatActivity activity;
+    private Window window;
+
     /**
      * Sets the context of the Command. This can then be used to do things like
      * get file paths associated with the Activity.
@@ -64,10 +67,12 @@ public class StatusBar extends CordovaPlugin {
         LOG.v(TAG, "StatusBar: initialization");
         super.initialize(cordova, webView);
 
-        this.cordova.getActivity().runOnUiThread(() -> {
+        activity = this.cordova.getActivity();
+        window = activity.getWindow();
+
+        activity.runOnUiThread(() -> {
             // Clear flag FLAG_FORCE_NOT_FULLSCREEN which is set initially
             // by the Cordova.
-            Window window = cordova.getActivity().getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 
             // Read 'StatusBarOverlaysWebView' from config.xml, default is true.
@@ -94,8 +99,6 @@ public class StatusBar extends CordovaPlugin {
     @Override
     public boolean execute(final String action, final CordovaArgs args, final CallbackContext callbackContext) {
         LOG.v(TAG, "Executing action: " + action);
-        final Activity activity = this.cordova.getActivity();
-        final Window window = activity.getWindow();
 
         switch (action) {
             case ACTION_READY:
@@ -175,7 +178,6 @@ public class StatusBar extends CordovaPlugin {
             return;
         }
 
-        final Window window = cordova.getActivity().getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS); // SDK 19-30
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); // SDK 21
         window.setStatusBarColor(color);
@@ -196,7 +198,6 @@ public class StatusBar extends CordovaPlugin {
 
     private void setStatusBarStyle(final String style) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !style.isEmpty()) {
-            Window window = cordova.getActivity().getWindow();
             View decorView = window.getDecorView();
             WindowInsetsControllerCompat windowInsetsControllerCompat = WindowCompat.getInsetsController(window, decorView);
 
