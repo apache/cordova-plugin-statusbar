@@ -181,18 +181,16 @@ public class StatusBar extends CordovaPlugin {
         window.setStatusBarColor(color);
     }
 
-    private void setStatusBarTransparent(final boolean transparent) {
+    private void setStatusBarTransparent(final boolean isTransparent) {
         final Window window = cordova.getActivity().getWindow();
-        if (transparent) {
-            window.getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        int visibility = isTransparent
+            ? View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            : View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_VISIBLE;
+
+        window.getDecorView().setSystemUiVisibility(visibility);
+
+        if (isTransparent) {
             window.setStatusBarColor(Color.TRANSPARENT);
-        }
-        else {
-            window.getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_VISIBLE);
         }
     }
 
