@@ -76,7 +76,7 @@ public class StatusBar extends CordovaPlugin {
         activity.runOnUiThread(() -> {
             //https://github.com/apache/cordova-plugin-statusbar/issues/110
             //This corrects keyboard behaviour when overlaysWebView is true
-            StatusBarViewHelper.assistActivity(cordova.getActivity());
+            StatusBarViewHelper.assist(cordova.getActivity(), statusbar);
 
             // Clear flag FLAG_FORCE_NOT_FULLSCREEN which is set initially
             // by the Cordova.
