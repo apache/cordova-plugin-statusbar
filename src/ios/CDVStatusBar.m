@@ -428,8 +428,6 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
 -(void)resizeWebView
 {
-    BOOL isIOS11 = (IsAtLeastiOSVersion(@"11.0"));
-
     CGRect bounds = [self.viewController.view.window bounds];
     if (CGRectEqualToRect(bounds, CGRectZero)) {
         bounds = [[UIScreen mainScreen] bounds];
@@ -446,19 +444,12 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     if (!self.statusBarOverlaysWebView) {
         frame.origin.y = height;
     } else {
-        frame.origin.y = height >= 20 ? height - 20 : 0;
-        if (isIOS11) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
-            if (@available(iOS 11.0, *)) {
-                float safeAreaTop = self.webView.safeAreaInsets.top;
-                if (height >= safeAreaTop && safeAreaTop >0) {
-                    // Sometimes when in-call/recording/hotspot larger status bar is present, the safeAreaTop is 40 but we want frame.origin.y to be 20
-                    frame.origin.y = safeAreaTop == 40 ? 20 : height - safeAreaTop;
-                } else {
-                    frame.origin.y = 0;
-                }
-            }
-#endif
+        float safeAreaTop = self.webView.safeAreaInsets.top;
+        if (height >= safeAreaTop && safeAreaTop >0) {
+            // Sometimes when in-call/recording/hotspot larger status bar is present, the safeAreaTop is 40 but we want frame.origin.y to be 20
+            frame.origin.y = safeAreaTop == 40 ? 20 : height - safeAreaTop;
+        } else {
+            frame.origin.y = 0;
         }
     }
     frame.size.height -= frame.origin.y;
