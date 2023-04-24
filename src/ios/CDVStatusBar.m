@@ -295,8 +295,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 - (void) styleDefault:(CDVInvokedUrlCommand*)command
 {
     if (@available(iOS 13.0, *)) {
-        // TODO - Replace with UIStatusBarStyleDarkContent once Xcode 10 support is dropped
-        [self setStyleForStatusBar:3];
+        [self setStyleForStatusBar:UIStatusBarStyleDarkContent];
     } else {
         [self setStyleForStatusBar:UIStatusBarStyleDefault];
     }
