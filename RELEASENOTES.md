@@ -20,6 +20,44 @@
 -->
 # Release Notes
 
+### 4.0.0 (Oct 27, 2023)
+
+**Breaking:**
+
+* [GH-238](https://github.com/apache/cordova-plugin-statusbar/pull/238) fix(android)!: `styleDefault` not working on new devices
+* [GH-245](https://github.com/apache/cordova-plugin-statusbar/pull/245) fix!: remove deprecated `windows` platform
+* [GH-255](https://github.com/apache/cordova-plugin-statusbar/pull/255) refactor(ios)!: drop support of **iOS** 10 and older
+* [GH-250](https://github.com/apache/cordova-plugin-statusbar/pull/250) refactor(android)!: `setStatusBarBackgroundColor`
+* [GH-229](https://github.com/apache/cordova-plugin-statusbar/pull/229) refactor!: remove deprecated methods
+* [GH-241](https://github.com/apache/cordova-plugin-statusbar/pull/241) chore!: require `cordova-android` >= 10
+
+**Fixes:**
+
+* [GH-230](https://github.com/apache/cordova-plugin-statusbar/pull/230) fix(browser): Remove invalid proxy function
+
+**Chores:**
+
+* [GH-269](https://github.com/apache/cordova-plugin-statusbar/pull/269) chore: rebuild `package-lock.json` (w/ v3)
+* [GH-265](https://github.com/apache/cordova-plugin-statusbar/pull/265) chore: Update `SUPPORT_QUESTION.md` template
+* [GH-262](https://github.com/apache/cordova-plugin-statusbar/pull/262) chore: fix engines in `package-lock.json`
+* [GH-253](https://github.com/apache/cordova-plugin-statusbar/pull/253) chore: updated `.asf.yml` w/ tag improvement
+* [GH-228](https://github.com/apache/cordova-plugin-statusbar/pull/228) chore(ios): Silence/fix warnings
+
+**Refactors:**
+
+* [GH-261](https://github.com/apache/cordova-plugin-statusbar/pull/261) refactor: remove hardcoded style with UIStatusBarStyleDarkContent
+* [GH-249](https://github.com/apache/cordova-plugin-statusbar/pull/249) refactor(android): simplify window & activity
+* [GH-252](https://github.com/apache/cordova-plugin-statusbar/pull/252) refactor(android): setStatusBarTransparent
+* [GH-251](https://github.com/apache/cordova-plugin-statusbar/pull/251) refactor(android): execute - convert if condition to switch case
+* [GH-248](https://github.com/apache/cordova-plugin-statusbar/pull/248) refactor(android): refactor setStatusBarStyle
+* [GH-247](https://github.com/apache/cordova-plugin-statusbar/pull/247) refactor(android): extract action & value strings as static constants
+* [GH-242](https://github.com/apache/cordova-plugin-statusbar/pull/242) refactor(android): Remove unused code
+
+**Others:**
+
+* [GH-237](https://github.com/apache/cordova-plugin-statusbar/pull/237) ci: sync workflow with paramedic
+* [GH-232](https://github.com/apache/cordova-plugin-statusbar/pull/232) ci(android): update java requirement for `cordova-android`@11
+
 ### 3.0.0 (Nov 25, 2021)
 
 * [GH-224](https://github.com/apache/cordova-plugin-statusbar/pull/224) fix: update engines for working on 3.0.0
