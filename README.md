@@ -103,6 +103,20 @@ Add/edit these two attributes if not present. Set **"Status bar is initially hid
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 
+Or in `config.xml` inside "platform" block:
+
+
+	<platform name="ios">
+		...
+		<config-file overwrite="true" parent="UIStatusBarHidden" target="*-Info.plist">
+		    <true />
+		</config-file>
+		<config-file overwrite="true" parent="UIViewControllerBasedStatusBarAppearance" target="*-Info.plist">
+		    <false />
+		</config-file>
+	</platform>
+
+
 
 Methods
 -------
