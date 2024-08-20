@@ -25,6 +25,7 @@
 
 #import "CDVStatusBar.h"
 #import <objc/runtime.h>
+#import <objc/message.h>
 #import <Cordova/CDVViewController.h>
 
 static const void *kHideStatusBar = &kHideStatusBar;
@@ -143,9 +144,9 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
     setting  = @"StatusBarDefaultScrollToTop";
     if ([self settingForKey:setting]) {
-        self.webView.scrollView.scrollsToTop = [(NSNumber*)[self settingForKey:setting] boolValue];
+        [self webViewScrollView].scrollsToTop = [(NSNumber*)[self settingForKey:setting] boolValue];
     } else {
-        self.webView.scrollView.scrollsToTop = NO;
+        [self webViewScrollView].scrollsToTop = NO;
     }
  
     // blank scroll view to intercept status bar taps
@@ -460,6 +461,17 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 {
     [[UIApplication sharedApplication] removeObserver:self forKeyPath:@"statusBarHidden"];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+}
+
+- (UIScrollView *)webViewScrollView
+{
+    SEL scrollViewSelector = NSSelectorFromString(@"scrollView");
+
+    if ([self.webView respondsToSelector:scrollViewSelector]) {
+        return ((id (*)(id, SEL))objc_msgSend)(self.webView, scrollViewSelector);
+    }
+
+    return nil;
 }
 
 
