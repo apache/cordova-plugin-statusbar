@@ -512,14 +512,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     } else if (self.viewController.navigationController) {
         navigationBarHeight = self.viewController.navigationController.navigationBar.frame.size.height;
     } else {
-        navigationBarHeight = 44.0; // Standard navigation bar height
-
-        if (@available(iOS 11.0, *)) {
-            UIWindow *window = UIApplication.sharedApplication.keyWindow;
-            if (window.safeAreaInsets.top > 20) {
-                navigationBarHeight = 44.0; // Still 44 for navigation bar itself, excluding status bar
-            }
-        }
+        navigationBarHeight = 0.0; // Standard navigation bar height
     }
 
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:navigationBarHeight];
