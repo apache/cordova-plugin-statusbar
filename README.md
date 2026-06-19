@@ -216,9 +216,9 @@ CSS shorthand properties are also supported.
     StatusBar.backgroundColorByHexString("#333"); // => #333333
     StatusBar.backgroundColorByHexString("#FAB"); // => #FFAABB
 
-On iOS, when you set StatusBar.overlaysWebView to false, you can set the background color of the statusbar by a hex string (#RRGGBB).
+On iOS only the format `#RRGGBB` is supported. An alpha value is not supported.
 
-On Android, when StatusBar.overlaysWebView is true, and on WP7&8, you can also specify values as #AARRGGBB, where AA is an alpha value.
+On Android, when StatusBar.overlaysWebView is true you can also specify values as #AARRGGBB, where AA is an alpha value.
 
 Supported Platforms
 -------------------
