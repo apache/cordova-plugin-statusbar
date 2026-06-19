@@ -1,4 +1,5 @@
 ---
+# cordova-docs build metadata
 title: Statusbar
 description: Control the device status bar.
 ---
@@ -23,7 +24,15 @@ description: Control the device status bar.
 
 # cordova-plugin-statusbar
 
-[![Android Testsuite](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/android.yml/badge.svg)](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/android.yml) [![Chrome Testsuite](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/chrome.yml/badge.svg)](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/chrome.yml) [![iOS Testsuite](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/ios.yml/badge.svg)](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/ios.yml) [![Lint Test](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/lint.yml/badge.svg)](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/lint.yml)
+[![npm - Latest](https://img.shields.io/npm/v/cordova-plugin-statusbar/latest?label=Latest%20Release%20(npm))](https://npmjs.com/package/cordova-plugin-statusbar)
+[![GitHub](https://img.shields.io/github/package-json/v/apache/cordova-plugin-statusbar?label=Development%20(Git))](https://github.com/apache/cordova-plugin-statusbar)
+
+[![GitHub - Node Workflow](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/ci.yml?query=branch%3Amaster)
+[![Android Testsuite](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/android.yml/badge.svg)](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/android.yml)
+[![Chrome Testsuite](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/chrome.yml/badge.svg)](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/chrome.yml)
+[![iOS Testsuite](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/ios.yml/badge.svg)](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/ios.yml)
+[![Lint Test](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/lint.yml/badge.svg)](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/lint.yml)
+[![GitHub - Release Audit Workflow](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/release-audit.yml/badge.svg?branch=master)](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/release-audit.yml?query=branch%3Amaster)
 
 > The `StatusBar` object provides some functions to customize the iOS and Android StatusBar.
 
