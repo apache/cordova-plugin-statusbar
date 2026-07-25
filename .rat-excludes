@@ -15,5 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-.*
-tests
+.git/
+coverage/
+node_modules/
+types/index.d.ts
