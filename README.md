@@ -47,13 +47,21 @@ Preferences
 
         <preference name="StatusBarOverlaysWebView" value="true" />
 
+    ##### iOS Specifics
+
+    The status bar will be transparent if `StatusBarOverlaysWebView` is set to `true`. A background color cannot be applied.
+
     ##### Android Quirks
     
     Only supported on Android 5 or later. Earlier versions will ignore this preference.
 
-- __StatusBarBackgroundColor__ (color hex string, no default value). Set the background color of the statusbar by a hex string (#RRGGBB) at startup. If this value is not set, the background color will be transparent. If `StatusBarOverlaysWebView` is set to true, then a 8 digit hex (#AARRGGBB) string can optionally be used to define the transparency.
+- __StatusBarBackgroundColor__ (color hex string, no default value). Set the background color of the statusbar by a hex string (#RRGGBB) at startup. If this value is not set, the background color will be transparent.
 
         <preference name="StatusBarBackgroundColor" value="#000000" />
+
+    #### Android Specifics
+
+    If `StatusBarOverlaysWebView` is set to true, then a 8 digit hex (#AARRGGBB) string can optionally be used to define the transparency.
 
 - __StatusBarStyle__ (status bar style, defaults to lightcontent). Set the status bar style (e.g. text color). Available options: `default`, `lightcontent`.
 
@@ -216,9 +224,9 @@ CSS shorthand properties are also supported.
     StatusBar.backgroundColorByHexString("#333"); // => #333333
     StatusBar.backgroundColorByHexString("#FAB"); // => #FFAABB
 
-On iOS, when you set StatusBar.overlaysWebView to false, you can set the background color of the statusbar by a hex string (#RRGGBB).
+On iOS you can set the background color of the statusbar by a hex string (#RRGGBB) if StatusBar.overlaysWebView is false.
 
-On Android, when StatusBar.overlaysWebView is true, and on WP7&8, you can also specify values as #AARRGGBB, where AA is an alpha value.
+On Android, when StatusBar.overlaysWebView is true you can also specify values as #AARRGGBB, where AA is an alpha value.
 
 Supported Platforms
 -------------------
