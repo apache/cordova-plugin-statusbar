@@ -34,6 +34,9 @@ description: Control the device status bar.
 [![Lint Test](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/lint.yml/badge.svg)](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/lint.yml)
 [![GitHub - Release Audit Workflow](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/release-audit.yml/badge.svg?branch=master)](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/release-audit.yml?query=branch%3Amaster)
 
+> [!WARNING]
+> This plugin is deprecated since [cordova-ios 8.0.0](https://cordova.apache.org/announcements/2025/11/23/cordova-ios-8.0.0.html) released on 23 Nov 2025 and [cordova-android 15.0.0](https://cordova.apache.org/announcements/2026/03/06/cordova-android-15.0.0.html) released on 06 Mar 2026 and should not be used anymore. Functionality has moved to the platform cores. Also a Status Bar JavaScript API was introduced on these platforms to handle the status bar additionally. You can read all about in the linked blog articles.
+
 > The `StatusBar` object provides some functions to customize the iOS and Android StatusBar.
 
 ## Installation
