@@ -35,7 +35,116 @@ description: Control the device status bar.
 [![GitHub - Release Audit Workflow](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/release-audit.yml/badge.svg?branch=master)](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/release-audit.yml?query=branch%3Amaster)
 
 > [!WARNING]
-> This plugin is deprecated since [cordova-ios 8.0.0](https://cordova.apache.org/announcements/2025/11/23/cordova-ios-8.0.0.html) released on 23 Nov 2025 and [cordova-android 15.0.0](https://cordova.apache.org/announcements/2026/03/06/cordova-android-15.0.0.html) released on 06 Mar 2026 and should not be used anymore. Functionality has moved to the platform cores. Also a Status Bar JavaScript API was introduced on these platforms to handle the status bar additionally. You can read all about in the linked blog articles.
+> This plugin is deprecated. Use the status bar functionality built into the Cordova platform cores instead. See [Deprecation and migration](#deprecation-and-migration) for replacements and remaining differences.
+
+## Deprecation and migration
+
+Basic status bar functionality is built into [cordova-android 15.0.0](https://cordova.apache.org/announcements/2026/03/06/cordova-android-15.0.0.html) and [cordova-ios 8.0.0](https://cordova.apache.org/announcements/2025/11/23/cordova-ios-8.0.0.html) and later. The cores provide the JavaScript API `window.statusbar` in place of this plugin's [StatusBar](#methods) object. Status bar development will continue in the platform cores.
+
+The comparison below describes [cordova-android 15.1.0](https://cordova.apache.org/announcements/2026/07/22/cordova-android-15.1.0.html) and [cordova-ios 8.1.1](https://cordova.apache.org/announcements/2026/07/07/cordova-ios-8.1.1.html). The core functionality is not a direct replacement for every plugin feature.
+
+- [Light or dark text and icons](#light-or-dark-text-and-icons)
+- [Show, hide, visibility](#show-hide-visibility)
+- [Background color](#background-color)
+- [Overlay the WebView or reserve space for the bar](#overlay-the-webview-or-reserve-space-for-the-bar)
+- [Status bar tap and scroll-to-top configuration](#status-bar-tap-and-scroll-to-top-configuration)
+- [Migrating an app](#migrating-an-app)
+
+### Light or dark text and icons
+
+#### Plugin
+
+- config.xml preference [StatusBarStyle](#configxml)
+- JS API [StatusBar.styleDefault()](#statusbarstyledefault) and [StatusBar.styleLightContent()](#statusbarstylelightcontent).
+
+#### cordova-android
+
+- Appearance is determined by the background color.
+- Since cordova-android 15.1.0, this also applies when using the JS API `window.statusbar.setBackgroundColor(cssColor)` in edge-to-edge mode.
+
+#### cordova-ios
+
+- iOS 18.5 and later automatically choose the appearance based on the background color.
+- [cordova-ios PR #1689](https://github.com/apache/cordova-ios/pull/1689) adds automatic light/dark appearance based on background luminance on iOS older than 18.5. It is merged but is not included in 8.1.1.
+
+### Show, hide, visibility
+
+#### Plugin
+
+- JS API [StatusBar.show()](#statusbarshow) and [StatusBar.hide()](#statusbarhide).
+- JS API [StatusBar.isVisible](#statusbarisvisible)
+
+#### cordova-android
+
+- JS API `window.statusbar.visible`, which can be set to `true` or `false` and read for the visibility.
+- In cordova-android 15.1.0, hiding does not fully hide the system status bar. [cordova-android PR #2000](https://github.com/apache/cordova-android/pull/2000) fixes complete hiding of the system status bar. It is merged but is not included in 15.1.0.
+
+#### cordova-ios
+
+- JS API `window.statusbar.visible`, which can be set to `true` or `false` and read for the visibility.
+
+### Background color
+
+#### Plugin
+
+- config.xml preference [StatusBarBackgroundColor](#configxml)
+- JS API [StatusBar.backgroundColorByName()](#statusbarbackgroundcolorbyname) and [StatusBar.backgroundColorByHexString()](#statusbarbackgroundcolorbyhexstring).
+
+#### cordova-android
+
+- config.xml preference `StatusBarBackgroundColor`
+- JS API `window.statusbar.setBackgroundColor(cssColor)`. Since 15.1.0, the JavaScript method also controls the dark/light appearance in edge-to-edge mode, without painting a background. In edge-to-edge mode, you can style the content behind the transparent status bar in CSS.
+
+#### cordova-ios
+
+- index.html `<meta name="theme-color" content="#ffffff">`, which can also be updated at runtime
+- JS API `window.statusbar.setBackgroundColor(cssColor)`
+- config.xml preference `StatusBarBackgroundColor`.
+- You can style the content behind the status bar in CSS when using `viewport-fit=cover`.
+
+#### Note
+
+The JS API `window.statusbar.setBackgroundColor(cssColor)` works with [CSS colors](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value), which can be for e.g. `rebeccapurple`, `#RRGGBBAA`, `rgb(255 0 153)`.
+
+### Overlay the WebView or reserve space for the bar
+
+#### Plugin
+
+- config.xml preference [StatusBarOverlaysWebView](#configxml)
+- Android: JS API [StatusBar.overlaysWebView()](#statusbaroverlayswebview)
+- iOS: `viewport-fit=contain` or `viewport-fit=cover`.
+
+#### cordova-android
+
+- config.xml preference `AndroidEdgeToEdge`, which is not a complete replacement for it. `<preference name="StatusBarOverlaysWebView" value="true">` cannot be adapted. The config.xml preference `StatusBarOverlaysWebView` is not supported. [cordova-android PR #2010](https://github.com/apache/cordova-android/pull/2010) proposes viewport-based layout handling which would support `viewport-fit=contain` or `viewport-fit=cover` like on iOS. It is still work in progress and is not available in 15.1.0.
+
+#### cordova-ios
+
+Use `viewport-fit=cover` in the viewport meta tag to draw beneath the status bar. Omit it or use `viewport-fit=auto` for automatic safe-area insets. This controls layout, not whether the system status bar is visible.
+
+### Status bar tap and scroll-to-top configuration
+
+#### Plugin
+
+- iOS only: config.xml preference `StatusBarDefaultScrollToTop` and JS event [statusTap](#statustap).
+
+#### cordova-ios
+
+No direct core replacement exists for the plugin's event or preference. Apps relying on custom tap handling need another implementation. This feature does not apply to Android.
+
+### Migrating an app
+
+Update to a platform version that supports the features your app needs, replace the plugin calls and preferences using the sections above, then remove the plugin:
+
+```sh
+cordova plugin remove cordova-plugin-statusbar
+```
+
+Use the core JavaScript API after `deviceready`. Both cores can forward calls to the old plugin while it is installed, so verify the replacement behavior after removing it. The core color method accepts CSS colors; eight-digit hexadecimal JavaScript values use `#RRGGBBAA`, unlike the old plugin's Android `#AARRGGBB` format. CSS alpha handling is fixed in Android 15.1.0 and supported in iOS 8.1.1.
+
+When drawing beneath the status bar on iOS, use CSS safe-area insets such as `env(safe-area-inset-top)` to keep interactive content clear of it.
+
+The documentation below describes the deprecated plugin API for existing users.
 
 > The `StatusBar` object provides some functions to customize the iOS and Android StatusBar.
 
