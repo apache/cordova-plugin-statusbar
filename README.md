@@ -58,7 +58,11 @@ Preferences
 
     ##### iOS Specifics
 
-    The status bar will be transparent if `StatusBarOverlaysWebView` is set to `true`. A background color cannot be applied.
+    The status bar will be transparent if `StatusBarOverlaysWebView` is set to `true`. A background color cannot be applied. Since iOS 11 you must also include `viewport-fit=cover` in your `<meta name="viewport" content="...">` tag if you want the status bar to overlay the webview:
+
+    ```html
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    ```
 
     ##### Android Quirks
     
@@ -97,15 +101,6 @@ if (cordova.platformId == 'android') {
     StatusBar.backgroundColorByHexString('#33000000');
 }
 ```
-
-### iOS Quirks
-Starting with iOS 11 you must include `viewport-fit=cover` in your viewport meta tag if you want the status bar to overlay the webview:
-
-```html
-<meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-```
-
-
 
 Hiding at startup
 -----------
