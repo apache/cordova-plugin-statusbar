@@ -34,6 +34,8 @@ description: Control the device status bar.
 [![Lint Test](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/lint.yml/badge.svg)](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/lint.yml)
 [![GitHub - Release Audit Workflow](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/release-audit.yml/badge.svg?branch=master)](https://github.com/apache/cordova-plugin-statusbar/actions/workflows/release-audit.yml?query=branch%3Amaster)
 
+> The `StatusBar` object provides some functions to customize the iOS and Android StatusBar.
+
 > [!WARNING]
 > This plugin is deprecated. Use the status bar functionality built into the Cordova platform cores instead. See [Deprecation and migration](#deprecation-and-migration) for replacements and remaining differences.
 
@@ -145,8 +147,6 @@ Use the core JavaScript API after `deviceready`. Both cores can forward calls to
 When drawing beneath the status bar on iOS, use CSS safe-area insets such as `env(safe-area-inset-top)` to keep interactive content clear of it.
 
 The documentation below describes the deprecated plugin API for existing users.
-
-> The `StatusBar` object provides some functions to customize the iOS and Android StatusBar.
 
 ## Installation
 
